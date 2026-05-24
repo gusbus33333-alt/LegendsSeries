@@ -1,16 +1,37 @@
 import Link from 'next/link'
-import { reviews } from '@/lib/reviews'
+import { createClient } from '@/lib/supabase/server'
+import { DbReview } from '@/lib/supabase/types'
 import ReviewCard from './ReviewCard'
 import ScrollReveal from './ScrollReveal'
+import { Review } from '@/lib/types'
 
-export default function ReviewsSection() {
-  const featured = reviews.slice(0, 3)
+function toReview(row: DbReview): Review {
+  return {
+    id: row.id,
+    author: row.author,
+    location: row.location ?? '',
+    event: row.event ?? '',
+    rating: row.rating,
+    quote: row.quote,
+    date: row.date ?? '',
+  }
+}
+
+export default async function ReviewsSection() {
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('reviews')
+    .select('*')
+    .eq('published', true)
+    .order('created_at', { ascending: false })
+    .limit(3)
+
+  const reviews = (data ?? []).map(toReview)
 
   return (
     <section className="py-24 lg:py-32 bg-parchment">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
-        {/* Header */}
         <ScrollReveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
           <div>
             <p className="section-label mb-3">What our guests say</p>
@@ -27,22 +48,18 @@ export default function ReviewsSection() {
                 </svg>
               ))}
             </div>
-            <p className="text-ink/50 text-xs tracking-[0.15em]">
-              5.0 · 100% five-star reviews
-            </p>
+            <p className="text-ink/50 text-xs tracking-[0.15em]">5.0 · 100% five-star reviews</p>
           </div>
         </ScrollReveal>
 
-        {/* Review cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-          {featured.map((review, i) => (
+          {reviews.map((review, i) => (
             <ScrollReveal key={review.id} delay={0.1 * i}>
               <ReviewCard review={review} />
             </ScrollReveal>
           ))}
         </div>
 
-        {/* CTA */}
         <ScrollReveal className="flex justify-center mt-14">
           <Link href="/reviews" className="btn-outline-gold">
             Read All Reviews

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { events } from '@/lib/events'
+import { createClient } from '@/lib/supabase/server'
+import { DbEvent } from '@/lib/supabase/types'
 import EventCard from '@/components/EventCard'
 import ScrollReveal from '@/components/ScrollReveal'
 
@@ -10,9 +11,47 @@ export const metadata: Metadata = {
     'Browse all Legends Series sporting events — from Twickenham match-day hospitality to international golf and adventure travel. From £165 per person.',
 }
 
+// Revalidate every 60 seconds so new events appear promptly
+export const revalidate = 60
+
 const categories = ['All', 'Rugby', 'Golf', 'Adventure', 'Luxury Travel']
 
-export default function EventsPage() {
+// Map DB row → the shape EventCard expects
+function toEvent(row: DbEvent) {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    subtitle: row.subtitle ?? '',
+    location: row.location,
+    country: row.country,
+    flag: row.flag ?? '',
+    date: row.date ?? '',
+    dateRange: row.date_range ?? '',
+    price: row.price,
+    priceDisplay: row.price_display,
+    capacity: row.capacity ?? 0,
+    spotsLeft: row.spots_left ?? 999,
+    featured: row.featured,
+    image: row.image ?? '',
+    category: (row.category ?? 'rugby') as 'rugby' | 'golf' | 'adventure' | 'luxury-travel',
+    description: row.description ?? '',
+    highlights: row.highlights ?? [],
+    legends: row.legends ?? [],
+    included: row.included ?? [],
+  }
+}
+
+export default async function EventsPage() {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('events')
+    .select('*')
+    .order('featured', { ascending: false })
+    .order('price', { ascending: true })
+
+  const events = (data ?? []).map(toEvent)
+
   return (
     <>
       {/* Page hero */}
@@ -37,6 +76,12 @@ export default function EventsPage() {
             From intimate Twickenham lounge experiences to private jets, Cresta Runs, and
             week-long odysseys — every Legends Series event is extraordinary.
           </p>
+
+          {error && (
+            <p className="mt-4 text-red-400 text-sm">
+              Could not load events: {error.message}
+            </p>
+          )}
         </div>
       </section>
 

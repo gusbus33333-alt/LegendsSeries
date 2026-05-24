@@ -1,17 +1,51 @@
 import Link from 'next/link'
-import { events } from '@/lib/events'
+import { createClient } from '@/lib/supabase/server'
+import { DbEvent } from '@/lib/supabase/types'
 import EventCard from './EventCard'
 import ScrollReveal from './ScrollReveal'
+import { Event } from '@/lib/types'
 
-export default function FeaturedEvents() {
-  const featured = events.find((e) => e.featured)!
+function toEvent(row: DbEvent): Event {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    subtitle: row.subtitle ?? '',
+    location: row.location,
+    country: row.country,
+    flag: row.flag ?? '',
+    date: row.date ?? '',
+    dateRange: row.date_range ?? '',
+    price: row.price,
+    priceDisplay: row.price_display,
+    capacity: row.capacity ?? 0,
+    spotsLeft: row.spots_left ?? 999,
+    featured: row.featured,
+    image: row.image ?? '',
+    category: (row.category ?? 'rugby') as Event['category'],
+    description: row.description ?? '',
+    highlights: row.highlights ?? [],
+    legends: row.legends ?? [],
+    included: row.included ?? [],
+  }
+}
+
+export default async function FeaturedEvents() {
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('events')
+    .select('*')
+    .order('featured', { ascending: false })
+    .order('price', { ascending: true })
+
+  const events = (data ?? []).map(toEvent)
+  const featured = events.find((e) => e.featured) ?? events[0]
   const rest = events.filter((e) => !e.featured)
 
   return (
     <section className="py-24 lg:py-32 bg-parchment" id="events">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
-        {/* Section header */}
         <ScrollReveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
           <div>
             <p className="section-label mb-3">On the calendar</p>
@@ -28,15 +62,11 @@ export default function FeaturedEvents() {
           </Link>
         </ScrollReveal>
 
-        {/* Editorial grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
-
-          {/* Featured card — spans 2 columns */}
           <ScrollReveal className="lg:col-span-2" delay={0.05}>
             <EventCard event={featured} variant="featured" />
           </ScrollReveal>
 
-          {/* Two stacked cards on the right */}
           <div className="flex flex-col gap-4 lg:gap-5">
             <ScrollReveal delay={0.15}>
               <EventCard event={rest[0]} />
@@ -47,7 +77,6 @@ export default function FeaturedEvents() {
           </div>
         </div>
 
-        {/* Bottom row — 4 cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 mt-4 lg:mt-5">
           {rest.slice(2, 6).map((event, i) => (
             <ScrollReveal key={event.id} delay={0.1 * i}>
@@ -56,7 +85,6 @@ export default function FeaturedEvents() {
           ))}
         </div>
 
-        {/* CTA row */}
         <ScrollReveal className="flex justify-center mt-14">
           <Link href="/events" className="btn-outline-gold">
             Browse All Experiences

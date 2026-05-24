@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { reviews } from '@/lib/reviews'
+import { createClient } from '@/lib/supabase/server'
+import { DbReview } from '@/lib/supabase/types'
 import ReviewCard from '@/components/ReviewCard'
 import ScrollReveal from '@/components/ScrollReveal'
 
@@ -11,7 +12,30 @@ export const metadata: Metadata = {
     'Read unfiltered reviews from Legends Series guests. 100% five-star reviews across all events worldwide.',
 }
 
-export default function ReviewsPage() {
+export const revalidate = 60
+
+function toReview(row: DbReview) {
+  return {
+    id: row.id,
+    author: row.author,
+    location: row.location ?? '',
+    event: row.event ?? '',
+    rating: row.rating,
+    quote: row.quote,
+    date: row.date ?? '',
+  }
+}
+
+export default async function ReviewsPage() {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('reviews')
+    .select('*')
+    .eq('published', true)
+    .order('created_at', { ascending: false })
+
+  const reviews = (data ?? []).map(toReview)
+
   return (
     <>
       {/* Hero */}
@@ -33,7 +57,6 @@ export default function ReviewsPage() {
           </h1>
           <div className="gold-rule mt-6" />
 
-          {/* Aggregate rating */}
           <div className="flex items-center gap-4 mt-8">
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -46,6 +69,10 @@ export default function ReviewsPage() {
             <span className="text-white/40 text-sm">·</span>
             <span className="text-white/50 text-sm">{reviews.length} verified reviews</span>
           </div>
+
+          {error && (
+            <p className="mt-4 text-red-400 text-sm">Could not load reviews: {error.message}</p>
+          )}
         </div>
       </section>
 
@@ -73,9 +100,7 @@ export default function ReviewsPage() {
               Every one of these reviews started with someone clicking &apos;Book Now&apos;.
               Yours could be next.
             </p>
-            <Link href="/events" className="btn-gold">
-              View Upcoming Events
-            </Link>
+            <Link href="/events" className="btn-gold">View Upcoming Events</Link>
           </ScrollReveal>
         </div>
       </section>

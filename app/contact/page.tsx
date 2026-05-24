@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import { createClient } from '@/lib/supabase/server'
 import BookingForm from '@/components/BookingForm'
 import ScrollReveal from '@/components/ScrollReveal'
 
@@ -9,25 +10,28 @@ export const metadata: Metadata = {
     'Reserve your place at a Legends Series event. Get in touch with our team and secure your spot with a 25% deposit.',
 }
 
+export const revalidate = 60
+
 const contactDetails = [
-  {
-    label: 'Email',
-    value: 'hello@legendsseries.com',
-    href: 'mailto:hello@legendsseries.com',
-  },
-  {
-    label: 'Phone',
-    value: '+44 (0)1234 567 890',
-    href: 'tel:+441234567890',
-  },
-  {
-    label: 'Hours',
-    value: 'Monday–Friday, 9am–6pm GMT',
-    href: undefined,
-  },
+  { label: 'Email', value: 'hello@legendsseries.com', href: 'mailto:hello@legendsseries.com' },
+  { label: 'Phone', value: '+44 (0)1234 567 890', href: 'tel:+441234567890' },
+  { label: 'Hours', value: 'Monday–Friday, 9am–6pm GMT', href: undefined },
 ]
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('events')
+    .select('slug, title, price, price_display')
+    .order('price', { ascending: true })
+
+  const eventOptions = (data ?? []).map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    price: e.price,
+    priceDisplay: e.price_display,
+  }))
+
   return (
     <>
       {/* Hero */}
@@ -84,10 +88,7 @@ export default function ContactPage() {
                           {detail.label}
                         </p>
                         {detail.href ? (
-                          <a
-                            href={detail.href}
-                            className="text-ink text-sm font-medium hover:text-gold transition-colors"
-                          >
+                          <a href={detail.href} className="text-ink text-sm font-medium hover:text-gold transition-colors">
                             {detail.value}
                           </a>
                         ) : (
@@ -97,15 +98,13 @@ export default function ContactPage() {
                     ))}
                   </div>
 
-                  {/* Promise */}
                   <div className="border border-gold/30 p-6 flex flex-col gap-3">
                     <p className="text-gold text-xs tracking-[0.2em] uppercase font-semibold">
                       Our Promise
                     </p>
                     <p className="text-ink/60 text-sm leading-relaxed">
                       Every enquiry is answered within 24 hours. No hard sell.
-                      No pressure. If the event isn&apos;t right for you, we&apos;ll
-                      say so.
+                      No pressure. If the event isn&apos;t right for you, we&apos;ll say so.
                     </p>
                   </div>
                 </div>
@@ -120,7 +119,7 @@ export default function ContactPage() {
                   <p className="text-ink/40 text-xs tracking-wide mb-8">
                     Secure your spot with a 25% deposit via Stripe
                   </p>
-                  <BookingForm />
+                  <BookingForm eventOptions={eventOptions} />
                 </div>
               </ScrollReveal>
             </div>
@@ -136,18 +135,9 @@ export default function ContactPage() {
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                q: 'How do deposits work?',
-                a: 'A 25% deposit secures your place immediately. The balance is due 60 days before the event.',
-              },
-              {
-                q: 'What if I need to cancel?',
-                a: 'Deposits are refundable up to 90 days before the event. Full T&Cs are available on request.',
-              },
-              {
-                q: 'Can I gift an experience?',
-                a: 'Absolutely. Gift bookings and experience vouchers are available — contact us to arrange.',
-              },
+              { q: 'How do deposits work?', a: 'A 25% deposit secures your place immediately. The balance is due 60 days before the event.' },
+              { q: 'What if I need to cancel?', a: 'Deposits are refundable up to 90 days before the event. Full T&Cs are available on request.' },
+              { q: 'Can I gift an experience?', a: 'Absolutely. Gift bookings and experience vouchers are available — contact us to arrange.' },
             ].map((faq, i) => (
               <ScrollReveal key={i} delay={0.1 * i}>
                 <div className="flex flex-col gap-3">

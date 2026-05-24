@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
-import { events } from '@/lib/events'
+import { createClient } from '@/lib/supabase/client'
 
 interface FormState {
   firstName: string
@@ -11,6 +11,18 @@ interface FormState {
   eventSlug: string
   guests: string
   requirements: string
+}
+
+interface EventOption {
+  slug: string
+  title: string
+  price: number
+  priceDisplay: string
+}
+
+interface BookingFormProps {
+  defaultEvent?: string
+  eventOptions: EventOption[]
 }
 
 const initialState: FormState = {
@@ -23,11 +35,12 @@ const initialState: FormState = {
   requirements: '',
 }
 
-export default function BookingForm({ defaultEvent }: { defaultEvent?: string }) {
+export default function BookingForm({ defaultEvent, eventOptions }: BookingFormProps) {
   const [form, setForm] = useState<FormState>({ ...initialState, eventSlug: defaultEvent ?? '' })
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const selectedEvent = events.find((e) => e.slug === form.eventSlug)
+  const selectedEvent = eventOptions.find((e) => e.slug === form.eventSlug)
   const totalPrice = selectedEvent ? selectedEvent.price * parseInt(form.guests || '1') : null
   const depositAmount = totalPrice ? Math.round(totalPrice * 0.25) : null
 
@@ -40,10 +53,28 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setStatus('submitting')
-    // Stripe integration placeholder — in production, this would:
-    // 1. POST to /api/checkout to create a Stripe Checkout session
-    // 2. Redirect to session.url for payment
-    await new Promise((r) => setTimeout(r, 1200))
+    setErrorMsg('')
+
+    const supabase = createClient()
+
+    const { error } = await supabase.from('bookings').insert({
+      first_name: form.firstName,
+      last_name: form.lastName,
+      email: form.email,
+      phone: form.phone || null,
+      event_slug: form.eventSlug || null,
+      guests: parseInt(form.guests),
+      requirements: form.requirements || null,
+      total_price: totalPrice,
+      deposit_amount: depositAmount,
+    })
+
+    if (error) {
+      setErrorMsg(error.message)
+      setStatus('error')
+      return
+    }
+
     setStatus('success')
   }
 
@@ -76,12 +107,8 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
             First Name *
           </label>
           <input
-            id="firstName"
-            name="firstName"
-            type="text"
-            required
-            value={form.firstName}
-            onChange={handleChange}
+            id="firstName" name="firstName" type="text" required
+            value={form.firstName} onChange={handleChange}
             className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
             placeholder="James"
           />
@@ -91,12 +118,8 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
             Last Name *
           </label>
           <input
-            id="lastName"
-            name="lastName"
-            type="text"
-            required
-            value={form.lastName}
-            onChange={handleChange}
+            id="lastName" name="lastName" type="text" required
+            value={form.lastName} onChange={handleChange}
             className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
             placeholder="Hartley"
           />
@@ -109,12 +132,8 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
           Email Address *
         </label>
         <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          value={form.email}
-          onChange={handleChange}
+          id="email" name="email" type="email" required
+          value={form.email} onChange={handleChange}
           className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
           placeholder="james@example.com"
         />
@@ -126,11 +145,8 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
           Phone Number
         </label>
         <input
-          id="phone"
-          name="phone"
-          type="tel"
-          value={form.phone}
-          onChange={handleChange}
+          id="phone" name="phone" type="tel"
+          value={form.phone} onChange={handleChange}
           className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
           placeholder="+44 7700 900000"
         />
@@ -142,15 +158,12 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
           Event of Interest *
         </label>
         <select
-          id="eventSlug"
-          name="eventSlug"
-          required
-          value={form.eventSlug}
-          onChange={handleChange}
-          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
+          id="eventSlug" name="eventSlug" required
+          value={form.eventSlug} onChange={handleChange}
+          className="bg-parchment border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
         >
           <option value="" disabled>Select an event…</option>
-          {events.map((e) => (
+          {eventOptions.map((e) => (
             <option key={e.slug} value={e.slug}>
               {e.title} — {e.priceDisplay}
             </option>
@@ -164,11 +177,9 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
           Number of Guests *
         </label>
         <select
-          id="guests"
-          name="guests"
-          value={form.guests}
-          onChange={handleChange}
-          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
+          id="guests" name="guests"
+          value={form.guests} onChange={handleChange}
+          className="bg-parchment border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
         >
           {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
             <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
@@ -182,17 +193,14 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
           Special Requirements
         </label>
         <textarea
-          id="requirements"
-          name="requirements"
-          rows={4}
-          value={form.requirements}
-          onChange={handleChange}
+          id="requirements" name="requirements" rows={4}
+          value={form.requirements} onChange={handleChange}
           className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors resize-none placeholder:text-ink/25"
           placeholder="Dietary requirements, accessibility needs, special occasions…"
         />
       </div>
 
-      {/* Price summary — Stripe-ready */}
+      {/* Price summary */}
       {totalPrice !== null && selectedEvent && (
         <div className="bg-ink/5 border border-ink/10 p-5 flex flex-col gap-3">
           <p className="text-ink/50 text-xs tracking-[0.15em] uppercase font-semibold">
@@ -213,13 +221,24 @@ export default function BookingForm({ defaultEvent }: { defaultEvent?: string })
         </div>
       )}
 
+      {/* Error */}
+      {status === 'error' && (
+        <p className="text-red-500 text-xs bg-red-50 border border-red-200 px-4 py-3">
+          ⚠ {errorMsg || 'Something went wrong. Please try again.'}
+        </p>
+      )}
+
       {/* Submit */}
       <button
         type="submit"
         disabled={status === 'submitting'}
         className="btn-gold w-full py-4 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {status === 'submitting' ? 'Processing…' : selectedEvent ? 'Proceed to Secure Payment →' : 'Send Enquiry →'}
+        {status === 'submitting'
+          ? 'Sending…'
+          : selectedEvent
+          ? 'Proceed to Secure Payment →'
+          : 'Send Enquiry →'}
       </button>
 
       <p className="text-ink/30 text-[0.65rem] text-center">
