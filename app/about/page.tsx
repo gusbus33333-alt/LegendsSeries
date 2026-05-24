@@ -111,7 +111,7 @@ export default function AboutPage() {
               <ScrollReveal direction="right" delay={0.2}>
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1508098682722-e99c643e7f0b?w=900&q=80"
+                    src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=900&q=80"
                     alt="Rugby legends at an event"
                     fill
                     className="object-cover"
