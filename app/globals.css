@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-poppins bg-parchment text-ink antialiased;
+  }
+
+  * {
+    @apply box-border;
+  }
+}
+
+@layer components {
+  .gold-rule {
+    @apply w-12 h-px bg-gold;
+  }
+
+  .gold-rule-lg {
+    @apply w-24 h-px bg-gold;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-gold hover:bg-gold-dark text-ink font-semibold tracking-widest uppercase text-xs transition-all duration-300;
+  }
+
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center px-8 py-3.5 border border-gold text-gold hover:bg-gold hover:text-ink font-semibold tracking-widest uppercase text-xs transition-all duration-300;
+  }
+
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center px-8 py-3.5 border border-white/60 text-white hover:border-gold hover:text-gold font-semibold tracking-widest uppercase text-xs transition-all duration-300;
+  }
+
+  .section-label {
+    @apply text-gold text-xs tracking-[0.35em] uppercase font-semibold;
+  }
+
+  .section-heading {
+    @apply font-bold text-ink leading-tight;
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl;
+  }
+}
+
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+  }
+}

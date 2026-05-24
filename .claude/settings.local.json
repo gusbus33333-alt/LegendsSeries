@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/local/**)",
+      "Read(//usr/**)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}
