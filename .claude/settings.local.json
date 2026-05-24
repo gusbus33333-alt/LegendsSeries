@@ -3,7 +3,18 @@
     "allow": [
       "Read(//usr/local/**)",
       "Read(//usr/**)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "mcp__7769912f-653d-4a73-b0df-55d1a258f190__list_projects",
+      "mcp__7769912f-653d-4a73-b0df-55d1a258f190__search_docs",
+      "mcp__7769912f-653d-4a73-b0df-55d1a258f190__list_tables",
+      "mcp__7769912f-653d-4a73-b0df-55d1a258f190__execute_sql"
     ]
   }
 }
