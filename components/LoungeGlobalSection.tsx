@@ -3,25 +3,25 @@ import Image from 'next/image'
 import ScrollReveal from './ScrollReveal'
 
 const loungeFeatures = [
-  'Private pre-match reception with rugby legends',
-  'Premium 3-course gourmet dining',
-  'Unrestricted open bar throughout the event',
-  'Category 1 stadium seats — the best in the house',
-  'Exclusive post-match legends Q&A session',
-  'Keepsake match programme, signed by the legends',
-  'Professional group photography',
-  'Dedicated concierge from arrival to departure',
+  'Hog roast & all the trimmings',
+  'Unlimited drinks — lager, wine, prosecco, Guinness & more',
+  'Hot butcher\'s pie post-match',
+  'Entertainment from rugby legends throughout the day',
+  'Live music',
+  'Giant screens showing all Internationals',
+  '5 hours pre & post-match access',
+  'No match ticket required — marquee open during the game',
 ]
 
 const globalFeatures = [
-  'Bespoke international travel, fully handled',
-  'Hand-selected five-star accommodation',
-  'On-ground concierge service 24/7',
-  'Exclusive stadium and training access',
-  'Curated local cultural experiences',
-  'Small group sizes — max 50 guests',
-  'Private dining with the legends each evening',
-  'Memories that will last a lifetime',
+  'Fully hosted trips alongside professional legends',
+  'All accommodation, transfers & flights included',
+  'Match tickets (where applicable) included',
+  'All-inclusive food & drink at hosted events',
+  'Intimate group sizes — genuine legend access',
+  'Curated experiences: golf, culture, adventure',
+  '24/7 on-trip concierge support',
+  'Charity donation included with every event',
 ]
 
 export default function LoungeGlobalSection() {
@@ -70,9 +70,9 @@ export default function LoungeGlobalSection() {
                   Legends Lounge
                 </h3>
                 <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-md">
-                  The ultimate match-day hospitality. Join us at iconic stadiums across the UK for
-                  a full-day premium experience that begins well before kick-off and ends long after
-                  the final whistle.
+                  Premium all-inclusive hospitality just 20 metres from Twickenham Stadium.
+                  No match ticket needed — hog roast, unlimited drinks, rugby legends and live music
+                  from 12:30 until 19:30. From £165 per person.
                 </p>
               </div>
 
@@ -126,12 +126,12 @@ export default function LoungeGlobalSection() {
                   </p>
                 </div>
                 <h3 className="text-white font-bold text-3xl lg:text-4xl mt-3 leading-tight">
-                  Global Events
+                  Living with Legends
                 </h3>
                 <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-md">
-                  For those who want to take it to another continent. Our bespoke international
-                  experiences place you at the world&apos;s greatest sporting events —
-                  fully curated, door to door.
+                  Fully hosted trips to the world&apos;s greatest sporting events — alongside
+                  professional legends for the entire trip. Rome, Hong Kong, South Africa, New York,
+                  St Moritz and beyond. No detail left to chance.
                 </p>
               </div>
 

@@ -26,11 +26,11 @@ export default function HomePage() {
       <section className="py-16 bg-parchment border-y border-ink/8">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 text-center">
-            {[
-              { value: '500+', label: 'Events delivered' },
+            [
+              { value: '£165', label: 'Legends Lounge from' },
               { value: '£0', label: 'Hidden fees — ever' },
               { value: '100%', label: 'Five-star reviews' },
-              { value: '6', label: 'Countries & counting' },
+              { value: '6+', label: 'Countries & counting' },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-1">
                 <span className="text-3xl font-bold text-ink">{item.value}</span>
@@ -66,8 +66,8 @@ export default function HomePage() {
               <div className="gold-rule-lg" />
             </div>
             <p className="text-white/50 text-base lg:text-lg max-w-xl mx-auto leading-relaxed mb-10">
-              The Nations Championship 2026 hospitality package is our most sought-after
-              event. Places are filling fast — secure yours today.
+              Legends Lounge at Twickenham returns for the Nations Championship 2026 — six
+              dates across November. All-inclusive hospitality from £165pp. No match ticket required.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact" className="btn-gold min-w-[200px]">

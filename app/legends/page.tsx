@@ -7,7 +7,7 @@ import ScrollReveal from '@/components/ScrollReveal'
 export const metadata: Metadata = {
   title: 'The Legends',
   description:
-    "Meet the rugby legends at the heart of every Legends Series event. World Cup winners, Lions tourists, and icons of the game — all available to you.",
+    'Meet the rugby legends at the heart of every Legends Series event. World Cup winners, Lions tourists, and icons of the game — alongside you for the whole experience.',
 }
 
 export default function LegendsPage() {
@@ -32,15 +32,23 @@ export default function LegendsPage() {
           </h1>
           <div className="gold-rule mt-6" />
           <p className="text-white/50 text-base mt-6 max-w-xl leading-relaxed">
-            World Cup winners. Lions tourists. Icons who defined a generation of rugby. This is the
-            company you&apos;ll keep at a Legends Series event.
+            World Cup winners. Lions tourists. Icons who defined a generation. Each event features
+            different legends — confirmed and announced individually per trip. This is the company
+            you&apos;ll keep at a Legends Series event.
           </p>
         </div>
       </section>
 
-      {/* Legends grid */}
+      {/* Confirmed legends */}
       <section className="py-20 lg:py-24 bg-parchment">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
+
+          <ScrollReveal className="mb-12">
+            <p className="section-label mb-3">Confirmed</p>
+            <h2 className="text-3xl font-bold text-ink">Featured Legends</h2>
+            <div className="gold-rule mt-4" />
+          </ScrollReveal>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {legends.map((legend, i) => (
               <ScrollReveal key={legend.id} delay={0.07 * (i % 4)}>
@@ -89,19 +97,77 @@ export default function LegendsPage() {
               </ScrollReveal>
             ))}
           </div>
-
-          {/* CTA */}
-          <ScrollReveal className="mt-16 text-center">
-            <p className="text-ink/50 text-sm mb-6 max-w-lg mx-auto">
-              Our legend lineup varies by event. Each package is confirmed with the attending legends
-              listed clearly.
-            </p>
-            <Link href="/events" className="btn-gold">
-              Browse Events With Legends
-            </Link>
-          </ScrollReveal>
         </div>
       </section>
+
+      {/* How legends are involved */}
+      <section className="py-20 bg-ink">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <ScrollReveal className="text-center mb-14">
+            <p className="section-label mb-3">Genuine access</p>
+            <h2 className="text-4xl font-bold text-white leading-tight">
+              Not a Wave from a Distance
+            </h2>
+            <div className="flex justify-center mt-5">
+              <div className="gold-rule-lg" />
+            </div>
+            <p className="text-white/50 text-sm mt-6 max-w-xl mx-auto leading-relaxed">
+              Our legends aren&apos;t there to wave from across the room. They&apos;re with you
+              throughout — on the flight, at dinner, for Q&As, and sharing stories that never
+              make the broadcast. This is the access fans have always deserved.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                title: 'Legends Lounge',
+                description: 'Entertainment and Q&As with legends throughout the day at our Twickenham marquee. Legends confirmed per match date.',
+                link: '/legends-lounge',
+                cta: 'View Lounge Dates',
+              },
+              {
+                title: 'Living with Legends Trips',
+                description: 'Fully hosted international trips with specific legends named for each event — travelling, dining, and experiencing the whole journey alongside you.',
+                link: '/events',
+                cta: 'View Events',
+              },
+              {
+                title: 'Custom Group Events',
+                description: 'Planning something for a group of 10 or more? We can build a bespoke experience around the legends and sporting moments that matter most to you.',
+                link: '/contact',
+                cta: 'Enquire Now',
+              },
+            ].map((item, i) => (
+              <ScrollReveal key={i} delay={0.1 * i}>
+                <div className="border border-white/10 p-8 hover:border-gold/30 transition-colors flex flex-col gap-4 h-full">
+                  <h3 className="text-gold font-semibold text-base">{item.title}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed flex-1">{item.description}</p>
+                  <Link
+                    href={item.link}
+                    className="text-white/40 hover:text-gold text-xs tracking-[0.2em] uppercase transition-colors"
+                  >
+                    {item.cta} →
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <ScrollReveal className="py-20 bg-parchment">
+        <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
+          <p className="text-ink/50 text-sm mb-6 max-w-lg mx-auto">
+            Legends are confirmed and announced individually for each event.
+            Get in touch to find out who&apos;s attending the event you&apos;re interested in.
+          </p>
+          <Link href="/events" className="btn-gold">
+            Browse Events
+          </Link>
+        </div>
+      </ScrollReveal>
     </>
   )
 }

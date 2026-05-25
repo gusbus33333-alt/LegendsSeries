@@ -13,9 +13,10 @@ export const metadata: Metadata = {
 export const revalidate = 60
 
 const contactDetails = [
-  { label: 'Email', value: 'hello@legendsseries.com', href: 'mailto:hello@legendsseries.com' },
-  { label: 'Phone', value: '+44 (0)1234 567 890', href: 'tel:+441234567890' },
-  { label: 'Hours', value: 'Monday–Friday, 9am–6pm GMT', href: undefined },
+  { label: 'General Enquiries', value: 'info@legends-series.com', href: 'mailto:info@legends-series.com' },
+  { label: 'Phone / WhatsApp', value: '+44 (0) 7595 217647', href: 'tel:+447595217647' },
+  { label: 'Sponsorship', value: 'finance@legends-series.com', href: 'mailto:finance@legends-series.com' },
+  { label: 'Address', value: 'Legends House, Queen Street, St Albans, AL3 4PJ', href: undefined },
 ]
 
 export default async function ContactPage() {
@@ -53,8 +54,8 @@ export default async function ContactPage() {
           </h1>
           <div className="gold-rule mt-6" />
           <p className="text-white/50 text-base mt-5 max-w-lg leading-relaxed">
-            Reserve your place with a 25% deposit. Our team will be in touch within
-            24 hours to confirm availability and next steps.
+            Fill in the form and our team will be in touch within 24 hours to confirm
+            availability and next steps. You can also WhatsApp us directly.
           </p>
         </div>
       </section>
@@ -117,7 +118,7 @@ export default async function ContactPage() {
                 <div className="bg-white border border-ink/8 p-8 lg:p-10">
                   <h3 className="text-ink font-bold text-xl mb-1">Reserve Your Place</h3>
                   <p className="text-ink/40 text-xs tracking-wide mb-8">
-                    Secure your spot with a 25% deposit via Stripe
+                    Tell us which event interests you and we&apos;ll confirm availability &amp; next steps within 24 hours.
                   </p>
                   <BookingForm eventOptions={eventOptions} />
                 </div>
@@ -134,10 +135,10 @@ export default async function ContactPage() {
             <h2 className="text-2xl font-bold text-white">Common Questions</h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { q: 'How do deposits work?', a: 'A 25% deposit secures your place immediately. The balance is due 60 days before the event.' },
-              { q: 'What if I need to cancel?', a: 'Deposits are refundable up to 90 days before the event. Full T&Cs are available on request.' },
-              { q: 'Can I gift an experience?', a: 'Absolutely. Gift bookings and experience vouchers are available — contact us to arrange.' },
+            [
+              { q: 'Does the Legends Lounge include a match ticket?', a: 'No — the Legends Lounge is a hospitality-only experience. Our marquee is open during the match and shows the game live on giant screens for those without a ticket.' },
+              { q: 'What does "Living with Legends" include?', a: 'Full hosting by rugby legends throughout, with all accommodation, transfers, meals, activities and (where applicable) match tickets as described for each event.' },
+              { q: 'How do I book?', a: 'Use the enquiry form and our team will contact you within 24 hours to confirm availability. You can also WhatsApp us on +44 (0) 7595 217647.' },
             ].map((faq, i) => (
               <ScrollReveal key={i} delay={0.1 * i}>
                 <div className="flex flex-col gap-3">
