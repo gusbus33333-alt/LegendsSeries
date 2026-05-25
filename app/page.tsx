@@ -26,7 +26,7 @@ export default function HomePage() {
       <section className="py-16 bg-parchment border-y border-ink/8">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 text-center">
-            [
+            {[
               { value: '£165', label: 'Legends Lounge from' },
               { value: '£0', label: 'Hidden fees — ever' },
               { value: '100%', label: 'Five-star reviews' },

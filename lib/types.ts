@@ -25,13 +25,15 @@ export interface Legend {
   id: string
   slug: string
   name: string
-  position: string
-  caps: number
+  position?: string
+  caps?: number
   country: string
   flag: string
-  achievements: string[]
-  bio: string
-  image: string
+  clubs: string
+  homeLocation?: string
+  achievements?: string[]
+  bio?: string
+  image?: string
 }
 
 export interface Review {

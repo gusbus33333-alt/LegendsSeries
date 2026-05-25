@@ -135,7 +135,7 @@ export default async function ContactPage() {
             <h2 className="text-2xl font-bold text-white">Common Questions</h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            [
+            {[
               { q: 'Does the Legends Lounge include a match ticket?', a: 'No — the Legends Lounge is a hospitality-only experience. Our marquee is open during the match and shows the game live on giant screens for those without a ticket.' },
               { q: 'What does "Living with Legends" include?', a: 'Full hosting by rugby legends throughout, with all accommodation, transfers, meals, activities and (where applicable) match tickets as described for each event.' },
               { q: 'How do I book?', a: 'Use the enquiry form and our team will contact you within 24 hours to confirm availability. You can also WhatsApp us on +44 (0) 7595 217647.' },
