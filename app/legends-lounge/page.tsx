@@ -20,8 +20,8 @@ const included = [
 ]
 
 const notIncluded = [
-  { item: 'Match ticket', note: 'This is a hospitality-only experience. Our marquee is open throughout and shows the game live.' },
-  { item: 'Drinks during the match', note: 'Bar closes at anthems. Drinks available at £6 each during the match.' },
+  { item: 'Match ticket', note: 'Not included and we are unable to source them — obtain yours through official channels (RFU / Twickenham) before booking.' },
+  { item: 'Drinks during the match', note: 'The all-inclusive bar closes at the anthems while you\'re in the stadium. Drinks available at £6 each during the match for anyone remaining in the marquee.' },
 ]
 
 // Timeline based on a standard afternoon kickoff
@@ -37,14 +37,14 @@ const timeline = [
     description: 'Rugby legends entertain throughout the afternoon with Q&As, stories and good company. Live music keeps the atmosphere going. No queues, no overcrowded bars, no rushing.',
   },
   {
-    time: 'Pre-KO',
-    label: 'Bar Closes at Anthems',
-    description: 'The all-inclusive bar closes for the match. Guests with match tickets head to their seats. Guests without a ticket stay in the warm and watch the game live on our giant screens.',
+    time: 'Anthems',
+    label: 'Bar Closes — Into the Stadium',
+    description: 'The all-inclusive bar closes at the anthems. Head into the stadium and enjoy the match with your ticket. The marquee stays open on reduced service (drinks at £6 each) for anyone who stays.',
   },
   {
     time: 'During Match',
-    label: 'Drinks at £6 Each',
-    description: 'Bar stays open with drinks available at £6 each. All Internationals shown on screens throughout the marquee. No need to miss a single moment.',
+    label: 'In the Stadium',
+    description: 'You\'re in your seat. The marquee will be waiting — we reopen the bar the moment the final whistle goes.',
   },
   {
     time: 'Full Time',
@@ -138,7 +138,7 @@ export default function LegendsLoungePage() {
           <div className="gold-rule mt-6" />
           <p className="text-white/70 text-lg mt-6 max-w-xl leading-relaxed">
             Premium all-inclusive hospitality just 20 metres from Twickenham Stadium.
-            For true fans who want to be part of the day — with or without a match ticket.
+            For true fans who already have their match ticket and want the full day done properly.
           </p>
           {/* Key facts strip */}
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-8 mb-8">
@@ -146,7 +146,7 @@ export default function LegendsLoungePage() {
               { icon: '📍', text: '20 metres from the stadium' },
               { icon: '🍺', text: 'Unlimited drinks included' },
               { icon: '🏉', text: 'Rugby legends throughout' },
-              { icon: '🎫', text: 'No match ticket required' },
+              { icon: '🎫', text: 'Match ticket not included' },
             ].map((f) => (
               <div key={f.text} className="flex items-center gap-2">
                 <span className="text-sm">{f.icon}</span>
@@ -165,12 +165,11 @@ export default function LegendsLoungePage() {
         </div>
       </section>
 
-      {/* Critical notice — no match ticket */}
+      {/* Match ticket notice */}
       <div className="bg-gold text-ink py-4">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <p className="text-sm text-center font-semibold">
-            🎫 Important: The Legends Lounge is a <span className="underline">hospitality experience only</span> — match tickets are not included.
-            Our marquee is open throughout and shows all games live on giant screens.
+            🎫 Match tickets are <span className="underline">not included</span> and we are unable to source them for you — you&apos;ll need to obtain your own through official channels (RFU / Twickenham).
           </p>
         </div>
       </div>
@@ -188,19 +187,20 @@ export default function LegendsLoungePage() {
               <div className="gold-rule mt-5 mb-8" />
               <p className="text-ink/65 text-base leading-relaxed mb-5">
                 The Legends Lounge is our exclusive marquee situated just <strong className="text-ink">20 metres from Twickenham Stadium</strong>.
-                Whether you have a match ticket or not, you get a full matchday experience — from the
-                build-up through to post-match, with hog roast, unlimited drinks, live music and
-                genuine time with rugby legends.
+                It&apos;s for genuine rugby fans who have their match ticket and want the full matchday
+                experience — not just the 80 minutes. Hog roast, unlimited drinks, live music and
+                real time with rugby legends, from the build-up right through to post-match.
               </p>
               <p className="text-ink/65 text-base leading-relaxed mb-5">
                 The marquee opens around 3 hours before kickoff. The all-inclusive bar runs until
-                the anthems, then reopens the moment the final whistle goes. For those without a match
-                ticket, we stay open throughout — showing the game live on giant screens with drinks
-                available at £6 each.
+                the anthems, then you head to your seat. Post-match, come straight back — the bar
+                reopens the moment the final whistle goes, with a hot butcher&apos;s pie and all
+                other Internationals showing on the screens.
               </p>
               <p className="text-ink/65 text-base leading-relaxed mb-8">
                 Think of it as the perfect middle ground: not a crowded pub, not a £600 corporate
-                hospitality package. Proper rugby atmosphere, proper food, proper company.
+                package. Proper rugby atmosphere, proper food, proper company — built around your
+                match ticket, not instead of it.
               </p>
 
               {/* Trust signals */}
@@ -232,9 +232,9 @@ export default function LegendsLoungePage() {
                   />
                 </div>
                 <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-gold/30 -z-10" />
-                {/* No ticket needed badge */}
+                {/* Bring your own ticket badge */}
                 <div className="absolute top-6 left-6 bg-ink/90 border border-gold/50 px-4 py-2">
-                  <p className="text-gold text-xs font-semibold tracking-wider uppercase">No Match Ticket Required</p>
+                  <p className="text-gold text-xs font-semibold tracking-wider uppercase">Bring Your Own Match Ticket</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -248,16 +248,16 @@ export default function LegendsLoungePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             {[
               {
-                heading: "Can't Get a Ticket?",
-                copy: "You don't need one. Watch the match live on our giant screens inside the marquee — better atmosphere than most pubs and right next to the action.",
+                heading: 'The Ultimate Build-Up',
+                copy: "Arrive early and make the most of every hour. Hog roast, unlimited drinks and rugby legends from the moment you walk in — long before the crowds arrive.",
               },
               {
-                heading: 'Already Got a Ticket?',
-                copy: "Arrive early, enjoy the build-up with legends and live music, head to your seat for kick-off, then come straight back post-match for pies and a full bar.",
+                heading: 'Head to Your Seat',
+                copy: "When the anthems start, head into the stadium with your match ticket. The marquee will be waiting for you the moment the final whistle goes.",
               },
               {
-                heading: 'Group Outing?',
-                copy: "From stag dos to corporate entertaining to father-and-son days — the Legends Lounge works for groups of any size. Get in touch for group rates.",
+                heading: 'The Best Post-Match in Rugby',
+                copy: "Don't rush for the train. Come straight back to a full bar, a hot butcher's pie, and all the post-match analysis and other Internationals on our screens.",
               },
             ].map((item, i) => (
               <ScrollReveal key={i} delay={0.1 * i}>
