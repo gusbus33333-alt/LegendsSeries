@@ -39,7 +39,7 @@ export default function AboutPage() {
       <section className="relative pt-32 pb-20 bg-ink overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600&q=80"
+            src="https://images.unsplash.com/photo-1558151507-c1aa3d917dbb?w=1600&q=80"
             alt="About Legends Series"
             fill
             className="object-cover opacity-15"

@@ -36,7 +36,7 @@ export default function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1532161388762-e4694f382a0e?w=1920&q=80"
           alt="Stadium atmosphere"
           fill
           className="object-cover"

@@ -47,7 +47,7 @@ export default function HomePage() {
       <section className="relative py-28 lg:py-36 overflow-hidden bg-ink">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=1600&q=80"
+            src="https://images.unsplash.com/photo-1512299286776-c18be8ed6a1a?w=1600&q=80"
             alt="Match day atmosphere"
             fill
             className="object-cover opacity-20"

@@ -121,7 +121,7 @@ export default function LegendsLoungePage() {
       <section className="relative min-h-[80vh] flex flex-col justify-end bg-ink overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600&q=80"
+            src="https://images.unsplash.com/photo-1512299286776-c18be8ed6a1a?w=1600&q=80"
             alt="Legends Lounge at Twickenham"
             fill
             className="object-cover"

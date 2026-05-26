@@ -42,7 +42,7 @@ export default async function ReviewsPage() {
       <section className="relative pt-32 pb-20 bg-ink overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=1600&q=80"
+            src="https://images.unsplash.com/photo-1480099225005-2513c8947aec?w=1600&q=80"
             alt="Crowd celebrating"
             fill
             className="object-cover opacity-15"
