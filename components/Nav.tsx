@@ -51,8 +51,7 @@ export default function Nav() {
               alt="Legends Series"
               width={120}
               height={52}
-              className="h-10 w-auto object-contain"
-              style={{ filter: 'invert(1)' }}
+              className="h-10 w-auto object-contain invert"
               priority
             />
           </Link>

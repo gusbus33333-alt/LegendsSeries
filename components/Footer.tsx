@@ -48,8 +48,7 @@ export default function Footer() {
                   alt="Legends Series"
                   width={130}
                   height={56}
-                  className="h-11 w-auto object-contain"
-                  style={{ filter: 'invert(1)' }}
+                  className="h-11 w-auto object-contain invert"
                 />
               </div>
               <p className="text-white/50 text-sm leading-relaxed max-w-xs">
