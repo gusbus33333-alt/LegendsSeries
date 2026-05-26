@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const footerNav = [
   {
@@ -41,13 +42,15 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             <div>
-              <div className="flex flex-col mb-4">
-                <span className="text-white font-bold text-xl tracking-[0.2em] uppercase leading-none">
-                  Legends
-                </span>
-                <span className="text-gold text-xs tracking-[0.45em] uppercase leading-none mt-1">
-                  Series
-                </span>
+              <div className="mb-4">
+                <Image
+                  src="/logo.png"
+                  alt="Legends Series"
+                  width={130}
+                  height={56}
+                  className="h-11 w-auto object-contain"
+                  style={{ filter: 'invert(1)' }}
+                />
               </div>
               <p className="text-white/50 text-sm leading-relaxed max-w-xs">
                 Premium sports hospitality at the world&apos;s greatest events. Play golf and party
@@ -60,16 +63,16 @@ export default function Footer() {
                 Get in touch
               </p>
               <a
-                href="mailto:hello@legendsseries.com"
+                href="mailto:info@legends-series.com"
                 className="text-white/60 hover:text-gold text-sm transition-colors"
               >
-                hello@legendsseries.com
+                info@legends-series.com
               </a>
               <a
-                href="tel:+441234567890"
+                href="tel:+447595217647"
                 className="text-white/60 hover:text-gold text-sm transition-colors"
               >
-                +44 (0)1234 567 890
+                +44 (0) 7595 217647
               </a>
             </div>
 

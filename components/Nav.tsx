@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -44,13 +45,16 @@ export default function Nav() {
         <div className="flex items-center justify-between h-20">
 
           {/* Logo */}
-          <Link href="/" className="flex flex-col group flex-shrink-0">
-            <span className="text-white font-bold text-lg tracking-[0.2em] uppercase leading-none group-hover:text-gold transition-colors duration-300">
-              Legends
-            </span>
-            <span className="text-gold text-[0.6rem] tracking-[0.45em] uppercase leading-none mt-0.5">
-              Series
-            </span>
+          <Link href="/" className="flex-shrink-0">
+            <Image
+              src="/logo.png"
+              alt="Legends Series"
+              width={120}
+              height={52}
+              className="h-10 w-auto object-contain"
+              style={{ filter: 'invert(1)' }}
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}
