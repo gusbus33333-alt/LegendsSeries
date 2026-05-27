@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import ScrollReveal from '@/components/ScrollReveal'
+import LoungeGallery from '@/components/LoungeGallery'
 
 export const metadata: Metadata = {
   title: 'Legends Lounge — Twickenham Nations Championship 2026',
@@ -121,8 +122,8 @@ export default function LegendsLoungePage() {
       <section className="relative min-h-[80vh] flex flex-col justify-end bg-ink overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1512299286776-c18be8ed6a1a?w=1600&q=80"
-            alt="Legends Lounge at Twickenham"
+            src="/lounge-photos/LLL-195.jpg"
+            alt="Legends Lounge at Twickenham — Six Nations 2026"
             fill
             className="object-cover"
             priority
@@ -224,8 +225,8 @@ export default function LegendsLoungePage() {
               <div className="relative">
                 <div className="relative h-96 lg:h-[520px] overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80"
-                    alt="Hospitality marquee atmosphere"
+                    src="/lounge-photos/LLL-262.jpg"
+                    alt="Legends Lounge — Six Nations 2026"
                     fill
                     className="object-cover"
                     sizes="50vw"
@@ -356,6 +357,9 @@ export default function LegendsLoungePage() {
           </div>
         </div>
       </section>
+
+      {/* Photo gallery */}
+      <LoungeGallery />
 
       {/* Nations Championship explainer */}
       <section className="py-20 bg-ink">
