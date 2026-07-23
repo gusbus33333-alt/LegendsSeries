@@ -12,6 +12,7 @@ const config: Config = {
         parchment: '#F7F3EC',
         gold: '#9A7940',
         'gold-dark': '#7D6230',
+        'gold-hi': '#e8c878',
         ink: '#1A1A18',
       },
       fontFamily: {
@@ -20,6 +21,15 @@ const config: Config = {
       letterSpacing: {
         widest: '0.25em',
         'ultra': '0.35em',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 40s linear infinite',
       },
     },
   },

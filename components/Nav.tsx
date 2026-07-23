@@ -7,9 +7,9 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
-  { href: '/events', label: 'Events' },
-  { href: '/legends', label: 'Legends' },
   { href: '/legends-lounge', label: 'The Lounge' },
+  { href: '/events', label: 'Legends Tours' },
+  { href: '/legends', label: 'Legends' },
   { href: '/reviews', label: 'Reviews' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
@@ -76,7 +76,7 @@ export default function Nav() {
           {/* Desktop CTA */}
           <div className="hidden lg:block flex-shrink-0">
             <Link
-              href="/contact"
+              href="/book"
               className="px-6 py-2.5 border border-gold text-gold hover:bg-gold hover:text-ink text-xs tracking-[0.2em] uppercase font-semibold transition-all duration-300"
             >
               Book Now
@@ -142,7 +142,7 @@ export default function Nav() {
                 </Link>
               ))}
               <Link
-                href="/contact"
+                href="/book"
                 className="mt-5 py-3.5 border border-gold text-gold text-center text-xs tracking-[0.25em] uppercase font-semibold hover:bg-gold hover:text-ink transition-all duration-300"
               >
                 Book Now

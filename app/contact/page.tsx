@@ -5,7 +5,7 @@ import BookingForm from '@/components/BookingForm'
 import ScrollReveal from '@/components/ScrollReveal'
 
 export const metadata: Metadata = {
-  title: 'Book Now — Contact',
+  title: 'Contact Us',
   description:
     'Reserve your place at a Legends Series event. Get in touch with our team and secure your spot with a 25% deposit.',
 }
@@ -48,14 +48,14 @@ export default async function ContactPage() {
           <div className="absolute inset-0 bg-ink/80" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="section-label mb-3">Your place is waiting</p>
+          <p className="section-label mb-3">We&apos;d love to hear from you</p>
           <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
-            Book Your Experience
+            Contact Us
           </h1>
           <div className="gold-rule mt-6" />
           <p className="text-white/50 text-base mt-5 max-w-lg leading-relaxed">
-            Fill in the form and our team will be in touch within 24 hours to confirm
-            availability and next steps. You can also WhatsApp us directly.
+            Drop us a message and our team will get back to you within 24 hours.
+            You can also WhatsApp us directly.
           </p>
         </div>
       </section>
@@ -108,6 +108,18 @@ export default async function ContactPage() {
                       No pressure. If the event isn&apos;t right for you, we&apos;ll say so.
                     </p>
                   </div>
+
+                  <div className="flex flex-col gap-2">
+                    <p className="text-ink/40 text-sm leading-relaxed">
+                      Sponsorship &amp; partnership enquiries welcome —{' '}
+                      <a
+                        href="mailto:finance@legends-series.com"
+                        className="text-gold hover:text-ink transition-colors font-medium"
+                      >
+                        get in touch
+                      </a>
+                    </p>
+                  </div>
                 </div>
               </ScrollReveal>
             </div>
@@ -116,9 +128,9 @@ export default async function ContactPage() {
             <div className="lg:col-span-3">
               <ScrollReveal direction="right" delay={0.1}>
                 <div className="bg-white border border-ink/8 p-8 lg:p-10">
-                  <h3 className="text-ink font-bold text-xl mb-1">Reserve Your Place</h3>
+                  <h3 className="text-ink font-bold text-xl mb-1">Send Us a Message</h3>
                   <p className="text-ink/40 text-xs tracking-wide mb-8">
-                    Tell us which event interests you and we&apos;ll confirm availability &amp; next steps within 24 hours.
+                    Tell us what you&apos;re interested in and we&apos;ll get back to you within 24 hours.
                   </p>
                   <BookingForm eventOptions={eventOptions} />
                 </div>

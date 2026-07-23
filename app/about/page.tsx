@@ -95,24 +95,30 @@ export default function AboutPage() {
               <ScrollReveal direction="right" delay={0.1}>
                 <div className="relative h-72 overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80"
-                    alt="Legends Series hospitality"
+                    src="/about-founders.jpg"
+                    alt="Guy and Chris Butterworth at the 2025 B&I Lions 2nd Test"
                     fill
                     className="object-cover"
                     sizes="50vw"
                   />
                 </div>
+                <p className="text-ink/40 text-xs mt-2 italic leading-relaxed">
+                  Attending the 2nd Test of the 2025 B&amp;I Lions tour against the Wallabies with the B&amp;I Legends and my son
+                </p>
               </ScrollReveal>
               <ScrollReveal direction="right" delay={0.2}>
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative aspect-[3/2] overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=900&q=80"
-                    alt="Rugby hospitality experience"
+                    src="/about-team.jpg"
+                    alt="Chris, Guy and Lewis Butterworth at the Legends Lounge"
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                     sizes="50vw"
                   />
                 </div>
+                <p className="text-ink/40 text-xs mt-2 italic leading-relaxed">
+                  Me and my two sons at the first Twickenham Legends Lounge event
+                </p>
               </ScrollReveal>
             </div>
           </div>

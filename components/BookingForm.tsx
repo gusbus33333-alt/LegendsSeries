@@ -8,6 +8,7 @@ interface FormState {
   lastName: string
   email: string
   phone: string
+  enquiryType: string
   eventSlug: string
   guests: string
   requirements: string
@@ -25,11 +26,18 @@ interface BookingFormProps {
   eventOptions: EventOption[]
 }
 
+const enquiryTypes = [
+  { value: 'general', label: 'General Enquiry', email: 'info@legends-series.com' },
+  { value: 'booking', label: 'Event Booking', email: 'info@legends-series.com' },
+  { value: 'sponsorship', label: 'Sponsorship & Partnerships', email: 'finance@legends-series.com' },
+]
+
 const initialState: FormState = {
   firstName: '',
   lastName: '',
   email: '',
   phone: '',
+  enquiryType: 'general',
   eventSlug: '',
   guests: '1',
   requirements: '',
@@ -152,51 +160,70 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
         />
       </div>
 
-      {/* Event */}
+      {/* Enquiry type */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="eventSlug">
-          Event of Interest *
+        <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="enquiryType">
+          What can we help with? *
         </label>
         <select
-          id="eventSlug" name="eventSlug" required
-          value={form.eventSlug} onChange={handleChange}
+          id="enquiryType" name="enquiryType" required
+          value={form.enquiryType} onChange={handleChange}
           className="bg-parchment border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
         >
-          <option value="" disabled>Select an event…</option>
-          {eventOptions.map((e) => (
-            <option key={e.slug} value={e.slug}>
-              {e.title} — {e.priceDisplay}
-            </option>
+          {enquiryTypes.map((t) => (
+            <option key={t.value} value={t.value}>{t.label}</option>
           ))}
         </select>
       </div>
 
-      {/* Guests */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="guests">
-          Number of Guests *
-        </label>
-        <select
-          id="guests" name="guests"
-          value={form.guests} onChange={handleChange}
-          className="bg-parchment border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
-        >
-          {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-            <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
-          ))}
-        </select>
-      </div>
+      {/* Event & Guests (booking only) */}
+      {form.enquiryType === 'booking' && (
+        <>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="eventSlug">
+              Event of Interest
+            </label>
+            <select
+              id="eventSlug" name="eventSlug"
+              value={form.eventSlug} onChange={handleChange}
+              className="bg-parchment border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
+            >
+              <option value="" disabled>Select an event…</option>
+              {eventOptions.map((e) => (
+                <option key={e.slug} value={e.slug}>
+                  {e.title} — {e.priceDisplay}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="guests">
+              Number of Guests
+            </label>
+            <select
+              id="guests" name="guests"
+              value={form.guests} onChange={handleChange}
+              className="bg-parchment border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors appearance-none"
+            >
+              {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+                <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
+              ))}
+            </select>
+          </div>
+        </>
+      )}
 
       {/* Requirements */}
       <div className="flex flex-col gap-1.5">
         <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="requirements">
-          Special Requirements
+          Your Message
         </label>
         <textarea
           id="requirements" name="requirements" rows={4}
           value={form.requirements} onChange={handleChange}
           className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors resize-none placeholder:text-ink/25"
-          placeholder="Dietary requirements, accessibility needs, special occasions…"
+          placeholder="Tell us what you're interested in, any questions, or how we can help…"
         />
       </div>
 
@@ -234,11 +261,7 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
         disabled={status === 'submitting'}
         className="btn-gold w-full py-4 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {status === 'submitting'
-          ? 'Sending…'
-          : selectedEvent
-          ? 'Proceed to Secure Payment →'
-          : 'Send Enquiry →'}
+        {status === 'submitting' ? 'Sending…' : 'Send Message →'}
       </button>
 
       <p className="text-ink/30 text-[0.65rem] text-center">

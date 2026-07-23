@@ -36,8 +36,8 @@ export default function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1532161388762-e4694f382a0e?w=1920&q=80"
-          alt="Stadium atmosphere"
+          src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1920&q=80"
+          alt="Cape Town Stadium with Table Mountain"
           fill
           className="object-cover"
           priority
@@ -68,7 +68,7 @@ export default function HeroSection() {
           {/* Eyebrow label */}
           <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
             <span className="w-8 h-px bg-gold" />
-            <span className="text-gold text-xs tracking-[0.4em] uppercase font-semibold">
+            <span className="text-white text-xs tracking-[0.4em] uppercase font-semibold">
               Premium Sports Hospitality
             </span>
             <span className="w-8 h-px bg-gold" />
@@ -89,7 +89,7 @@ export default function HeroSection() {
           {/* Subheading */}
           <motion.p
             variants={itemVariants}
-            className="text-white/65 text-base sm:text-lg lg:text-xl max-w-xl mt-8 leading-relaxed font-light"
+            className="text-white/80 text-base sm:text-lg lg:text-xl max-w-xl mt-8 leading-relaxed font-light"
           >
             Exclusive access to the world&apos;s greatest sporting events — alongside rugby&apos;s
             most iconic legends.
@@ -100,18 +100,18 @@ export default function HeroSection() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center gap-4 mt-10"
           >
-            <Link href="/events" className="btn-gold min-w-[220px]">
-              View Upcoming Events
+            <Link href="/legends-lounge" className="btn-gold min-w-[220px]">
+              View Legends Lounge
             </Link>
-            <Link href="/legends" className="btn-outline-white min-w-[220px]">
-              Meet The Rugby Legends
+            <Link href="/events" className="btn-outline-white min-w-[220px]">
+              Legends Tours
             </Link>
           </motion.div>
 
           {/* Trust signals */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-6 mt-12 text-white/40 text-xs tracking-widest uppercase"
+            className="flex items-center gap-6 mt-12 text-white/80 text-xs tracking-widest uppercase"
           >
             <span>Twickenham</span>
             <span className="w-1 h-1 rounded-full bg-gold" />
@@ -124,31 +124,6 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Stats bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 1.1 }}
-        className="relative z-10 bg-ink/80 backdrop-blur-md border-t border-white/10"
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex flex-col items-center py-6 px-4 gap-1 group"
-              >
-                <span className="text-gold font-bold text-2xl lg:text-3xl tracking-tight">
-                  {stat.value}
-                </span>
-                <span className="text-white/40 text-[0.65rem] tracking-[0.25em] uppercase">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
     </section>
   )
 }

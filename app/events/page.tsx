@@ -50,7 +50,9 @@ export default async function EventsPage() {
     .order('featured', { ascending: false })
     .order('price', { ascending: true })
 
-  const events = (data ?? []).map(toEvent)
+  const events = (data ?? [])
+    .map(toEvent)
+    .filter((e) => !e.title.toLowerCase().includes('lounge'))
 
   return (
     <>
@@ -58,8 +60,8 @@ export default async function EventsPage() {
       <section className="relative pt-32 pb-20 bg-ink overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=1600&q=80"
-            alt="Rugby event"
+            src="https://images.unsplash.com/photo-1551524164-687a55dd1126?w=1600&q=80"
+            alt="Legends Tours"
             fill
             className="object-cover opacity-20"
             sizes="100vw"
@@ -73,8 +75,8 @@ export default async function EventsPage() {
           </h1>
           <div className="gold-rule mt-6" />
           <p className="text-white/50 text-base mt-6 max-w-xl leading-relaxed">
-            From intimate Twickenham lounge experiences to private jets, Cresta Runs, and
-            week-long odysseys — every Legends Series event is extraordinary.
+            From private jets and Cresta Runs to week-long odysseys alongside rugby&apos;s
+            greatest legends — every Legends Series tour is extraordinary.
           </p>
 
           {error && (

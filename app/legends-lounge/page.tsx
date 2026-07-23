@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ScrollReveal from '@/components/ScrollReveal'
 import LoungeGallery from '@/components/LoungeGallery'
+import FixtureCards from '@/components/FixtureCards'
+import BadgeStrip from '@/components/BadgeStrip'
 
 export const metadata: Metadata = {
   title: 'Legends Lounge — Twickenham Nations Championship 2026',
@@ -22,7 +24,7 @@ const included = [
 
 const notIncluded = [
   { item: 'Match ticket', note: 'Not included and we are unable to source them — obtain yours through official channels (RFU / Twickenham) before booking.' },
-  { item: 'Drinks during the match', note: 'The all-inclusive bar closes at the anthems while you\'re in the stadium. Drinks available at £6 each during the match for anyone remaining in the marquee.' },
+  { item: 'Drinks during the match', note: 'The all-inclusive bar closes at the anthems while you\'re in the stadium. Drinks available at £5 each during the match for anyone remaining in the marquee.' },
 ]
 
 // Timeline based on a standard afternoon kickoff
@@ -40,7 +42,7 @@ const timeline = [
   {
     time: 'Anthems',
     label: 'Bar Closes — Into the Stadium',
-    description: 'The all-inclusive bar closes at the anthems. Head into the stadium and enjoy the match with your ticket. The marquee stays open on reduced service (drinks at £6 each) for anyone who stays.',
+    description: 'The all-inclusive bar closes at the anthems. Head into the stadium and enjoy the match with your ticket. The marquee stays open on reduced service (drinks at £5 each) for anyone who stays.',
   },
   {
     time: 'During Match',
@@ -119,61 +121,93 @@ export default function LegendsLoungePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[80vh] flex flex-col justify-end bg-ink overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center bg-ink overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/lounge-photos/LLL-195.jpg"
-            alt="Legends Lounge at Twickenham — Six Nations 2026"
+            src="/lounge-photos/LLL-284.jpg"
+            alt="Legends Lounge at Twickenham"
             fill
-            className="object-cover"
+            className="object-cover opacity-30"
             priority
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-ink/40 to-ink/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/40 to-ink" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(70% 80% at 50% 20%, rgba(201,162,75,0.12), transparent 65%)',
+            }}
+          />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pb-20 pt-36 w-full">
-          <p className="section-label mb-3">Twickenham Stadium — November 2026</p>
-          <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight max-w-3xl">
-            The Legends<br /><span className="text-gold">Lounge</span>
-          </h1>
-          <div className="gold-rule mt-6" />
-          <p className="text-white/70 text-lg mt-6 max-w-xl leading-relaxed">
-            Premium all-inclusive hospitality just 20 metres from Twickenham Stadium.
-            For true fans who already have their match ticket and want the full day done properly.
+
+        <div className="relative z-10 text-center px-6 pt-52 pb-24 max-w-5xl mx-auto">
+          <p className="text-[11px] font-bold tracking-[0.5em] uppercase mb-8" style={{ color: '#e8c878' }}>
+            Twickenham &middot; November 2026
           </p>
-          {/* Key facts strip */}
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-8 mb-8">
-            {[
-              { icon: '📍', text: '20 metres from the stadium' },
-              { icon: '🍺', text: 'Unlimited drinks included' },
-              { icon: '🏉', text: 'Rugby legends throughout' },
-              { icon: '🎫', text: 'Match ticket not included' },
-            ].map((f) => (
-              <div key={f.text} className="flex items-center gap-2">
-                <span className="text-sm">{f.icon}</span>
-                <span className="text-white/60 text-sm">{f.text}</span>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/contact" className="btn-gold">
-              Book Your Place
-            </Link>
-            <a href="#matches" className="btn-outline-white">
-              View Dates &amp; Prices
+
+          <h1
+            className="font-extrabold uppercase leading-[1.06] tracking-[0.06em] text-white"
+            style={{ fontSize: 'clamp(36px, 6.5vw, 76px)' }}
+          >
+            Autumn at Twickenham
+            <span className="block font-normal text-[0.42em] tracking-[0.34em] text-white/40 mt-4">
+              Legends Lounge
+            </span>
+          </h1>
+
+          <p
+            className="italic mt-7 mb-10"
+            style={{
+              fontFamily: 'var(--font-cormorant), serif',
+              fontSize: 'clamp(20px, 2.6vw, 28px)',
+              color: '#e8c878',
+            }}
+          >
+            All-inclusive matchday hospitality
+          </p>
+
+          <div
+            className="w-16 h-[2px] mx-auto mb-8"
+            style={{ background: 'linear-gradient(90deg, transparent, #c9a24b, transparent)' }}
+          />
+
+          <p className="text-white/80 text-sm tracking-[0.15em] uppercase mb-12">
+            Organised by rugby fans, for rugby fans
+          </p>
+
+          <div className="flex gap-4 justify-center flex-wrap">
+            <a href="#fixtures" className="btn-gold">
+              View Fixtures
             </a>
+            <Link href="/contact" className="btn-outline-white">
+              Enquire Now
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Match ticket notice */}
-      <div className="bg-gold text-ink py-4">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="text-sm text-center font-semibold">
-            🎫 Match tickets are <span className="underline">not included</span> and we are unable to source them for you — you&apos;ll need to obtain your own through official channels (RFU / Twickenham).
-          </p>
+      {/* Key facts */}
+      <div className="bg-black border-t border-gold/20 py-5">
+        <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+          {[
+            { icon: '📍', text: '20 metres from the stadium' },
+            { icon: '🍽️', text: 'Unlimited drinks & food included' },
+            { icon: '🏉', text: 'Rugby legends throughout' },
+            { icon: '🎶', text: 'Top entertainment' },
+          ].map((f) => (
+            <div key={f.text} className="flex items-center gap-2">
+              <span className="text-sm">{f.icon}</span>
+              <span className="text-white/50 text-xs tracking-[0.1em] uppercase">{f.text}</span>
+            </div>
+          ))}
         </div>
       </div>
+
+
+      <BadgeStrip />
+
+      {/* Fixture cards */}
+      <FixtureCards />
 
       {/* What it is */}
       <section className="py-24 lg:py-32 bg-parchment">
@@ -199,7 +233,7 @@ export default function LegendsLoungePage() {
                 other Internationals showing on the screens.
               </p>
               <p className="text-ink/65 text-base leading-relaxed mb-8">
-                Think of it as the perfect middle ground: not a crowded pub, not a £600 corporate
+                Think of it as the perfect middle ground: not a crowded pub, not a £500 corporate
                 package. Proper rugby atmosphere, proper food, proper company — built around your
                 match ticket, not instead of it.
               </p>
@@ -239,35 +273,6 @@ export default function LegendsLoungePage() {
                 </div>
               </div>
             </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Who it's for */}
-      <section className="py-16 bg-ink border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            {[
-              {
-                heading: 'The Ultimate Build-Up',
-                copy: "Arrive early and make the most of every hour. Hog roast, unlimited drinks and rugby legends from the moment you walk in — long before the crowds arrive.",
-              },
-              {
-                heading: 'Head to Your Seat',
-                copy: "When the anthems start, head into the stadium with your match ticket. The marquee will be waiting for you the moment the final whistle goes.",
-              },
-              {
-                heading: 'The Best Post-Match in Rugby',
-                copy: "Don't rush for the train. Come straight back to a full bar, a hot butcher's pie, and all the post-match analysis and other Internationals on our screens.",
-              },
-            ].map((item, i) => (
-              <ScrollReveal key={i} delay={0.1 * i}>
-                <div className="p-8 border border-white/10 hover:border-gold/30 transition-colors h-full flex flex-col gap-3">
-                  <h3 className="text-gold font-semibold text-base">{item.heading}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed">{item.copy}</p>
-                </div>
-              </ScrollReveal>
-            ))}
           </div>
         </div>
       </section>
@@ -361,151 +366,6 @@ export default function LegendsLoungePage() {
       {/* Photo gallery */}
       <LoungeGallery />
 
-      {/* Nations Championship explainer */}
-      <section className="py-20 bg-ink">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <ScrollReveal className="text-center mb-12">
-            <p className="section-label mb-3">About the tournament</p>
-            <h2 className="text-4xl font-bold text-white leading-tight">
-              The Nations Championship 2026
-            </h2>
-            <div className="flex justify-center mt-5">
-              <div className="gold-rule-lg" />
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            <ScrollReveal direction="left">
-              <p className="text-white/60 text-base leading-relaxed mb-4">
-                The Nations Championship is rugby&apos;s new global competition — bringing together
-                the Six Nations, Rugby Championship, and other Tier 1 nations for the first time.
-                England host Australia, Japan and New Zealand at Twickenham in November, with the
-                finals staged over three consecutive days at the end of the month.
-              </p>
-              <p className="text-white/60 text-base leading-relaxed">
-                The three finals weekends are double-header days — two full international matches
-                per day at Twickenham. That means six world-class internationals in just three days,
-                all shown live on our screens throughout the Legends Lounge.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal direction="right" delay={0.1}>
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { value: '6', label: 'Dates at Twickenham' },
-                  { value: '9', label: 'International matches shown' },
-                  { value: '3', label: 'Finals double-header days' },
-                ].map((s) => (
-                  <div key={s.label} className="border border-white/10 p-5 text-center">
-                    <p className="text-gold font-bold text-3xl">{s.value}</p>
-                    <p className="text-white/40 text-xs mt-1 leading-snug">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Matches & pricing */}
-      <section id="matches" className="py-24 bg-parchment">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <ScrollReveal className="mb-12">
-            <p className="section-label mb-3">All six dates</p>
-            <h2 className="text-4xl font-bold text-ink">Dates &amp; Pricing</h2>
-            <div className="gold-rule mt-5" />
-            <p className="text-ink/50 text-sm mt-4">All prices include VAT. Match tickets are not included.</p>
-          </ScrollReveal>
-
-          {/* Group 1: Nations Championship matches */}
-          <div className="mb-6">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-ink/40 mb-3 ml-1">England Home Matches</p>
-            <div className="flex flex-col gap-3">
-              {loungeMatches.filter(m => !m.finals).map((match, i) => (
-                <ScrollReveal key={i} delay={0.07 * i}>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-white border border-ink/8 hover:border-gold/40 transition-colors group">
-                    <div className="flex-1">
-                      <span className="text-gold text-[0.6rem] tracking-[0.2em] uppercase font-semibold">{match.type}</span>
-                      <p className="text-ink font-bold text-lg mt-1">{match.match}</p>
-                      <p className="text-ink/40 text-xs mt-0.5">{match.date} · Twickenham Stadium</p>
-                    </div>
-                    <div className="flex items-center gap-6 flex-shrink-0">
-                      <div className="text-right">
-                        <p className="text-ink/30 text-xs tracking-widest uppercase">per person</p>
-                        <p className="text-gold font-bold text-2xl">{match.price}</p>
-                      </div>
-                      <Link href="/contact" className="btn-gold text-xs py-2.5 px-5">
-                        Book
-                      </Link>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-
-          {/* Group 2: Finals double headers */}
-          <div>
-            <div className="flex items-center gap-3 mb-3 ml-1">
-              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-ink/40">Nations Cup Finals — Double Headers</p>
-              <div className="flex-1 h-px bg-ink/8" />
-              <span className="text-[0.6rem] font-semibold tracking-wider uppercase text-gold bg-gold/10 border border-gold/20 px-2 py-0.5">2 Matches Per Day</span>
-            </div>
-            <p className="text-ink/50 text-sm mb-4 ml-1">
-              Three consecutive days of finals at Twickenham — two full internationals per day.
-              Watch both games live on our screens, included with your Legends Lounge ticket.
-            </p>
-            <div className="flex flex-col gap-3">
-              {loungeMatches.filter(m => m.finals).map((match, i) => (
-                <ScrollReveal key={i} delay={0.07 * i}>
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 p-6 bg-white border border-gold/15 hover:border-gold/40 transition-colors">
-                    <div className="flex-1">
-                      <span className="text-gold text-[0.6rem] tracking-[0.2em] uppercase font-semibold">{match.type}</span>
-                      <p className="text-ink font-bold text-lg mt-1">{match.match}</p>
-                      <p className="text-ink/40 text-xs mt-0.5 mb-3">{match.date} · Twickenham Stadium</p>
-                      {match.games && (
-                        <div className="flex flex-col gap-1.5">
-                          {match.games.map((g, gi) => (
-                            <div key={gi} className="flex items-center gap-2">
-                              <span className="text-gold text-xs">Match {gi + 1}:</span>
-                              <span className="text-ink/60 text-xs">{g}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-6 flex-shrink-0">
-                      <div className="text-right">
-                        <p className="text-ink/30 text-xs tracking-widest uppercase">per person</p>
-                        <p className="text-gold font-bold text-2xl">{match.price}</p>
-                        <p className="text-ink/30 text-[0.6rem] mt-0.5">2 matches included</p>
-                      </div>
-                      <Link href="/contact" className="btn-gold text-xs py-2.5 px-5">
-                        Book
-                      </Link>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-
-          <ScrollReveal className="mt-8">
-            <div className="border border-ink/15 p-6 flex flex-col sm:flex-row gap-4 items-start">
-              <div className="flex-1">
-                <p className="text-ink font-semibold text-sm">Expanding to Edinburgh, Dublin &amp; Cardiff</p>
-                <p className="text-ink/50 text-sm mt-1">
-                  We&apos;re in discussions to bring the Legends Lounge to more home nations venues.
-                  If you&apos;re able to help or want to be first to know, get in touch.
-                </p>
-              </div>
-              <a href="mailto:info@legends-series.com" className="btn-outline-gold text-xs py-2.5 flex-shrink-0">
-                Get In Touch
-              </a>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
       {/* Signature upgrade */}
       <section className="py-24 bg-ink">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -591,6 +451,40 @@ export default function LegendsLoungePage() {
               <span className="text-gold font-semibold text-sm">Wooden Spoon — Children&apos;s Charity</span>
             </div>
           </ScrollReveal>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="py-24 bg-ink border-t border-white/10">
+        <div className="max-w-5xl mx-auto px-6 lg:px-10">
+          <ScrollReveal className="text-center mb-14">
+            <p className="section-label mb-3">Good to know</p>
+            <h2 className="text-4xl font-bold text-white leading-tight">
+              Frequently Asked Questions
+            </h2>
+            <div className="flex justify-center mt-5">
+              <div className="gold-rule" />
+            </div>
+          </ScrollReveal>
+
+          <div className="flex flex-col gap-6 max-w-3xl mx-auto">
+            {[
+              { q: 'Does the Legends Lounge include a match ticket?', a: 'No — the Legends Lounge is a hospitality-only experience. You\'ll need to obtain your own match ticket through official channels (RFU / Twickenham). Our marquee is open during the match and shows the game live on giant screens for those without a ticket.' },
+              { q: 'Can you source match tickets for me?', a: 'Unfortunately we are unable to source match tickets. We recommend purchasing directly through the RFU or Twickenham Stadium box office well in advance, as matches do sell out.' },
+              { q: 'What happens if I don\'t have a match ticket?', a: 'You\'re still welcome. The marquee stays open throughout the match with every game shown live on giant screens. Many of our guests choose to stay in the Lounge for the full day without attending the match itself.' },
+              { q: 'What\'s included in the price?', a: 'Everything — unlimited drinks (beer, wine, spirits, soft drinks), hog roast, hot pies post-match, live music, rugby legends throughout the day, and all profits go to charity. No hidden extras.' },
+              { q: 'Is the bar open all day?', a: 'The all-inclusive bar is open from arrival until the anthems. It closes while the match is on, with drinks available at £5 each for anyone staying in the marquee. It reopens on an all-inclusive basis after the final whistle.' },
+              { q: 'Which legends will be at my event?', a: 'We announce the legends for each event closer to the time. Follow us on social media or sign up to our mailing list to be the first to know. Previous legends have included some of the biggest names in rugby.' },
+              { q: 'How many people can attend?', a: 'The Legends Lounge is capped at 300 guests per match to keep the atmosphere right. Once a date is sold out, it\'s gone — we don\'t oversell.' },
+            ].map((faq, i) => (
+              <ScrollReveal key={i} delay={0.05 * i}>
+                <div className="border border-white/10 p-6 hover:border-gold/30 transition-colors">
+                  <h3 className="text-white font-semibold text-sm mb-2">{faq.q}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed">{faq.a}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
