@@ -109,7 +109,7 @@ export default function HeroSection() {
           {/* Trust signals */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-6 mt-12 text-white/80 text-xs tracking-widest uppercase"
+            className="flex items-center justify-center flex-wrap gap-x-6 gap-y-2 mt-12 text-white/80 text-[0.6rem] sm:text-xs tracking-widest uppercase"
           >
             <span>Twickenham</span>
             <span className="w-1 h-1 rounded-full bg-gold" />

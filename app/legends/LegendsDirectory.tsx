@@ -56,7 +56,7 @@ export default function LegendsPage() {
           </p>
 
           {/* Stat bar */}
-          <div className="flex items-center gap-10 mt-10">
+          <div className="flex flex-wrap items-center gap-6 sm:gap-10 mt-10">
             <div>
               <span className="text-gold font-bold text-3xl">90+</span>
               <p className="text-white/40 text-xs tracking-[0.2em] uppercase mt-1">Legends on our roster</p>
