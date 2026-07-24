@@ -25,7 +25,7 @@ export default function HomePage() {
       </div>
 
       {/* Two experiences */}
-      <section className="py-24 lg:py-32 bg-ink">
+      <section className="py-24 lg:py-32 bg-ink overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal className="text-center mb-16">
             <p className="section-label mb-3 text-gold">Two ways to experience</p>
@@ -154,7 +154,7 @@ export default function HomePage() {
       </section>
 
       {/* Google Reviews */}
-      <section className="py-24 lg:py-32 bg-parchment">
+      <section className="py-24 lg:py-32 bg-parchment overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <ScrollReveal className="text-center mb-14">
             <p className="section-label mb-3">What our guests say</p>
