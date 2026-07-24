@@ -7,6 +7,16 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translate3d(0, 40px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.hero-fade-in {
+  opacity: 0;
+  animation: heroFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 /* Elfsight Google Reviews widget — match backgrounds to site parchment */
 .elfsight-app-92122df4-780e-4200-ba70-55e4cd82dfb2 .es-header-container,
 .elfsight-app-92122df4-780e-4200-ba70-55e4cd82dfb2 .es-review-background-container,

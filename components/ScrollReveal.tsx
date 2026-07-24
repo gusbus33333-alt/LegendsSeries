@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef, useEffect, useState } from 'react'
 
 interface ScrollRevealProps {
   children: React.ReactNode
@@ -18,28 +17,47 @@ export default function ScrollReveal({
   direction = 'up',
   distance = 40,
 }: ScrollRevealProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
 
-  const initial = {
-    opacity: 0,
-    y: direction === 'up' ? distance : 0,
-    x: direction === 'left' ? -distance : direction === 'right' ? distance : 0,
-  }
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.unobserve(el)
+        }
+      },
+      { rootMargin: '-80px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const transform = visible
+    ? 'translate3d(0,0,0)'
+    : direction === 'up'
+    ? `translate3d(0,${distance}px,0)`
+    : direction === 'left'
+    ? `translate3d(-${distance}px,0,0)`
+    : direction === 'right'
+    ? `translate3d(${distance}px,0,0)`
+    : 'translate3d(0,0,0)'
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      initial={initial}
-      animate={isInView ? { opacity: 1, y: 0, x: 0 } : initial}
-      transition={{
-        duration: 0.75,
-        delay,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
       className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform,
+        transition: `opacity 0.75s ease ${delay}s, transform 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}s`,
+        willChange: visible ? 'auto' : 'opacity, transform',
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

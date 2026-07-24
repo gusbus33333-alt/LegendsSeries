@@ -146,7 +146,7 @@ export default function LegendsLoungePage() {
           </p>
 
           <h1
-            className="font-extrabold uppercase leading-[1.06] tracking-[0.06em] text-white"
+            className="font-bold uppercase leading-[1.06] tracking-[0.06em] text-white"
             style={{ fontSize: 'clamp(36px, 6.5vw, 76px)' }}
           >
             Autumn at Twickenham

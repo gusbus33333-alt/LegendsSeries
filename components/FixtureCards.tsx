@@ -161,7 +161,7 @@ function FinalsMatchup({ games }: { games: GamePair[] }) {
                 </div>
               )}
               <FinalsBadge code={game.north} />
-              <span className="text-white/20 italic text-base font-light leading-none">v</span>
+              <span className="text-white/20 italic text-base font-normal leading-none">v</span>
               <FinalsBadge code={game.south} />
             </div>
 
@@ -238,7 +238,7 @@ export default function FixtureCards() {
                 {fixture.cat === 'eng' ? (
                   <div className="flex items-center gap-4">
                     <TeamBadge icon={fixture.homeIcon} code={fixture.homeCode} />
-                    <span className="text-2xl italic font-light text-white/25">v</span>
+                    <span className="text-2xl italic font-normal text-white/25">v</span>
                     <TeamBadge icon={fixture.awayIcon} code={fixture.awayCode} />
                   </div>
                 ) : (

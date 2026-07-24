@@ -2,33 +2,14 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 
-const stats = [
-  { value: '6+', label: 'Countries' },
-  { value: '£165', label: 'From' },
-  { value: '300', label: 'Max Guests' },
-  { value: '5★', label: 'Rating' },
+const items = [
+  { delay: '0.3s' },
+  { delay: '0.45s' },
+  { delay: '0.6s' },
+  { delay: '0.75s' },
+  { delay: '0.9s' },
 ]
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
-    },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-  },
-}
 
 export default function HeroSection() {
   return (
@@ -43,7 +24,6 @@ export default function HeroSection() {
           priority
           sizes="100vw"
         />
-        {/* Layered gradient for depth */}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/40 to-ink/85" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/30 via-transparent to-transparent" />
       </div>
@@ -59,44 +39,39 @@ export default function HeroSection() {
 
       {/* Hero content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 lg:px-10 pt-28 pb-12">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center max-w-5xl"
-        >
+        <div className="flex flex-col items-center max-w-5xl">
           {/* Eyebrow label */}
-          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
+          <div className="hero-fade-in flex items-center gap-3 mb-8" style={{ animationDelay: items[0].delay }}>
             <span className="w-8 h-px bg-gold" />
             <span className="text-white text-xs tracking-[0.4em] uppercase font-semibold">
               Extraordinary Sporting Experiences
             </span>
             <span className="w-8 h-px bg-gold" />
-          </motion.div>
+          </div>
 
           {/* Main headline */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-white font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-shadow-lg"
+          <h1
+            className="hero-fade-in text-white font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-shadow-lg"
+            style={{ animationDelay: items[1].delay }}
           >
             Beyond the
             <br />
             <span className="text-gold italic">Final</span> Whistle
-          </motion.h1>
+          </h1>
 
           {/* Subheading */}
-          <motion.p
-            variants={itemVariants}
-            className="text-white/80 text-base sm:text-lg lg:text-xl max-w-xl mt-8 leading-relaxed font-light"
+          <p
+            className="hero-fade-in text-white/80 text-base sm:text-lg lg:text-xl max-w-xl mt-8 leading-relaxed font-normal"
+            style={{ animationDelay: items[2].delay }}
           >
             Premium hospitality, exclusive access and unforgettable journeys alongside
             the sporting legends you admire.
-          </motion.p>
+          </p>
 
           {/* CTA buttons */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center gap-4 mt-10"
+          <div
+            className="hero-fade-in flex flex-col sm:flex-row items-center gap-4 mt-10"
+            style={{ animationDelay: items[3].delay }}
           >
             <Link href="/legends-lounge" className="btn-gold min-w-[220px]">
               View Legends Lounge
@@ -104,12 +79,12 @@ export default function HeroSection() {
             <Link href="/events" className="btn-outline-white min-w-[220px]">
               Legends Tours
             </Link>
-          </motion.div>
+          </div>
 
           {/* Trust signals */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center justify-center flex-wrap gap-x-6 gap-y-2 mt-12 text-white/80 text-[0.6rem] sm:text-xs tracking-widest uppercase"
+          <div
+            className="hero-fade-in flex items-center justify-center flex-wrap gap-x-6 gap-y-2 mt-12 text-white/80 text-[0.6rem] sm:text-xs tracking-widest uppercase"
+            style={{ animationDelay: items[4].delay }}
           >
             <span>Twickenham</span>
             <span className="w-1 h-1 rounded-full bg-gold" />
@@ -118,10 +93,9 @@ export default function HeroSection() {
             <span>Dubai</span>
             <span className="w-1 h-1 rounded-full bg-gold" />
             <span>St. Moritz</span>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
-
     </section>
   )
 }

@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
   { href: '/legends-lounge', label: 'The Lounge' },
@@ -19,10 +18,11 @@ export default function Nav() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+  const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30)
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -110,47 +110,44 @@ export default function Nav() {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-            className="lg:hidden bg-ink border-t border-white/10 overflow-hidden"
+      <div
+        ref={menuRef}
+        className="lg:hidden bg-ink border-t border-white/10 overflow-hidden transition-all duration-350 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+        style={{
+          maxHeight: isOpen ? '500px' : '0',
+          opacity: isOpen ? 1 : 0,
+        }}
+      >
+        <nav className="px-6 pt-6 pb-8 flex flex-col gap-1">
+          <Link
+            href="/"
+            className={`py-3 text-xs tracking-[0.25em] uppercase font-medium border-b border-white/5 transition-colors ${
+              pathname === '/' ? 'text-gold' : 'text-white/70 hover:text-gold'
+            }`}
           >
-            <nav className="px-6 pt-6 pb-8 flex flex-col gap-1">
-              <Link
-                href="/"
-                className={`py-3 text-xs tracking-[0.25em] uppercase font-medium border-b border-white/5 transition-colors ${
-                  pathname === '/' ? 'text-gold' : 'text-white/70 hover:text-gold'
-                }`}
-              >
-                Home
-              </Link>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`py-3 text-xs tracking-[0.25em] uppercase font-medium border-b border-white/5 transition-colors ${
-                    pathname === link.href
-                      ? 'text-gold'
-                      : 'text-white/70 hover:text-gold'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/book"
-                className="mt-5 py-3.5 border border-gold text-gold text-center text-xs tracking-[0.25em] uppercase font-semibold hover:bg-gold hover:text-ink transition-all duration-300"
-              >
-                Book Now
-              </Link>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Home
+          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`py-3 text-xs tracking-[0.25em] uppercase font-medium border-b border-white/5 transition-colors ${
+                pathname === link.href
+                  ? 'text-gold'
+                  : 'text-white/70 hover:text-gold'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/book"
+            className="mt-5 py-3.5 border border-gold text-gold text-center text-xs tracking-[0.25em] uppercase font-semibold hover:bg-gold hover:text-ink transition-all duration-300"
+          >
+            Book Now
+          </Link>
+        </nav>
+      </div>
     </header>
   )
 }
