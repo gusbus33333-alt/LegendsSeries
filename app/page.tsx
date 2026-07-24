@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import HeroSection from '@/components/HeroSection'
+import ExperienceFinder from '@/components/ExperienceFinder'
 import GoogleReviews from '@/components/GoogleReviews'
 import ScrollReveal from '@/components/ScrollReveal'
 import Link from 'next/link'
@@ -15,6 +16,13 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+
+      {/* Experience Finder */}
+      <div className="bg-ink">
+        <div className="max-w-5xl mx-auto px-6 lg:px-10 -mt-6 relative z-20 pb-8">
+          <ExperienceFinder />
+        </div>
+      </div>
 
       {/* Two experiences */}
       <section className="py-24 lg:py-32 bg-ink">
@@ -161,6 +169,36 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* About */}
+      <section className="py-24 lg:py-32 bg-ink">
+        <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
+          <ScrollReveal>
+            <p className="section-label mb-3">About Legends Series</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-white leading-tight italic"
+                style={{ fontFamily: 'var(--font-cormorant), serif' }}>
+              Sport creates unforgettable moments.<br />We create the experiences that surround them.
+            </h2>
+            <div className="flex justify-center mt-6 mb-8">
+              <div className="gold-rule" />
+            </div>
+            <p className="text-white/50 text-base leading-relaxed mb-5">
+              Legends Series is a premium sports hospitality and travel company, bringing fans
+              closer to the sporting icons they admire through exclusive matchday hospitality,
+              luxury international tours and unforgettable events.
+            </p>
+            <p className="text-white/50 text-base leading-relaxed mb-10">
+              Founded by Chris Butterworth, and inspired by his pivotal role in delivering
+              hospitality for the 2025 British &amp; Irish Legends Tour to Australia, every
+              Legends Series experience is built around authentic connections, exceptional
+              hospitality and memories that last a lifetime.
+            </p>
+            <Link href="/about" className="btn-outline-white">
+              Discover Our Story →
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="relative py-28 lg:py-36 overflow-hidden bg-ink">
         <div className="absolute inset-0 z-0">
@@ -175,26 +213,33 @@ export default function HomePage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-10 text-center">
           <ScrollReveal>
-            <p className="section-label mb-4">Don&apos;t miss out</p>
+            <p className="section-label mb-4">Upcoming Experiences</p>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Only 300 Places<br />
-              <span className="text-gold">Available</span> This Season
+              Find Your Next<br />
+              <span className="text-gold">Sporting Experience</span>
             </h2>
             <div className="flex justify-center mb-8">
               <div className="gold-rule-lg" />
             </div>
             <p className="text-white/50 text-base lg:text-lg max-w-xl mx-auto leading-relaxed mb-10">
-              Legends Lounge at Twickenham returns for the Nations Championship 2026 — six
-              dates across November. All-inclusive hospitality from £165pp.
+              Explore our latest Legends Lounge hospitality events and unforgettable Legends
+              Tours. Whether you&apos;re looking for an incredible matchday or the trip of a
+              lifetime, your next experience starts here.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/legends-lounge" className="btn-gold min-w-[200px]">
-                Legends Lounge
+                Explore Legends Lounge
               </Link>
               <Link href="/events" className="btn-outline-white min-w-[200px]">
-                Legends Tours
+                Explore Legends Tours
               </Link>
             </div>
+            <Link
+              href="/legends"
+              className="btn-outline-white min-w-[200px] mt-6"
+            >
+              View the Legends
+            </Link>
           </ScrollReveal>
         </div>
       </section>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 interface CheckoutButtonProps {
   slug: string
@@ -8,7 +9,9 @@ interface CheckoutButtonProps {
 }
 
 export default function CheckoutButton({ slug, className = '' }: CheckoutButtonProps) {
-  const [guests, setGuests] = useState(1)
+  const searchParams = useSearchParams()
+  const initialGuests = Math.min(30, Math.max(1, Number(searchParams.get('guests')) || 1))
+  const [guests, setGuests] = useState(initialGuests)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -59,7 +62,7 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
             type="button"
             onClick={() => setGuests((g) => Math.min(10, g + 1))}
             className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-colors flex items-center justify-center text-sm"
-            disabled={guests >= 10}
+            disabled={guests >= 30}
           >
             +
           </button>

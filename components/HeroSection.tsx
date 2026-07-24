@@ -69,7 +69,7 @@ export default function HeroSection() {
           <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
             <span className="w-8 h-px bg-gold" />
             <span className="text-white text-xs tracking-[0.4em] uppercase font-semibold">
-              Premium Sports Hospitality
+              Extraordinary Sporting Experiences
             </span>
             <span className="w-8 h-px bg-gold" />
           </motion.div>
@@ -79,11 +79,9 @@ export default function HeroSection() {
             variants={itemVariants}
             className="text-white font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-shadow-lg"
           >
-            Play &amp; Party
+            Beyond the
             <br />
-            <span className="text-gold italic">Alongside</span> Your
-            <br />
-            Heroes
+            <span className="text-gold italic">Final</span> Whistle
           </motion.h1>
 
           {/* Subheading */}
@@ -91,8 +89,8 @@ export default function HeroSection() {
             variants={itemVariants}
             className="text-white/80 text-base sm:text-lg lg:text-xl max-w-xl mt-8 leading-relaxed font-light"
           >
-            Exclusive access to the world&apos;s greatest sporting events — alongside rugby&apos;s
-            most iconic legends.
+            Premium hospitality, exclusive access and unforgettable journeys alongside
+            the sporting legends you admire.
           </motion.p>
 
           {/* CTA buttons */}
