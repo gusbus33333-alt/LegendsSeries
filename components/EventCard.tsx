@@ -2,12 +2,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Event } from '@/lib/types'
 
+function formatPrice(price: number, includeVat: boolean): string {
+  const amount = includeVat ? price * 1.2 : price
+  const rounded = Math.ceil(amount)
+  return `£${rounded.toLocaleString('en-GB')}`
+}
+
 interface EventCardProps {
   event: Event
   variant?: 'featured' | 'default' | 'compact'
+  includeVat?: boolean
 }
 
-export default function EventCard({ event, variant = 'default' }: EventCardProps) {
+export default function EventCard({ event, variant = 'default', includeVat = false }: EventCardProps) {
   if (variant === 'featured') {
     return (
       <Link
@@ -54,7 +61,8 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
             </div>
             <div className="text-right flex-shrink-0">
               <p className="text-white/40 text-xs tracking-widest uppercase">From</p>
-              <p className="text-gold font-bold text-2xl">{event.priceDisplay}</p>
+              <p className="text-gold font-bold text-2xl">{formatPrice(event.price, includeVat)}</p>
+              <p className="text-white/20 text-[0.55rem] tracking-wider mt-0.5">{includeVat ? 'inc VAT' : 'ex VAT'}</p>
             </div>
           </div>
 
@@ -121,7 +129,8 @@ export default function EventCard({ event, variant = 'default' }: EventCardProps
         <div className="flex items-center justify-between">
           <div>
             <p className="text-white/30 text-[0.6rem] tracking-widest uppercase">From</p>
-            <p className="text-gold font-bold text-lg">{event.priceDisplay}</p>
+            <p className="text-gold font-bold text-lg">{formatPrice(event.price, includeVat)}</p>
+            <p className="text-white/20 text-[0.5rem] tracking-wider">{includeVat ? 'inc VAT' : 'ex VAT'}</p>
           </div>
           <span className="text-white/30 text-xs tracking-widest group-hover:text-gold transition-colors">
             View →

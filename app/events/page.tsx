@@ -2,8 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { DbEvent } from '@/lib/supabase/types'
-import EventCard from '@/components/EventCard'
-import ScrollReveal from '@/components/ScrollReveal'
+import EventsGrid from '@/components/EventsGrid'
 
 export const metadata: Metadata = {
   title: 'Upcoming Events',
@@ -13,8 +12,6 @@ export const metadata: Metadata = {
 
 // Revalidate every 60 seconds so new events appear promptly
 export const revalidate = 60
-
-const categories = ['All', 'Rugby', 'Golf', 'Adventure', 'Luxury Travel']
 
 // Map DB row → the shape EventCard expects
 function toEvent(row: DbEvent) {
@@ -91,30 +88,7 @@ export default async function EventsPage() {
       <section className="py-20 lg:py-24 bg-parchment">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
-          {/* Filter tabs — visual only */}
-          <ScrollReveal className="flex flex-wrap gap-3 mb-12">
-            {categories.map((cat, i) => (
-              <button
-                key={cat}
-                className={`px-5 py-2 text-xs tracking-[0.2em] uppercase font-semibold border transition-all duration-200 ${
-                  i === 0
-                    ? 'bg-gold border-gold text-ink'
-                    : 'border-ink/20 text-ink/50 hover:border-gold hover:text-gold'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </ScrollReveal>
-
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-            {events.map((event, i) => (
-              <ScrollReveal key={event.id} delay={0.07 * (i % 3)}>
-                <EventCard event={event} />
-              </ScrollReveal>
-            ))}
-          </div>
+          <EventsGrid events={events} />
         </div>
       </section>
     </>

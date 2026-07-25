@@ -177,8 +177,15 @@ function FinalsMatchup({ games }: { games: GamePair[] }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
+function vatPrice(exVat: string, includeVat: boolean): string {
+  const num = parseFloat(exVat.replace(/[^0-9.]/g, ''))
+  if (!includeVat || isNaN(num)) return exVat
+  return `£${Math.ceil(num * 1.2).toLocaleString('en-GB')}`
+}
+
 export default function FixtureCards() {
   const [filter, setFilter] = useState<Filter>('all')
+  const [includeVat, setIncludeVat] = useState(false)
 
   const chips: { value: Filter; label: string }[] = [
     { value: 'all', label: 'All fixtures' },
@@ -202,6 +209,27 @@ export default function FixtureCards() {
             Every England international and all three Nations Cup Finals double headers, hosted at the
             Legends Lounge moments from the stadium.
           </p>
+        </div>
+
+        {/* VAT toggle */}
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${!includeVat ? 'text-white' : 'text-white/40'}`}>
+            Ex VAT
+          </span>
+          <button
+            onClick={() => setIncludeVat(!includeVat)}
+            className="relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none"
+            style={{ backgroundColor: includeVat ? '#b8953f' : '#555' }}
+            aria-label="Toggle VAT"
+          >
+            <span
+              className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200"
+              style={{ transform: includeVat ? 'translateX(24px)' : 'translateX(0)' }}
+            />
+          </button>
+          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${includeVat ? 'text-white' : 'text-white/40'}`}>
+            Inc VAT
+          </span>
         </div>
 
         {/* Filter chips */}
@@ -260,9 +288,9 @@ export default function FixtureCards() {
               {/* Meta */}
               <div className="flex items-baseline justify-between border-t border-gold/20 mt-6 pt-5">
                 <div>
-                  <span className="text-[22px] font-bold text-gold/90 leading-none">{fixture.price}</span>
+                  <span className="text-[22px] font-bold text-gold/90 leading-none">{includeVat ? fixture.priceInc.replace(/ inc VAT.*/, '') : fixture.price}</span>
                   <span className="block text-[10px] tracking-[0.12em] text-white/35 mt-1">
-                    {fixture.priceInc} per person
+                    {includeVat ? 'inc VAT' : 'ex VAT'} per person
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase text-gold">
