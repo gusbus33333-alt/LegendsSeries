@@ -27,7 +27,7 @@ const footerNav = [
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms & Conditions', href: '/terms' },
       { label: 'Booking Policy', href: '/booking-policy' },
-      { label: 'FAQs', href: '/contact' },
+      { label: 'Cookie Policy', href: '/cookies' },
     ],
   },
 ]

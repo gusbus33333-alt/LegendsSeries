@@ -51,7 +51,7 @@ function CustomSelect({
 
   return (
     <div className="sm:flex-1" ref={ref}>
-      <label className="text-white/30 text-[0.55rem] uppercase tracking-widest block mb-1.5">
+      <label className="text-white/60 text-[0.55rem] uppercase tracking-widest block mb-1.5">
         {label}
       </label>
       <div className="relative">
@@ -66,7 +66,7 @@ function CustomSelect({
               : 'border-white/10 hover:border-gold/40 cursor-pointer'
           }`}
         >
-          <span className={selected ? 'text-white' : 'text-white/35'}>
+          <span className={selected ? 'text-white' : 'text-white/80'}>
             {selected?.label || placeholder}
           </span>
           <svg width="10" height="10" viewBox="0 0 12 12" className={`ml-2 flex-shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}>
@@ -143,7 +143,7 @@ export default function ExperienceFinder() {
         />
 
         <div className="sm:w-[120px]">
-          <label className="text-white/30 text-[0.55rem] uppercase tracking-widest block mb-1.5">
+          <label className="text-white/60 text-[0.55rem] uppercase tracking-widest block mb-1.5">
             Guests
           </label>
           <div className="flex items-center border border-white/10 bg-white/5 h-[38px]">
@@ -151,7 +151,7 @@ export default function ExperienceFinder() {
               type="button"
               onClick={() => setGuests((g) => Math.max(1, g - 1))}
               disabled={guests <= 1}
-              className="w-9 h-full text-white/40 hover:text-gold transition-colors disabled:opacity-30 text-sm"
+              className="w-9 h-full text-white/60 hover:text-gold transition-colors disabled:opacity-30 text-sm"
             >
               −
             </button>
@@ -160,7 +160,7 @@ export default function ExperienceFinder() {
               type="button"
               onClick={() => setGuests((g) => Math.min(30, g + 1))}
               disabled={guests >= 30}
-              className="w-9 h-full text-white/40 hover:text-gold transition-colors disabled:opacity-30 text-sm"
+              className="w-9 h-full text-white/60 hover:text-gold transition-colors disabled:opacity-30 text-sm"
             >
               +
             </button>

@@ -23,6 +23,7 @@ interface EnglandCard {
   homeCode: string
   awayIcon: string
   awayCode: string
+  blurb: string
   cat: 'eng'
 }
 
@@ -33,6 +34,7 @@ interface FinalsCard {
   date: string
   price: string
   priceInc: string
+  blurb: string
   cat: 'finals'
 }
 
@@ -50,6 +52,7 @@ const fixtures: FixtureCard[] = [
     homeCode: 'ENG',
     awayIcon: '/team-icons/aus.png',
     awayCode: 'AUS',
+    blurb: 'England host the Wallabies in the 2026 Nations Championship at Allianz Stadium — a rivalry steeped in history.',
     cat: 'eng',
   },
   {
@@ -63,6 +66,7 @@ const fixtures: FixtureCard[] = [
     homeCode: 'ENG',
     awayIcon: '/team-icons/jpn.png',
     awayCode: 'JPN',
+    blurb: 'The Brave Blossoms bring their explosive attacking rugby to Allianz Stadium under the Saturday evening lights.',
     cat: 'eng',
   },
   {
@@ -76,6 +80,7 @@ const fixtures: FixtureCard[] = [
     homeCode: 'ENG',
     awayIcon: '/team-icons/nzl.png',
     awayCode: 'NZL',
+    blurb: 'England host the All Blacks in the 2026 Nations Championship at Allianz Stadium — the biggest fixture in world rugby.',
     cat: 'eng',
   },
   {
@@ -88,6 +93,7 @@ const fixtures: FixtureCard[] = [
     date: 'Friday 27 November 2026 · Twickenham',
     price: '£250+',
     priceInc: '£300 inc VAT',
+    blurb: 'The Nations Cup Finals begin with a Friday double header at Allianz Stadium — two knockout internationals, one epic day.',
     cat: 'finals',
   },
   {
@@ -100,6 +106,7 @@ const fixtures: FixtureCard[] = [
     date: 'Saturday 28 November 2026 · Twickenham',
     price: '£250+',
     priceInc: '£300 inc VAT',
+    blurb: 'Saturday finals at Allianz Stadium — the 5th-place final and the 2nd-place final, two titles decided in one day.',
     cat: 'finals',
   },
   {
@@ -112,6 +119,7 @@ const fixtures: FixtureCard[] = [
     date: 'Sunday 29 November 2026 · Twickenham',
     price: '£250+',
     priceInc: '£300 inc VAT',
+    blurb: 'Grand Final day — the first-ever Nations Cup champion is crowned at Allianz Stadium in the biggest game of the year.',
     cat: 'finals',
   },
 ]
@@ -283,6 +291,10 @@ export default function FixtureCards() {
 
               <p className="text-center text-[12px] text-white/35 tracking-[0.04em] mt-1.5">
                 {fixture.date}
+              </p>
+
+              <p className="text-center text-[11px] text-white/25 leading-relaxed mt-3 px-2">
+                {fixture.blurb}
               </p>
 
               {/* Meta */}

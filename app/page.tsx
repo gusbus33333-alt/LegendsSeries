@@ -174,8 +174,7 @@ export default function HomePage() {
         <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
           <ScrollReveal>
             <p className="section-label mb-3">About Legends Series</p>
-            <h2 className="text-3xl lg:text-4xl font-bold text-white leading-tight italic"
-                style={{ fontFamily: 'var(--font-cormorant), serif' }}>
+            <h2 className="text-3xl lg:text-4xl font-bold text-white leading-tight">
               Sport creates unforgettable moments.<br />We create the experiences that surround them.
             </h2>
             <div className="flex justify-center mt-6 mb-8">
