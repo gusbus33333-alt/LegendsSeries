@@ -9,6 +9,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Saracens & England',
+    stat: 'Wore his match kit for three days straight after winning the Champions Cup final',
   },
   {
     id: 'alex-tait',
@@ -17,6 +18,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Newcastle & England',
+    stat: 'One-club man — spent his entire career at Newcastle Falcons',
   },
   {
     id: 'ben-foden',
@@ -25,6 +27,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Northampton Saints & England',
+    stat: '34 caps for England. Once scored a try running the length of the pitch barefoot in training',
   },
   {
     id: 'ben-gollings',
@@ -33,6 +36,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: "Harlequins / Newcastle / England 7's",
+    stat: 'All-time leading World Sevens Series try scorer with 230 tries — a record that stood for over a decade',
   },
   {
     id: 'ben-woods',
@@ -41,6 +45,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: "Leicester / Cambridge / England 7's",
+    stat: 'Combined a pro rugby career with studying at Cambridge University',
   },
   {
     id: 'brad-barritt',
@@ -49,6 +54,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Saracens / England / Lions',
+    stat: '26 caps for England. South African-born, captained Saracens to three Premiership titles',
   },
   {
     id: 'dave-atwood',
@@ -57,6 +63,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bath / Toulon / England',
+    stat: '21 caps for England. Moved to Toulon and learned fluent French within a year',
   },
   {
     id: 'dave-ewers',
@@ -65,6 +72,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Exeter / Stormers / England A',
+    stat: 'Zimbabwe-born powerhouse. Key part of Exeter\'s rise from the Championship to Premiership champions',
   },
   {
     id: 'david-strettle',
@@ -73,6 +81,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Harlequins / Saracens / England',
+    stat: '14 caps for England. Scored a Champions Cup final try for Saracens at age 35',
   },
   {
     id: 'delon-armitage',
@@ -81,6 +90,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'London Irish / Toulon / England',
+    stat: '9 caps for England. Won the European Champions Cup with Toulon — twice',
   },
   {
     id: 'ed-williamson',
@@ -89,6 +99,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: "Newcastle / Leeds / RFC Libournais / England 7's",
+    stat: 'Played in the French third division — lived the rugby nomad life across three countries',
   },
   {
     id: 'guy-thompson',
@@ -97,6 +108,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Wasps',
+    stat: '150+ appearances for Wasps. Won the Premiership Players\' Player of the Year',
   },
   {
     id: 'iain-balshaw',
@@ -105,6 +117,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bath / Gloucester / England / Lions',
+    stat: '2003 World Cup winner. His electric running at fullback terrified defences during the 2001 Six Nations',
   },
   {
     id: 'jackson-wray',
@@ -113,6 +126,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Saracens',
+    stat: '300+ appearances for Saracens — one of the most capped players in the club\'s history',
   },
   {
     id: 'james-buckland',
@@ -121,6 +135,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester Tigers',
+    stat: 'Part of the Leicester Tigers dynasty during their back-to-back Premiership years',
   },
   {
     id: 'james-smith',
@@ -129,6 +144,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Gloucester',
+    stat: 'Gloucester stalwart through one of the club\'s most competitive eras in the Premiership',
   },
   {
     id: 'jason-hobson',
@@ -137,6 +153,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bristol / Wasps / Exeter / England',
+    stat: 'Played for four Premiership clubs — scrummaged his way around the West Country and beyond',
   },
   {
     id: 'jon-phillips',
@@ -145,6 +162,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Northampton / Bedford',
+    stat: 'Part of the Northampton squad during the Saints\' Heineken Cup glory days',
   },
   {
     id: 'jonny-barrett',
@@ -153,6 +171,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Wasps',
+    stat: 'Wasps through and through — loyal servant during their golden era at Adams Park',
   },
   {
     id: 'kai-hortsmann',
@@ -161,6 +180,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: "Harlequins / Worcester / Exeter / England 7's / Saxons",
+    stat: 'German-born flanker who represented England Saxons and played Sevens — a true rugby journeyman',
   },
   {
     id: 'kevin-yates',
@@ -169,6 +189,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bath / Sale / Saracens / England',
+    stat: '4 caps for England. One of the most feared scrummagers in Premiership history',
   },
   {
     id: 'lee-dickson',
@@ -177,6 +198,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Newcastle / Northampton / England',
+    stat: '18 caps for England. Known as one of the quickest scrum-halves off the ruck in English rugby',
   },
   {
     id: 'lee-mears',
@@ -185,6 +207,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bath / England / Lions',
+    stat: '42 caps for England. Lions tourist in 2009. Retired to become a firefighter',
   },
   {
     id: 'leon-lloyd',
@@ -193,6 +216,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester & England',
+    stat: 'Scored the winning try in the 2001 Heineken Cup final — one of Leicester\'s most iconic moments',
   },
   {
     id: 'lewis-moody',
@@ -202,6 +226,7 @@ export const legends: Legend[] = [
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester / Bath / England / Lions',
     caps: 71,
+    stat: '2003 World Cup winner. Nicknamed "Mad Dog" — once played an entire half with blood pouring from a head wound and refused to come off',
     achievements: [
       '2003 Rugby World Cup Winner',
       'British & Irish Lions 2005',
@@ -217,6 +242,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Northampton / Newcastle / England',
+    stat: '15 caps for England. Switched to professional boxing after retiring from rugby',
   },
   {
     id: 'manu-tuilagi',
@@ -225,6 +251,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester / Sale / Bayonne / England / Lions',
+    stat: '50+ caps for England. Once jumped off a ferry into Auckland Harbour for a dare on the 2011 World Cup tour',
   },
   {
     id: 'mark-regan',
@@ -233,6 +260,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bath / Leeds / Bristol / England / Lions',
+    stat: '46 caps for England. Known as "Ronnie" — famous for his wind-ups and one of the great characters of English rugby',
   },
   {
     id: 'matt-cornwell',
@@ -241,6 +269,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester / Northampton',
+    stat: 'Played in the East Midlands derby for both sides — one of few to cross the Leicester-Northampton divide',
   },
   {
     id: 'matt-stevens',
@@ -249,6 +278,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bath / Saracens / Toulon / England / Lions',
+    stat: '44 caps for England. Also a talented DJ — has played sets at clubs across Europe',
   },
   {
     id: 'neil-clark',
@@ -257,6 +287,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Bristol / Bath / Exeter / Oyonnax',
+    stat: 'Played in France\'s Pro D2 with Oyonnax — embraced the full French rugby experience',
   },
   {
     id: 'ollie-phillips',
@@ -265,6 +296,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: "Newcastle / Gloucester / Stade Francais / England 7's",
+    stat: 'IRB Sevens Player of the Year. Became a successful businessman and leadership speaker after rugby',
   },
   {
     id: 'ollie-smith',
@@ -273,6 +305,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester / England / Lions',
+    stat: 'The only player in history to have scored more points for the British & Irish Lions than for his own country',
   },
   {
     id: 'paul-doran-jones',
@@ -281,6 +314,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Gloucester / Northampton / Harlequins',
+    stat: '200+ Premiership appearances across three clubs — a proper front-row warrior',
   },
   {
     id: 'richard-barrington',
@@ -289,6 +323,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Saracens',
+    stat: 'Part of the Saracens pack that dominated English and European rugby for a decade',
   },
   {
     id: 'richard-de-carpentier',
@@ -297,6 +332,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: "Worcester / Bath / England 7's",
+    stat: 'Represented England in Sevens — one of the most athletic forwards on the circuit',
   },
   {
     id: 'rob-webber',
@@ -305,6 +341,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Wasps / Bath / Sale / England',
+    stat: '10 caps for England. Known for his thunderous carries from hooker — not your typical No. 2',
   },
   {
     id: 'steffon-armitage',
@@ -313,6 +350,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Saracens / London Irish / Toulon / England',
+    stat: '5 caps for England. Won European Player of the Year at Toulon but was famously blocked from England selection while playing in France',
   },
   {
     id: 'toby-flood',
@@ -321,6 +359,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester / Newcastle / England',
+    stat: '60 caps for England. Scored over 300 points in international rugby',
   },
   {
     id: 'tom-may',
@@ -329,6 +368,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Newcastle / Toulon / Northampton / England',
+    stat: '5 caps for England. Won the Premiership with Northampton and the French title with Toulon in the same decade',
   },
   {
     id: 'tyson-lewis',
@@ -337,6 +377,7 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Plymouth Albion / Doncaster Knights',
+    stat: 'Championship rugby stalwart — the heartbeat of the lower leagues where the passion runs just as deep',
   },
 
   // ── WALES ─────────────────────────────────────────────────────────────────
@@ -347,6 +388,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Cardiff / Exeter / Wales / Lions',
+    stat: '48 caps for Wales. Scored two tries in the 2013 Six Nations win over England that denied them the Grand Slam',
   },
   {
     id: 'andy-powell',
@@ -355,6 +397,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Wales / Lions',
+    stat: '23 caps for Wales. Drove a golf buggy down the M4 at 4am after a Six Nations win — arrested in his Wales tracksuit',
   },
   {
     id: 'dom-day',
@@ -363,6 +406,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Scarlets / Bath / Saracens / Wales',
+    stat: '7 caps for Wales. Won three Premiership titles with Saracens as a key lineout operator',
   },
   {
     id: 'ieuan-evans',
@@ -371,6 +415,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Llanelli / Bath / Wales / Lions',
+    stat: '72 caps for Wales. Scored THAT try against Scotland in 1988 — one of the most famous in Welsh rugby history',
   },
   {
     id: 'james-hook',
@@ -379,6 +424,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Ospreys / Gloucester / Wales / Lions',
+    stat: '81 caps for Wales. Could play fly-half, centre, or fullback — one of the most versatile players Wales has ever produced',
   },
   {
     id: 'jamie-roberts',
@@ -387,6 +433,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Cardiff / Racing / Harlequins / Bath / Wales / Lions',
+    stat: '97 caps for Wales. Qualified as a medical doctor while playing international rugby — Dr Roberts to you',
   },
   {
     id: 'leigh-halfpenny',
@@ -395,6 +442,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Cardiff / Scarlets / Toulon / Wales / Lions',
+    stat: '101 caps for Wales. 2013 Lions Player of the Series. Once kicked 20 consecutive goals in a Test series',
   },
   {
     id: 'matt-jess',
@@ -403,6 +451,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Exeter / Gwent Dragons',
+    stat: 'Part of the Exeter squad that won promotion to the Premiership and never looked back',
   },
   {
     id: 'mike-phillips',
@@ -411,6 +460,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Llanelli / Cardiff / Ospreys / Racing / Wales / Lions',
+    stat: '94 caps for Wales. 3 Lions tours. Famously confident — once told the All Blacks they were in for a long night',
   },
   {
     id: 'rhys-gill',
@@ -419,6 +469,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Saracens / Cardiff / Wales',
+    stat: '7 caps for Wales. Won multiple Premiership titles scrummaging in the Saracens front row',
   },
   {
     id: 'rhys-priestland',
@@ -427,6 +478,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Scarlets / Bath / Wales',
+    stat: '50 caps for Wales. Started the 2011 World Cup semi-final — one of Wales\' greatest tournament runs',
   },
   {
     id: 'shane-williams',
@@ -435,6 +487,7 @@ export const legends: Legend[] = [
     country: 'Wales',
     flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
     clubs: 'Neath / Ospreys / Mitsubishi / Wales / Lions',
+    stat: '87 caps, 58 tries for Wales. IRB World Player of the Year 2008. Scored a try in his final Test — because of course he did',
   },
 
   // ── IRELAND ───────────────────────────────────────────────────────────────
@@ -445,6 +498,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Ulster / Ireland',
+    stat: '9 caps for Ireland. Scored a try on his Ireland debut aged 21 — announced himself in style',
   },
   {
     id: 'dan-leavy',
@@ -453,6 +507,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ireland',
+    stat: '11 caps for Ireland. Was being tipped as world\'s best openside before a devastating knee injury cut him down',
   },
   {
     id: 'dan-tuohy',
@@ -461,6 +516,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Exeter / Ulster / Ireland',
+    stat: '11 caps for Ireland. A lineout specialist who could steal ball at will on his day',
   },
   {
     id: 'devin-toner',
@@ -469,6 +525,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ireland',
+    stat: '70 caps for Ireland. At 6\'11" he\'s one of the tallest players ever to play international rugby',
   },
   {
     id: 'fionn-carr',
@@ -477,6 +534,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: "Leinster / Connacht / Ireland 7's",
+    stat: 'Electric pace on the wing — one of the quickest players in Irish provincial rugby',
   },
   {
     id: 'gareth-steenson',
@@ -485,6 +543,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: "Exeter / Ireland 21's",
+    stat: 'Kicked the penalty that won Exeter their first ever Premiership title in 2017. Club legend',
   },
   {
     id: 'geordan-murphy',
@@ -493,6 +552,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leicester / Ireland / Lions',
+    stat: '72 caps for Ireland. Spent 16 seasons at Leicester — the longest-serving overseas player in Tigers history',
   },
   {
     id: 'harry-mcnulty',
@@ -501,6 +561,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: "LA Giltinis / Ireland 7's",
+    stat: 'Represented Ireland at the Olympics in Sevens — took Irish rugby to the world stage',
   },
   {
     id: 'jack-mcgrath',
@@ -509,6 +570,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ireland / Lions',
+    stat: '54 caps for Ireland. Lions tourist 2017. A former boxer who brought that fighting spirit to the scrum',
   },
   {
     id: 'jamie-hagan',
@@ -517,6 +579,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Melbourne / La Rochelle / Ireland',
+    stat: '3 caps for Ireland. Played club rugby across three countries — Ireland, Australia, and France',
   },
   {
     id: 'jordi-conroy',
@@ -525,6 +588,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: "Connacht / Delhi / Ireland 7's",
+    stat: 'Played Sevens for Ireland in Delhi — took the fast game from Connacht to the world circuit',
   },
   {
     id: 'jordi-murphy',
@@ -533,6 +597,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ulster / Ireland',
+    stat: '30 caps for Ireland. Called up mid-World Cup 2019 as injury cover and flew straight to Japan',
   },
   {
     id: 'mick-kearney',
@@ -541,6 +606,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Connacht / Leinster / Zebre / Munster',
+    stat: 'Played for four Irish/Italian provinces — the ultimate journeyman of pro rugby',
   },
   {
     id: 'mike-mccarthy',
@@ -549,6 +615,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Newcastle / Ireland',
+    stat: '19 caps for Ireland. Once absolutely slaughtered a young Eben Etzebeth during Ireland vs South Africa in 2013',
   },
   {
     id: 'mike-ross',
@@ -557,6 +624,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ireland',
+    stat: '61 caps for Ireland. Didn\'t win his first cap until he was 30 — proof it\'s never too late',
   },
   {
     id: 'paddy-wallace',
@@ -565,6 +633,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Ulster / Ireland',
+    stat: '30 caps for Ireland. Could play centre or fly-half — Ulster\'s Mr Versatile',
   },
   {
     id: 'paul-marshall',
@@ -573,6 +642,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: "Ulster / Ireland 7's / Ireland",
+    stat: '5 caps for Ireland. Made over 150 appearances for Ulster — the heartbeat of Ravenhill',
   },
   {
     id: 'rob-henderson',
@@ -581,6 +651,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Wasps / Munster / Leinster / Toulon / Ireland / Lions',
+    stat: '19 caps for Ireland. Started the 2001 Lions first Test — held his own against the Wallabies in the midfield',
   },
   {
     id: 'sean-obrien',
@@ -589,6 +660,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ireland / Lions',
+    stat: '56 caps for Ireland. Tullow Tank. Scored the try that won the 2017 Lions first Test against New Zealand',
   },
   {
     id: 'shane-byrne',
@@ -597,6 +669,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ireland / Lions',
+    stat: '41 caps for Ireland. Lions tourist 2005. A hooker with a sideline in property development',
   },
   {
     id: 'tom-court',
@@ -605,6 +678,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Leinster / Ireland / Lions',
+    stat: '15 caps for Ireland. Australian-born prop who became a key part of the Ulster and Ireland pack',
   },
   {
     id: 'tommy-bowe',
@@ -613,6 +687,7 @@ export const legends: Legend[] = [
     country: 'Ireland',
     flag: '🇮🇪',
     clubs: 'Ulster / Ospreys / Ireland / Lions',
+    stat: '69 caps for Ireland. 2 Lions tours. Now a TV presenter — swapped the try line for the front of camera',
   },
 
   // ── SCOTLAND ──────────────────────────────────────────────────────────────
@@ -623,6 +698,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Edinburgh / Glasgow / Harlequins / Scotland / Lions',
+    stat: '60 caps for Scotland. Kicked the winning drop goal in the famous 1990 Grand Slam decider against England',
   },
   {
     id: 'duncan-taylor',
@@ -631,6 +707,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Saracens / Scotland',
+    stat: '25 caps for Scotland. Won multiple Premiership and European titles with Saracens',
   },
   {
     id: 'kelly-brown',
@@ -639,6 +716,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Glasgow / Saracens / Scotland',
+    stat: '64 caps for Scotland. Captained his country and won the Premiership with Saracens',
   },
   {
     id: 'ollie-atkins',
@@ -647,6 +725,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Edinburgh / Exeter',
+    stat: 'Part of the Exeter squad that climbed from the Championship to European champions',
   },
   {
     id: 'rory-lawson',
@@ -655,6 +734,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Edinburgh / Gloucester / Scotland',
+    stat: '31 caps for Scotland. Can turn any bar into a party with Piano Man and a harmonica',
   },
   {
     id: 'ryan-wilson',
@@ -663,6 +743,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Glasgow / Scotland',
+    stat: '50 caps for Scotland. Since retiring he\'s started Scrum2Scratch, a golf series on YouTube',
   },
   {
     id: 'scott-steele',
@@ -671,6 +752,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Leicester / London Irish / Harlequins / Glasgow / Scotland',
+    stat: 'Played for five professional clubs across England and Scotland — the well-travelled scrum-half',
   },
   {
     id: 'sean-lamont',
@@ -679,6 +761,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Glasgow / Northampton / Scotland',
+    stat: '105 caps for Scotland. Most capped Scottish back of all time — and posed for the famous Dieux du Stade calendar in 2007',
   },
   {
     id: 'sean-maitland',
@@ -687,6 +770,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Glasgow / Saracens / Scotland / Lions',
+    stat: '50+ caps for Scotland. New Zealand-born. Lions tourist 2013. Won the Premiership with Saracens',
   },
   {
     id: 'tommy-seymour',
@@ -695,6 +779,7 @@ export const legends: Legend[] = [
     country: 'Scotland',
     flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
     clubs: 'Glasgow / Scotland / Lions',
+    stat: '55 caps for Scotland. American-born, Ulster-raised, Glasgow legend — scored tries for fun in Pro14',
   },
 
   // ── SOUTH AFRICA ──────────────────────────────────────────────────────────
@@ -705,6 +790,7 @@ export const legends: Legend[] = [
     country: 'South Africa',
     flag: '🇿🇦',
     clubs: 'Saracens / South Africa',
+    stat: '10 caps for South Africa. Came out of retirement to play in the 2019 World Cup — and won it',
   },
 
   // ── AUSTRALIA ─────────────────────────────────────────────────────────────
@@ -715,6 +801,7 @@ export const legends: Legend[] = [
     country: 'Australia',
     flag: '🇦🇺',
     clubs: 'Brumbies / Ulster / Queensland Reds / Biarritz / Australia',
+    stat: '9 caps for Australia. Fijian-born speedster — could outrun most players from a standing start',
   },
   {
     id: 'petrus-du-plessis',
@@ -723,6 +810,7 @@ export const legends: Legend[] = [
     country: 'Australia',
     flag: '🇦🇺',
     clubs: 'Saracens / London Irish / Australia coaching',
+    stat: 'South African-born prop who became a Saracens cult hero — known for his scrummaging masterclasses',
   },
 
   // ── USA ───────────────────────────────────────────────────────────────────
@@ -733,6 +821,7 @@ export const legends: Legend[] = [
     country: 'USA',
     flag: '🇺🇸',
     clubs: 'LA Gilitinis / Miami Sharks / USA Eagles',
+    stat: 'USA Eagles international. Helped grow the game in Major League Rugby across America',
   },
 
   // ── SPECIAL ROLES ─────────────────────────────────────────────────────────
@@ -744,6 +833,7 @@ export const legends: Legend[] = [
     flag: '🏉',
     clubs: 'IRB Referee',
     homeLocation: 'Cheltenham',
+    stat: 'International referee — keeps the legends in line (or tries to)',
   },
   {
     id: 'rob-shotton',
@@ -753,6 +843,7 @@ export const legends: Legend[] = [
     flag: '💚',
     clubs: 'Co-Founder LooseHeadz',
     homeLocation: 'London',
+    stat: 'Co-founded LooseHeadz to tackle mental health in rugby — changing the conversation one scrum cap at a time',
   },
   {
     id: 'sarah-webb',
@@ -762,6 +853,7 @@ export const legends: Legend[] = [
     flag: '🥄',
     clubs: 'CEO Wooden Spoon',
     homeLocation: 'Southampton',
+    stat: 'CEO of Wooden Spoon — the rugby charity that has raised over £30m for disadvantaged children',
   },
 ]
 

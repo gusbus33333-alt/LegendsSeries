@@ -142,15 +142,10 @@ export default function LegendsPage() {
                       {legend.clubs}
                     </p>
 
-                    {legend.achievements && legend.achievements.length > 0 && (
-                      <ul className="mt-2 flex flex-col gap-1">
-                        {legend.achievements.slice(0, 2).map((a, i) => (
-                          <li key={i} className="flex items-start gap-1.5 text-[0.65rem] text-ink/50 leading-snug">
-                            <span className="text-gold mt-0.5 flex-shrink-0">·</span>
-                            {a}
-                          </li>
-                        ))}
-                      </ul>
+                    {legend.stat && (
+                      <p className="text-ink/40 text-[0.65rem] leading-snug mt-2 italic line-clamp-2">
+                        &ldquo;{legend.stat}&rdquo;
+                      </p>
                     )}
                   </div>
                 ))}

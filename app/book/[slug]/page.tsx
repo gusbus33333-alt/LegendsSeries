@@ -201,7 +201,7 @@ export default function BookEventPage({ params }: PageProps) {
                     {/* Date & time info */}
                     <div className="px-7 py-5 flex flex-col gap-3">
                       <div className="flex items-start gap-3">
-                        <span className="text-gold text-sm mt-0.5">📅</span>
+                        <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                         <div>
                           <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">
                             Date
@@ -210,7 +210,7 @@ export default function BookEventPage({ params }: PageProps) {
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="text-gold text-sm mt-0.5">🕐</span>
+                        <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                         <div>
                           <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">
                             Marquee Opens
@@ -220,7 +220,7 @@ export default function BookEventPage({ params }: PageProps) {
                       </div>
                       {event.ko !== 'TBC' && (
                         <div className="flex items-start gap-3">
-                          <span className="text-gold text-sm mt-0.5">🏉</span>
+                          <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                           <div>
                             <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">
                               Kickoff
@@ -231,7 +231,7 @@ export default function BookEventPage({ params }: PageProps) {
                       )}
                       {event.isFinals && event.games && (
                         <div className="flex items-start gap-3">
-                          <span className="text-gold text-sm mt-0.5">🏆</span>
+                          <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                           <div>
                             <p className="text-white/40 text-[0.6rem] uppercase tracking-widest mb-1">
                               Matches

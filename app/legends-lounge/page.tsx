@@ -190,13 +190,13 @@ export default function LegendsLoungePage() {
       <div className="bg-black border-t border-gold/20 py-5">
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
           {[
-            { icon: '📍', text: '20 metres from the stadium' },
-            { icon: '🍽️', text: 'Unlimited drinks & food included' },
-            { icon: '🏉', text: 'Rugby legends throughout' },
-            { icon: '🎶', text: 'Top entertainment' },
+            { icon: '·', text: '20 metres from the stadium' },
+            { icon: '·', text: 'Unlimited drinks & food included' },
+            { icon: '·', text: 'Rugby legends throughout' },
+            { icon: '·', text: 'Top entertainment' },
           ].map((f) => (
             <div key={f.text} className="flex items-center gap-2">
-              <span className="text-sm">{f.icon}</span>
+              <span className="text-gold text-lg font-bold">{f.icon}</span>
               <span className="text-white/50 text-xs tracking-[0.1em] uppercase">{f.text}</span>
             </div>
           ))}

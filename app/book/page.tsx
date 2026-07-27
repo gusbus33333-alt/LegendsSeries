@@ -42,13 +42,13 @@ export default function BookPage() {
           {/* Key facts */}
           <div className="flex flex-wrap gap-x-8 gap-y-3 mt-8">
             {[
-              { icon: '📍', text: '20 metres from Twickenham Stadium' },
-              { icon: '🍺', text: 'Unlimited drinks inc.' },
-              { icon: '🏉', text: 'Rugby legends all day' },
-              { icon: '🎫', text: 'Match ticket not included' },
+              { icon: '·', text: '20 metres from Twickenham Stadium' },
+              { icon: '·', text: 'Unlimited drinks inc.' },
+              { icon: '·', text: 'Rugby legends all day' },
+              { icon: '·', text: 'Match ticket not included' },
             ].map((f) => (
               <div key={f.text} className="flex items-center gap-2">
-                <span className="text-sm">{f.icon}</span>
+                <span className="text-gold text-lg font-bold">{f.icon}</span>
                 <span className="text-white/55 text-sm">{f.text}</span>
               </div>
             ))}
@@ -117,20 +117,20 @@ export default function BookPage() {
           </ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: '🐷', label: 'Hog Roast & Trimmings' },
-              { icon: '🍺', label: 'Unlimited Premium Bar' },
-              { icon: '🥧', label: "Hot Butcher's Pie Post-Match" },
-              { icon: '🏉', label: 'Legends Throughout the Day' },
-              { icon: '🎸', label: 'Live Music' },
-              { icon: '📺', label: 'All Internationals on Screen' },
-              { icon: '💛', label: 'Charity Donation Included' },
-              { icon: '📍', label: '20m from the Stadium' },
+              { icon: '·', label: 'Hog Roast & Trimmings' },
+              { icon: '·', label: 'Unlimited Premium Bar' },
+              { icon: '·', label: "Hot Butcher's Pie Post-Match" },
+              { icon: '·', label: 'Legends Throughout the Day' },
+              { icon: '·', label: 'Live Music' },
+              { icon: '·', label: 'All Internationals on Screen' },
+              { icon: '·', label: 'Charity Donation Included' },
+              { icon: '·', label: '20m from the Stadium' },
             ].map((item) => (
               <div
                 key={item.label}
                 className="flex flex-col items-center text-center p-5 border border-ink/10 gap-2"
               >
-                <span className="text-2xl">{item.icon}</span>
+                <span className="text-2xl text-gold font-bold">{item.icon}</span>
                 <p className="text-ink/70 text-xs tracking-wide leading-snug">{item.label}</p>
               </div>
             ))}

@@ -34,6 +34,7 @@ export interface Legend {
   achievements?: string[]
   bio?: string
   image?: string
+  stat?: string
 }
 
 export interface Review {

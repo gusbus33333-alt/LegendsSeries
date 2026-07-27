@@ -19,6 +19,7 @@ const photos = [
   { src: '/lounge-photos/LLL-371.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-388.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-416.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
+  { src: '/lounge-photos/LLL-209.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
 ]
 
 export default function LoungeGallery() {

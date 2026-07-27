@@ -9,6 +9,7 @@ const navLinks = [
   { href: '/legends-lounge', label: 'The Lounge' },
   { href: '/events', label: 'Legends Tours' },
   { href: '/legends', label: 'Legends' },
+  { href: '/gallery', label: 'Gallery' },
   { href: '/reviews', label: 'Reviews' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
