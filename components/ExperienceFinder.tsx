@@ -51,7 +51,7 @@ function CustomSelect({
 
   return (
     <div className="sm:flex-1" ref={ref}>
-      <label className="text-white/60 text-[0.55rem] uppercase tracking-widest block mb-1.5">
+      <label className="text-white/80 text-[0.55rem] uppercase tracking-widest block mb-1.5">
         {label}
       </label>
       <div className="relative">
@@ -66,7 +66,7 @@ function CustomSelect({
               : 'border-white/10 hover:border-gold/40 cursor-pointer'
           }`}
         >
-          <span className={selected ? 'text-white' : 'text-white/80'}>
+          <span className={selected ? 'text-white' : 'text-white/90'}>
             {selected?.label || placeholder}
           </span>
           <svg width="10" height="10" viewBox="0 0 12 12" className={`ml-2 flex-shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}>
@@ -117,7 +117,7 @@ export default function ExperienceFinder() {
 
   return (
     <div className="bg-ink/80 backdrop-blur-sm border border-gold/15 px-6 py-5 lg:px-8 lg:py-6">
-      <h3 className="text-white/90 text-xs tracking-[0.2em] uppercase font-semibold text-center mb-5">
+      <h3 className="text-white text-xs tracking-[0.2em] uppercase font-semibold text-center mb-5">
         Quickly Find the Experience for You
       </h3>
 
@@ -143,7 +143,7 @@ export default function ExperienceFinder() {
         />
 
         <div className="sm:w-[120px]">
-          <label className="text-white/60 text-[0.55rem] uppercase tracking-widest block mb-1.5">
+          <label className="text-white/80 text-[0.55rem] uppercase tracking-widest block mb-1.5">
             Guests
           </label>
           <div className="flex items-center border border-white/10 bg-white/5 h-[38px]">

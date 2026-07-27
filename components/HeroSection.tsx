@@ -17,8 +17,8 @@ export default function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1920&q=80"
-          alt="Cape Town Stadium with Table Mountain"
+          src="/hero-bils.jpg"
+          alt="British & Irish Legends lineup at AAMI Park, Melbourne"
           fill
           className="object-cover"
           priority
@@ -61,7 +61,7 @@ export default function HeroSection() {
 
           {/* Subheading */}
           <p
-            className="hero-fade-in text-white/80 text-base sm:text-lg lg:text-xl max-w-xl mt-8 leading-relaxed font-normal"
+            className="hero-fade-in text-white text-base sm:text-lg lg:text-xl max-w-xl mt-8 leading-relaxed font-normal"
             style={{ animationDelay: items[2].delay }}
           >
             Premium hospitality, exclusive access and unforgettable journeys alongside
@@ -81,19 +81,6 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          {/* Trust signals */}
-          <div
-            className="hero-fade-in flex items-center justify-center flex-wrap gap-x-6 gap-y-2 mt-12 text-white/80 text-[0.6rem] sm:text-xs tracking-widest uppercase"
-            style={{ animationDelay: items[4].delay }}
-          >
-            <span>Twickenham</span>
-            <span className="w-1 h-1 rounded-full bg-gold" />
-            <span>Cape Town</span>
-            <span className="w-1 h-1 rounded-full bg-gold" />
-            <span>Dubai</span>
-            <span className="w-1 h-1 rounded-full bg-gold" />
-            <span>St. Moritz</span>
-          </div>
         </div>
       </div>
     </section>
