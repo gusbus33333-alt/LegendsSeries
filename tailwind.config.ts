@@ -17,6 +17,7 @@ const config: Config = {
       },
       fontFamily: {
         poppins: ['var(--font-poppins)', 'sans-serif'],
+        cormorant: ['var(--font-cormorant)', 'serif'],
       },
       letterSpacing: {
         widest: '0.25em',

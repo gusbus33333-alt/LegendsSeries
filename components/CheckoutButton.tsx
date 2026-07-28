@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import PromoCode from './PromoCode'
 
 interface CheckoutButtonProps {
   slug: string
@@ -14,6 +15,7 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
   const [guests, setGuests] = useState(initialGuests)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [promoCode, setPromoCode] = useState('')
 
   const handleCheckout = async () => {
     setLoading(true)
@@ -23,7 +25,7 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, guests }),
+        body: JSON.stringify({ slug, guests, promoCode: promoCode || undefined }),
       })
 
       const data = await res.json()
@@ -52,7 +54,7 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
           <button
             type="button"
             onClick={() => setGuests((g) => Math.max(1, g - 1))}
-            className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-colors flex items-center justify-center text-sm"
+            className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm"
             disabled={guests <= 1}
           >
             −
@@ -61,13 +63,20 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
           <button
             type="button"
             onClick={() => setGuests((g) => Math.min(10, g + 1))}
-            className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-colors flex items-center justify-center text-sm"
+            className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm"
             disabled={guests >= 30}
           >
             +
           </button>
         </div>
       </div>
+
+      {/* Promo code */}
+      <PromoCode
+        onApply={setPromoCode}
+        appliedCode={promoCode}
+        onRemove={() => setPromoCode('')}
+      />
 
       {/* Book now button */}
       <button
@@ -79,7 +88,7 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
       </button>
 
       <p className="text-white/20 text-[0.55rem] text-center leading-relaxed">
-        You&apos;ll be redirected to Stripe for secure payment. Promo codes can be applied at checkout.
+        You&apos;ll be redirected to Stripe for secure payment.
       </p>
 
       {error && (

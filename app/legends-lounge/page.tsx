@@ -140,7 +140,7 @@ export default function LegendsLoungePage() {
           />
         </div>
 
-        <div className="relative z-10 text-center px-6 pt-52 pb-24 max-w-5xl mx-auto">
+        <div className="relative z-10 text-center px-6 pt-52 pb-10 max-w-5xl mx-auto">
           <p className="text-[11px] font-bold tracking-[0.5em] uppercase mb-8" style={{ color: '#e8c878' }}>
             Twickenham &middot; November 2026
           </p>
@@ -183,25 +183,22 @@ export default function LegendsLoungePage() {
               Enquire Now
             </Link>
           </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 mt-10">
+            {[
+              { icon: '·', text: '20 metres from the stadium' },
+              { icon: '·', text: 'Unlimited drinks & food included' },
+              { icon: '·', text: 'Rugby legends throughout' },
+              { icon: '·', text: 'Top entertainment' },
+            ].map((f) => (
+              <div key={f.text} className="flex items-center gap-2">
+                <span className="text-gold text-lg font-bold">{f.icon}</span>
+                <span className="text-white/50 text-xs tracking-[0.1em] uppercase">{f.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-
-      {/* Key facts */}
-      <div className="bg-black border-t border-gold/20 py-5">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-          {[
-            { icon: '·', text: '20 metres from the stadium' },
-            { icon: '·', text: 'Unlimited drinks & food included' },
-            { icon: '·', text: 'Rugby legends throughout' },
-            { icon: '·', text: 'Top entertainment' },
-          ].map((f) => (
-            <div key={f.text} className="flex items-center gap-2">
-              <span className="text-gold text-lg font-bold">{f.icon}</span>
-              <span className="text-white/50 text-xs tracking-[0.1em] uppercase">{f.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
 
       <BadgeStrip />

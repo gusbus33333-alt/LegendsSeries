@@ -49,15 +49,15 @@
   }
 
   .btn-gold {
-    @apply inline-flex items-center justify-center px-8 py-3.5 bg-gold hover:bg-gold-dark text-ink font-semibold tracking-widest uppercase text-xs transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-gold hover:bg-gold-dark text-ink font-semibold tracking-widest uppercase text-xs transition-all duration-500 hover:shadow-lg hover:shadow-gold/20;
   }
 
   .btn-outline-gold {
-    @apply inline-flex items-center justify-center px-8 py-3.5 border border-gold text-gold hover:bg-gold hover:text-ink font-semibold tracking-widest uppercase text-xs transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-3.5 border border-gold text-gold hover:bg-gold hover:text-ink font-semibold tracking-widest uppercase text-xs transition-all duration-500;
   }
 
   .btn-outline-white {
-    @apply inline-flex items-center justify-center px-8 py-3.5 border border-white/60 text-white hover:border-gold hover:text-gold font-semibold tracking-widest uppercase text-xs transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-3.5 border border-white/30 text-white/80 hover:border-gold hover:text-gold font-semibold tracking-widest uppercase text-xs transition-all duration-500;
   }
 
   .section-label {
@@ -69,7 +69,11 @@
   }
 
   .card-hover {
-    @apply transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl;
+    @apply transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20;
+  }
+
+  .section-gap {
+    @apply py-24 lg:py-32;
   }
 }
 

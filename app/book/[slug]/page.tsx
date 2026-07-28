@@ -53,7 +53,7 @@ export default function BookEventPage({ params }: PageProps) {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pb-16 pt-36 w-full">
           <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <span className="text-gold text-[0.6rem] tracking-[0.3em] uppercase font-semibold border border-gold/40 bg-ink/60 backdrop-blur-sm px-3 py-1">
+            <span className="text-gold text-[0.6rem] tracking-[0.3em] uppercase font-semibold border border-gold/40 px-3 py-1">
               {event.competition}
             </span>
             {event.isFinals && (
@@ -87,7 +87,7 @@ export default function BookEventPage({ params }: PageProps) {
 
 
       {/* ── Main content ──────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20 bg-parchment">
+      <section className="py-20 lg:py-28 bg-parchment">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
 

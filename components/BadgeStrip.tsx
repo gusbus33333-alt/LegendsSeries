@@ -9,7 +9,7 @@ export default function BadgeStrip() {
   const items = [...codes, ...codes]
 
   return (
-    <div className="py-8 overflow-hidden bg-black">
+    <div className="py-10 overflow-hidden bg-ink">
       <div
         className="flex gap-6"
         style={{

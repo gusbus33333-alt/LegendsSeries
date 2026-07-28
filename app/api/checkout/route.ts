@@ -30,7 +30,17 @@ export async function POST(req: NextRequest) {
           quantity: guestCount,
         },
       ],
-      allow_promotion_codes: true,
+      ...await (async () => {
+        if (promoCode) {
+          try {
+            const codes = await stripe.promotionCodes.list({ code: promoCode, active: true, limit: 1 })
+            if (codes.data.length > 0) {
+              return { discounts: [{ promotion_code: codes.data[0].id }] }
+            }
+          } catch { /* fall through to allow_promotion_codes */ }
+        }
+        return { allow_promotion_codes: true }
+      })(),
       customer_creation: 'always',
       metadata: {
         event_slug: slug,
