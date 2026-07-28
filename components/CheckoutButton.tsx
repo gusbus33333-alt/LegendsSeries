@@ -2,20 +2,32 @@
 
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import PromoCode from './PromoCode'
+import PromoCode, { type PromoDiscount } from './PromoCode'
 
 interface CheckoutButtonProps {
   slug: string
+  price: number
   className?: string
 }
 
-export default function CheckoutButton({ slug, className = '' }: CheckoutButtonProps) {
+export default function CheckoutButton({ slug, price, className = '' }: CheckoutButtonProps) {
   const searchParams = useSearchParams()
   const initialGuests = Math.min(30, Math.max(1, Number(searchParams.get('guests')) || 1))
   const [guests, setGuests] = useState(initialGuests)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [promoCode, setPromoCode] = useState('')
+  const [discount, setDiscount] = useState<PromoDiscount | null>(null)
+
+  const discountedPrice = discount
+    ? discount.percentOff
+      ? price * (1 - discount.percentOff / 100)
+      : discount.amountOff
+        ? Math.max(0, price - discount.amountOff)
+        : price
+    : price
+
+  const total = discountedPrice * guests
+  const hasSaving = discount && discountedPrice < price
 
   const handleCheckout = async () => {
     setLoading(true)
@@ -25,7 +37,7 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, guests, promoCode: promoCode || undefined }),
+        body: JSON.stringify({ slug, guests, promoCode: discount?.code || undefined }),
       })
 
       const data = await res.json()
@@ -73,10 +85,33 @@ export default function CheckoutButton({ slug, className = '' }: CheckoutButtonP
 
       {/* Promo code */}
       <PromoCode
-        onApply={setPromoCode}
-        appliedCode={promoCode}
-        onRemove={() => setPromoCode('')}
+        onApply={setDiscount}
+        appliedCode={discount?.code || ''}
+        onRemove={() => setDiscount(null)}
       />
+
+      {/* Price summary when discount applied */}
+      {hasSaving && (
+        <div className="border border-gold/20 bg-gold/5 px-3 py-2.5 flex flex-col gap-1">
+          <div className="flex justify-between text-white/40 text-[0.6rem]">
+            <span>Original ({guests} {guests === 1 ? 'guest' : 'guests'})</span>
+            <span className="line-through">£{(price * guests).toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-[0.6rem]">
+            <span className="text-gold">
+              Discount{discount.percentOff ? ` (${discount.percentOff}% off)` : ''}
+            </span>
+            <span className="text-gold">
+              −£{((price - discountedPrice) * guests).toFixed(2)}
+            </span>
+          </div>
+          <div className="h-px bg-white/10 my-1" />
+          <div className="flex justify-between">
+            <span className="text-white text-xs font-semibold">Total</span>
+            <span className="text-gold text-sm font-bold">£{total.toFixed(2)}</span>
+          </div>
+        </div>
+      )}
 
       {/* Book now button */}
       <button

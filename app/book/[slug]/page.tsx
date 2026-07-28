@@ -250,7 +250,7 @@ export default function BookEventPage({ params }: PageProps) {
 
                     {/* CTA */}
                     <div className="p-7 flex flex-col gap-3">
-                      <CheckoutButton slug={event.slug} />
+                      <CheckoutButton slug={event.slug} price={event.price} />
                       <Link
                         href="/contact"
                         className="text-center text-white/30 hover:text-gold text-xs tracking-[0.15em] uppercase transition-colors py-1"
