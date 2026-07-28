@@ -179,8 +179,8 @@ export const loungeEvents: LoungeEvent[] = [
     priceLabel: '£208.33+ (£250 inc VAT)',
     priceExVat: '£208.33 ex VAT',
     bookingUrl: '#', // TODO: Replace with your Squarespace product URL
-    heroPhoto: '/lounge-photos/LLL-027.jpg',
-    cardPhoto: '/lounge-photos/LLL-256.jpg',
+    heroPhoto: '/lounge-photos/LLL-238.jpg',
+    cardPhoto: '/lounge-photos/LLL-158.jpg',
     blurb:
       'The Wallabies at Twickenham — a fixture steeped in history and guaranteed to deliver. Australia always travel with a passionate following, and the home crowd will be in full voice. Three hours of legends, live music and unlimited drinks before kick-off. Be in your seat for 14:00.',
   },
@@ -198,8 +198,8 @@ export const loungeEvents: LoungeEvent[] = [
     priceLabel: '£165+ (£198 inc VAT)',
     priceExVat: '£165 ex VAT',
     bookingUrl: '#', // TODO: Replace with your Squarespace product URL
-    heroPhoto: '/lounge-photos/LLL-058.jpg',
-    cardPhoto: '/lounge-photos/LLL-004.jpg',
+    heroPhoto: '/lounge-photos/LLL-004.jpg',
+    cardPhoto: '/lounge-photos/LLL-256.jpg',
     blurb:
       "Japan's Brave Blossoms have evolved into one of rugby's most exciting sides. They travel in numbers, they play attacking rugby, and they never know when they're beaten. An evening kick-off at Twickenham — one of the great atmospheres in world sport. Doors open at 13:30 for a full build-up to a 16:40 KO.",
   },
@@ -217,7 +217,7 @@ export const loungeEvents: LoungeEvent[] = [
     priceLabel: '£208.33+ (£250 inc VAT)',
     priceExVat: '£208.33 ex VAT',
     bookingUrl: '#', // TODO: Replace with your Squarespace product URL
-    heroPhoto: '/lounge-photos/LLL-148.jpg',
+    heroPhoto: '/lounge-photos/LLL-195.jpg',
     cardPhoto: '/lounge-photos/LLL-095.jpg',
     blurb:
       "The biggest fixture in world rugby. The All Blacks at Twickenham — the haka, the atmosphere, the history. This is the game every rugby fan needs to experience once. Be in the Lounge from noon and let us look after the build-up properly.",
@@ -257,7 +257,7 @@ export const loungeEvents: LoungeEvent[] = [
     priceLabel: '£250+ (£300 inc VAT)',
     priceExVat: '£250 ex VAT',
     bookingUrl: '#', // TODO: Replace with your Squarespace product URL
-    heroPhoto: '/lounge-photos/LLL-297.jpg',
+    heroPhoto: '/lounge-photos/LLL-416.jpg',
     cardPhoto: '/lounge-photos/LLL-371.jpg',
     blurb:
       "The semi-finals of the Nations Cup — four teams, two games, one incredible day at Twickenham. The Legends Lounge runs from morning to night: full day hospitality, all matches on screen, legends throughout.",

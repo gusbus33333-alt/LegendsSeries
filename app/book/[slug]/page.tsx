@@ -49,11 +49,11 @@ export default function BookEventPage({ params }: PageProps) {
             priority
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/50 to-ink" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/70 to-ink" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pb-16 pt-36 w-full">
           <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <span className="text-gold text-[0.6rem] tracking-[0.3em] uppercase font-semibold border border-gold/40 px-3 py-1">
+            <span className="text-gold text-[0.6rem] tracking-[0.3em] uppercase font-semibold border border-gold/40 bg-ink/60 backdrop-blur-sm px-3 py-1">
               {event.competition}
             </span>
             {event.isFinals && (
@@ -62,10 +62,10 @@ export default function BookEventPage({ params }: PageProps) {
               </span>
             )}
           </div>
-          <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight max-w-3xl">
+          <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-lg">
             {event.match}
           </h1>
-          <p className="text-white/50 text-base mt-3">
+          <p className="text-white/70 text-base mt-3">
             {event.date}
             {event.ko !== 'TBC' ? ` · Kickoff ${event.ko}` : ''}
           </p>
