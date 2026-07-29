@@ -113,9 +113,9 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
       },
       {
         time: ko2End,
-        label: "Bar Reopens — Butcher's Pie Served",
+        label: "Full Time",
         description:
-          'All-inclusive bar back on the moment the final whistle goes. Hot butcher\'s pie served. Soak it all in.',
+          'Welcome-back drink, all-inclusive bar resumes, post-match entertainment, legends on the mic and hot butcher\'s pie served.',
       },
       {
         time: event.lastOrders,
@@ -143,7 +143,7 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
       time: event.openTime,
       label: 'Marquee Opens',
       description:
-        `Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving. Get in early for the best table.${tvLine}`,
+        `Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving.${tvLine}`,
     },
     {
       time: `${event.openTime} – KO`,
@@ -161,13 +161,13 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
       time: 'During\nMatch',
       label: 'In the Stadium or Legends Lounge',
       description:
-        "Whether you're in your seat or watching in the marquee, the atmosphere is electric. The all-inclusive bar reopens the moment the final whistle goes.",
+        "Whether you're in your seat or watching in the marquee, the atmosphere is electric.",
     },
     {
       time: koEnd,
-      label: "Full Time — All-Inclusive Drinks Back On",
+      label: "Full Time",
       description:
-        'All-inclusive bar back on immediately. Post-match entertainment, legends on the mic and hot butcher\'s pie served. The best part of the day.',
+        'Welcome-back drink, all-inclusive bar resumes, post-match entertainment, legends on the mic and hot butcher\'s pie served.',
     },
     {
       time: event.lastOrders,
