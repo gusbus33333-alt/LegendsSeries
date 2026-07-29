@@ -6,7 +6,7 @@ import { getEventBySlug } from '@/lib/lounge-events'
 import { generateQRDataURL, generateTicketPNG } from '@/lib/qr'
 import { buildConfirmationEmail } from '@/lib/booking-email'
 import { createClient } from '@supabase/supabase-js'
-import crypto from 'crypto'
+import * as crypto from 'crypto'
 
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
