@@ -18,21 +18,14 @@ export async function POST(req: NextRequest) {
   const body = await req.text()
   const sig = req.headers.get('stripe-signature')
 
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
-  console.log('Webhook secret check:', {
-    exists: !!webhookSecret,
-    length: webhookSecret?.length,
-    prefix: webhookSecret?.substring(0, 10),
-  })
-
-  if (!sig || !webhookSecret) {
+  if (!sig || !process.env.STRIPE_WEBHOOK_SECRET) {
     return NextResponse.json({ error: 'Missing signature or webhook secret' }, { status: 400 })
   }
 
   let stripeEvent: Stripe.Event
 
   try {
-    stripeEvent = stripe.webhooks.constructEvent(body, sig, webhookSecret!)
+    stripeEvent = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET)
   } catch (err) {
     console.error('Webhook signature verification failed:', err)
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
