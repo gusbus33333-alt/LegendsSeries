@@ -17,7 +17,7 @@ export interface LoungeEvent {
   openTime: string        // marquee opens
   lastOrders: string      // last orders time
   doorsClose: string      // marquee closes time
-  tvGames?: string[]      // other fixtures shown on screens e.g. "Wales vs New Zealand — 14:10"
+  tvGames?: { match: string; time: string; when: 'before' | 'after' }[]
   price: number           // inc. VAT
   priceLabel: string      // "£250 inc VAT"
   priceExVat: string      // "£208 ex VAT"
@@ -134,16 +134,15 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
   const ko = event.ko !== 'TBC' ? event.ko : '15:00'
   const koEnd = addMinutes(ko, 120)
 
-  const tvLine = event.tvGames?.length
-    ? ` ${event.tvGames.join(' and ')} on the big screens before kick-off.`
-    : ''
+  const tvBefore = (event.tvGames ?? []).filter((g) => g.when === 'before')
+  const tvAfter = (event.tvGames ?? []).filter((g) => g.when === 'after')
 
-  return [
+  const entries: TimelineEntry[] = [
     {
       time: event.openTime,
       label: 'Marquee Opens',
       description:
-        `Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving.${tvLine}`,
+        'Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving.',
     },
     {
       time: `${event.openTime} – KO`,
@@ -151,6 +150,12 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
       description:
         'Rugby legends entertain throughout with Q&As and stories. Live music keeps the atmosphere going. No queues, no overcrowded bars.',
     },
+    ...tvBefore.map((g) => ({
+      time: g.time,
+      label: `${g.match} — Live on Screens`,
+      description:
+        `${g.match} kicks off on the big screens in the Legends Lounge. All-inclusive bar flowing, hog roast serving.`,
+    })),
     {
       time: ko,
       label: `${event.match} Kicks Off`,
@@ -169,6 +174,12 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
       description:
         'Welcome-back drink, all-inclusive bar resumes, post-match entertainment, legends on the mic and hot butcher\'s pie served.',
     },
+    ...tvAfter.map((g) => ({
+      time: g.time,
+      label: `${g.match} — Live on Screens`,
+      description:
+        `${g.match} on the big screens. All-inclusive bar still flowing.`,
+    })),
     {
       time: event.lastOrders,
       label: 'Last Orders',
@@ -182,6 +193,8 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
         `Doors close at ${event.doorsClose}. Exact times confirmed on booking.`,
     },
   ]
+
+  return entries
 }
 
 // ─── Event data ───────────────────────────────────────────────────────────────
@@ -219,7 +232,10 @@ export const loungeEvents: LoungeEvent[] = [
     openTime: '13:30',
     lastOrders: '20:40',
     doorsClose: '21:00',
-    tvGames: ['Wales vs New Zealand — 14:10'],
+    tvGames: [
+      { match: 'Wales vs New Zealand', time: '14:10', when: 'before' },
+      { match: 'Ireland vs Fiji', time: '20:10', when: 'after' },
+    ],
     price: 198,
     priceLabel: '£165+ (£198 inc VAT)',
     priceExVat: '£165 ex VAT',
@@ -241,7 +257,9 @@ export const loungeEvents: LoungeEvent[] = [
     openTime: '11:30',
     lastOrders: '18:40',
     doorsClose: '19:00',
-    tvGames: ['Ireland vs South Africa — 16:40'],
+    tvGames: [
+      { match: 'Ireland vs South Africa', time: '16:40', when: 'after' },
+    ],
     price: 250,
     priceLabel: '£208.33+ (£250 inc VAT)',
     priceExVat: '£208.33 ex VAT',
