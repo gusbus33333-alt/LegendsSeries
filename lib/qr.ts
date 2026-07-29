@@ -1,5 +1,6 @@
 import QRCode from 'qrcode'
 import sharp from 'sharp'
+import satori from 'satori'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -32,91 +33,110 @@ interface TicketData {
   customerName: string
 }
 
-let fontRegularB64: string | null = null
-let fontBoldB64: string | null = null
+let interRegular: ArrayBuffer | null = null
+let interBold: ArrayBuffer | null = null
 
 function loadFonts() {
-  if (fontRegularB64) return
+  if (interRegular) return
   const dir = join(process.cwd(), 'lib', 'fonts')
-  fontRegularB64 = readFileSync(join(dir, 'Inter-Regular.ttf')).toString('base64')
-  fontBoldB64 = readFileSync(join(dir, 'Inter-Bold.ttf')).toString('base64')
+  const regBuf = readFileSync(join(dir, 'Inter-Regular.ttf'))
+  const boldBuf = readFileSync(join(dir, 'Inter-Bold.ttf'))
+  interRegular = regBuf.buffer.slice(regBuf.byteOffset, regBuf.byteOffset + regBuf.byteLength)
+  interBold = boldBuf.buffer.slice(boldBuf.byteOffset, boldBuf.byteOffset + boldBuf.byteLength)
 }
 
 export async function generateTicketPNG(data: TicketData): Promise<Buffer> {
   loadFonts()
 
   const qrSize = 280
-  const qrBuffer = await QRCode.toBuffer(data.scanUrl, {
+  const qrPng = await QRCode.toBuffer(data.scanUrl, {
     width: qrSize,
     margin: 2,
     color: { dark: '#0a0a0b', light: '#ffffff' },
     type: 'png',
   })
+  const qrB64 = `data:image/png;base64,${qrPng.toString('base64')}`
 
   const width = 600
   const height = 820
   const gold = '#b8953f'
-  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-  const svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <style>
-      @font-face {
-        font-family: 'Inter';
-        font-weight: 400;
-        src: url('data:font/truetype;base64,${fontRegularB64}');
-      }
-      @font-face {
-        font-family: 'Inter';
-        font-weight: 700;
-        src: url('data:font/truetype;base64,${fontBoldB64}');
-      }
-    </style>
-  </defs>
-  <rect width="${width}" height="${height}" rx="16" fill="#0a0a0b"/>
-  <rect x="0" y="0" width="${width}" height="4" fill="${gold}"/>
+  const markup = {
+    type: 'div' as const,
+    props: {
+      style: {
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#0a0a0b',
+        borderRadius: '16px',
+        fontFamily: 'Inter',
+        position: 'relative' as const,
+      },
+      children: [
+        // Gold top bar
+        { type: 'div', props: { style: { position: 'absolute', top: 0, left: 0, right: 0, height: '4px', backgroundColor: gold } } },
+        // Header
+        { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '32px' }, children: [
+          { type: 'div', props: { style: { color: gold, fontSize: '11px', fontWeight: 700, letterSpacing: '4px' }, children: 'LEGENDS SERIES' } },
+          { type: 'div', props: { style: { color: '#999999', fontSize: '9px', letterSpacing: '3px', marginTop: '8px' }, children: 'LEGENDS LOUNGE · TWICKENHAM' } },
+        ] } },
+        // Divider
+        { type: 'div', props: { style: { width: '520px', height: '1px', backgroundColor: '#b8953f33', marginTop: '14px' } } },
+        // Guest label
+        { type: 'div', props: { style: { color: gold, fontSize: '12px', fontWeight: 700, letterSpacing: '3px', marginTop: '16px' }, children: `GUEST ${data.guestNumber} OF ${data.totalGuests}` } },
+        // Customer name
+        { type: 'div', props: { style: { color: '#ffffff', fontSize: '18px', fontWeight: 700, marginTop: '10px' }, children: data.customerName } },
+        // Event name
+        { type: 'div', props: { style: { color: '#ffffff', fontSize: '22px', fontWeight: 700, marginTop: '14px' }, children: data.eventName } },
+        // Details row
+        { type: 'div', props: { style: { display: 'flex', justifyContent: 'space-around', width: '100%', marginTop: '18px', paddingLeft: '40px', paddingRight: '40px' }, children: [
+          { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center' }, children: [
+            { type: 'div', props: { style: { color: '#999999', fontSize: '10px', letterSpacing: '2px' }, children: 'DATE' } },
+            { type: 'div', props: { style: { color: '#ffffff', fontSize: '14px', fontWeight: 700, marginTop: '4px' }, children: data.eventDate } },
+          ] } },
+          { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center' }, children: [
+            { type: 'div', props: { style: { color: '#999999', fontSize: '10px', letterSpacing: '2px' }, children: 'KICK-OFF' } },
+            { type: 'div', props: { style: { color: '#ffffff', fontSize: '14px', fontWeight: 700, marginTop: '4px' }, children: data.koTime } },
+          ] } },
+          { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center' }, children: [
+            { type: 'div', props: { style: { color: '#999999', fontSize: '10px', letterSpacing: '2px' }, children: 'DOORS OPEN' } },
+            { type: 'div', props: { style: { color: '#ffffff', fontSize: '14px', fontWeight: 700, marginTop: '4px' }, children: data.openTime } },
+          ] } },
+        ] } },
+        // Divider
+        { type: 'div', props: { style: { width: '520px', height: '1px', backgroundColor: '#b8953f33', marginTop: '14px' } } },
+        // QR code with white background
+        { type: 'div', props: { style: { display: 'flex', justifyContent: 'center', alignItems: 'center', width: `${qrSize + 30}px`, height: `${qrSize + 30}px`, backgroundColor: '#ffffff', borderRadius: '12px', marginTop: '14px' }, children: [
+          { type: 'img', props: { src: qrB64, width: qrSize, height: qrSize } },
+        ] } },
+        // Booking ref
+        { type: 'div', props: { style: { color: '#ffffff', fontSize: '18px', fontWeight: 700, letterSpacing: '1px', marginTop: '16px' }, children: data.bookingRef } },
+        // Scan instruction
+        { type: 'div', props: { style: { color: '#999999', fontSize: '12px', marginTop: '10px' }, children: 'Scan at entrance · Single use' } },
+        // Divider
+        { type: 'div', props: { style: { width: '520px', height: '1px', backgroundColor: '#b8953f33', marginTop: '16px' } } },
+        // Venue
+        { type: 'div', props: { style: { color: '#999999', fontSize: '11px', marginTop: '14px' }, children: 'Access Self Storage, 30 Rugby Road, Twickenham, TW1 1DG' } },
+        { type: 'div', props: { style: { color: '#999999', fontSize: '11px', marginTop: '4px' }, children: 'Opposite Gate F · What3Words: really.placed.likely' } },
+        // Footer
+        { type: 'div', props: { style: { position: 'absolute', bottom: 0, left: 0, right: 0, height: '35px', backgroundColor: '#050505', display: 'flex', justifyContent: 'center', alignItems: 'center' }, children: [
+          { type: 'div', props: { style: { color: '#666666', fontSize: '9px' }, children: '© 2026 Legends Series Ltd · Play & Party Alongside Your Heroes' } },
+        ] } },
+      ],
+    },
+  }
 
-  <text x="${width / 2}" y="50" text-anchor="middle" fill="${gold}" font-family="Inter" font-size="11" letter-spacing="4" font-weight="700">LEGENDS SERIES</text>
-  <text x="${width / 2}" y="72" text-anchor="middle" fill="#999999" font-family="Inter" font-size="9" letter-spacing="3">LEGENDS LOUNGE · TWICKENHAM</text>
+  const svg = await satori(markup as any, {
+    width,
+    height,
+    fonts: [
+      { name: 'Inter', data: interRegular!, weight: 400, style: 'normal' as const },
+      { name: 'Inter', data: interBold!, weight: 700, style: 'normal' as const },
+    ],
+  })
 
-  <line x1="40" y1="90" x2="${width - 40}" y2="90" stroke="${gold}33" stroke-width="1"/>
-
-  <text x="${width / 2}" y="120" text-anchor="middle" fill="${gold}" font-family="Inter" font-size="12" letter-spacing="3" font-weight="700">GUEST ${data.guestNumber} OF ${data.totalGuests}</text>
-  <text x="${width / 2}" y="148" text-anchor="middle" fill="#ffffff" font-family="Inter" font-size="18" font-weight="700">${esc(data.customerName)}</text>
-  <text x="${width / 2}" y="185" text-anchor="middle" fill="#ffffff" font-family="Inter" font-size="22" font-weight="700">${esc(data.eventName)}</text>
-
-  <text x="100" y="225" text-anchor="middle" fill="#999999" font-family="Inter" font-size="10" letter-spacing="2">DATE</text>
-  <text x="100" y="245" text-anchor="middle" fill="#ffffff" font-family="Inter" font-size="14" font-weight="700">${esc(data.eventDate)}</text>
-
-  <text x="300" y="225" text-anchor="middle" fill="#999999" font-family="Inter" font-size="10" letter-spacing="2">KICK-OFF</text>
-  <text x="300" y="245" text-anchor="middle" fill="#ffffff" font-family="Inter" font-size="14" font-weight="700">${data.koTime}</text>
-
-  <text x="500" y="225" text-anchor="middle" fill="#999999" font-family="Inter" font-size="10" letter-spacing="2">DOORS OPEN</text>
-  <text x="500" y="245" text-anchor="middle" fill="#ffffff" font-family="Inter" font-size="14" font-weight="700">${data.openTime}</text>
-
-  <line x1="40" y1="270" x2="${width - 40}" y2="270" stroke="${gold}33" stroke-width="1"/>
-  <rect x="${(width - qrSize - 30) / 2}" y="285" width="${qrSize + 30}" height="${qrSize + 30}" rx="12" fill="#ffffff"/>
-
-  <text x="${width / 2}" y="${285 + qrSize + 60}" text-anchor="middle" fill="#ffffff" font-family="Inter" font-size="18" font-weight="700" letter-spacing="1">${data.bookingRef}</text>
-  <text x="${width / 2}" y="${285 + qrSize + 88}" text-anchor="middle" fill="#999999" font-family="Inter" font-size="12">Scan at entrance · Single use</text>
-
-  <line x1="40" y1="${285 + qrSize + 108}" x2="${width - 40}" y2="${285 + qrSize + 108}" stroke="${gold}33" stroke-width="1"/>
-
-  <text x="${width / 2}" y="${285 + qrSize + 138}" text-anchor="middle" fill="#999999" font-family="Inter" font-size="11">Access Self Storage, 30 Rugby Road, Twickenham, TW1 1DG</text>
-  <text x="${width / 2}" y="${285 + qrSize + 158}" text-anchor="middle" fill="#999999" font-family="Inter" font-size="11">Opposite Gate F · What3Words: really.placed.likely</text>
-
-  <rect x="0" y="${height - 35}" width="${width}" height="35" fill="#050505" rx="0"/>
-  <text x="${width / 2}" y="${height - 13}" text-anchor="middle" fill="#666666" font-family="Inter" font-size="9">© 2026 Legends Series Ltd · Play &amp; Party Alongside Your Heroes</text>
-</svg>`
-
-  const bgImage = await sharp(Buffer.from(svg)).png().toBuffer()
-
-  return sharp(bgImage)
-    .composite([{
-      input: qrBuffer,
-      left: Math.round((width - qrSize) / 2),
-      top: 300,
-    }])
-    .png()
-    .toBuffer()
+  return sharp(Buffer.from(svg)).png().toBuffer()
 }
