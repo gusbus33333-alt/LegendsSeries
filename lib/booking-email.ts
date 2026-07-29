@@ -36,10 +36,10 @@ function buildEventIntro(event: LoungeEvent, guests: number): string {
     : ''
 
   if (event.isFinals) {
-    return `Thank you for booking the Legends Lounge${guestBit} for the <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have an incredible day — the best speakers, fantastic entertainment, a hog roast with all the bits, a hot butcher's pie when you come back in and unlimited drinks all day. Veggie options available for both pre and post-match.`
+    return `Thank you for booking the Legends Lounge${guestBit} for the <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have an incredible day — the best speakers, fantastic entertainment, a hog roast with all the bits, a hot butcher's pie after the game and unlimited drinks all day. Veggie options available for both pre and post-match.`
   }
 
-  return `Thank you for booking the Legends Lounge${guestBit} for <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have a cracking day — the best speakers, some fabulous entertainment (pre &amp; post-match), a hog roast with all the trimmings, a hot butcher's pie when you come back in and unlimited drinks for the full session. No probs, there are veggie options for both pre and post-match.`
+  return `Thank you for booking the Legends Lounge${guestBit} for <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have a cracking day — the best speakers, some fabulous entertainment (pre &amp; post-match), a hog roast with all the trimmings, a hot butcher's pie after the game and unlimited drinks for the full session. No probs, there are veggie options for both pre and post-match.`
 }
 
 function buildEventDetails(event: LoungeEvent): string {
@@ -54,7 +54,7 @@ function buildEventDetails(event: LoungeEvent): string {
     : `Kick-off is at ${event.ko}.`
 
   return `<p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 20px;">
-    The marquee opens at ${event.openTime} so come early and make the most of it. ${koText} We reopen the all-inclusive bar the moment the final whistle goes.
+    The marquee opens at ${event.openTime} so come early and make the most of it. ${koText} The bar is open throughout the match and the moment the final whistle goes, it becomes all-inclusive again. Last orders are at ${event.lastOrders} and the marquee closes at ${event.doorsClose}.
   </p>`
 }
 
@@ -67,10 +67,10 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
     .map(
       (entry) => `
       <tr>
-        <td style="padding:8px 12px;font-weight:bold;color:#b8953f;white-space:nowrap;vertical-align:top;font-size:14px;">${entry.time}</td>
-        <td style="padding:8px 12px;vertical-align:top;">
-          <strong style="color:#ffffff;font-size:14px;">${entry.label}</strong><br/>
-          <span style="color:#999999;font-size:13px;">${entry.description}</span>
+        <td style="padding:10px 0;border-bottom:1px solid #ffffff10;">
+          <p style="color:#b8953f;font-weight:bold;font-size:14px;margin:0 0 4px;">${entry.time}</p>
+          <p style="color:#ffffff;font-size:14px;font-weight:bold;margin:0 0 4px;">${entry.label}</p>
+          <p style="color:#999999;font-size:13px;line-height:1.5;margin:0;">${entry.description}</p>
         </td>
       </tr>`
     )
@@ -116,18 +116,17 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
               ${buildEventDetails(event)}
 
               <p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 30px;">
-                Please check and share our socials on <strong style="color:#ffffff;">Facebook</strong> and <strong style="color:#ffffff;">Instagram</strong> — we'll be posting speaker announcements and event updates in the build-up.
+                Please check and share our socials on <a href="https://www.facebook.com/BritishAndIrishLegends" style="color:#b8953f;font-weight:bold;text-decoration:none;">Facebook</a> and <a href="https://www.instagram.com/legends.series" style="color:#b8953f;font-weight:bold;text-decoration:none;">Instagram</a> — we'll be posting speaker announcements and event updates in the build-up.
               </p>
 
-              <!-- QR Code -->
+              <!-- QR ticket note -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;">
                 <tr>
                   <td align="center" style="background-color:#141414;border:1px solid #b8953f33;padding:25px;">
-                    <p style="color:#b8953f;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 15px;">Your Entry QR Code</p>
-                    <img src="${qrDataURL}" width="200" height="200" alt="QR Code" style="display:block;margin:0 auto;"/>
-                    <p style="color:#ffffff;font-size:18px;font-weight:bold;margin:15px 0 5px;letter-spacing:1px;">${bookingRef}</p>
-                    <p style="color:#999999;font-size:12px;margin:0;">Show this at the entrance · ${guestLabel}</p>
-                    <p style="color:#999999;font-size:11px;margin:8px 0 0;">This QR code is single-use and will be marked as used on entry.</p>
+                    <p style="color:#b8953f;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 12px;">Your Entry Passes</p>
+                    <p style="color:#ffffff;font-size:15px;font-weight:bold;margin:0 0 8px;">${guests === 1 ? '1 QR ticket attached' : `${guests} QR tickets attached`}</p>
+                    <p style="color:#999999;font-size:13px;line-height:1.5;margin:0;">Your QR ${guests === 1 ? 'pass is' : 'passes are'} attached to this email as ${guests === 1 ? 'an image' : 'images'}. Each one is unique and single-use — ${guests > 1 ? 'forward the relevant attachment to each guest so everyone can enter separately.' : 'show it at the entrance on the day.'}</p>
+                    <p style="color:#ffffff;font-size:13px;margin:12px 0 0;">Booking Ref: <strong>${bookingRef}</strong></p>
                   </td>
                 </tr>
               </table>

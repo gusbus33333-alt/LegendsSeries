@@ -145,7 +145,7 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
         'Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving.',
     },
     {
-      time: `${event.openTime} – KO`,
+      time: `${event.openTime} – ${ko}`,
       label: 'Legends, Live Music & Great Food',
       description:
         'Rugby legends entertain throughout with Q&As and stories. Live music keeps the atmosphere going. No queues, no overcrowded bars.',

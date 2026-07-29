@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { resend } from '@/lib/email'
 import { getEventBySlug } from '@/lib/lounge-events'
-import { generateQRDataURL } from '@/lib/qr'
+import { generateQRDataURL, generateTicketPNG } from '@/lib/qr'
 import { buildConfirmationEmail } from '@/lib/booking-email'
 import { createClient } from '@supabase/supabase-js'
 
@@ -50,32 +50,53 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true })
     }
 
-    const bookingRef = `LS-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`
-
     const totalPaid = session.amount_total
       ? `£${(session.amount_total / 100).toFixed(2)}`
       : event.priceLabel
 
     try {
-      // Save booking to Supabase for scan verification
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://legends-series.com'
       const supabase = getSupabase()
-      if (supabase) {
-        await supabase.from('bookings').insert({
-          booking_ref: bookingRef,
-          event_slug: slug,
-          event_name: event.match,
-          customer_name: customerName,
-          customer_email: customerEmail,
-          guests,
-          total_paid: totalPaid,
-          scanned_at: null,
+
+      const guestBookingRefs: string[] = []
+      const attachments: { filename: string; content: Buffer }[] = []
+
+      for (let i = 0; i < guests; i++) {
+        const ref = `LS-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`
+        guestBookingRefs.push(ref)
+
+        const scanUrl = `${siteUrl}/api/scan/${ref}`
+        attachments.push({
+          filename: `Legends-Lounge-Guest-${i + 1}-${ref}.png`,
+          content: await generateTicketPNG({
+            scanUrl,
+            bookingRef: ref,
+            eventName: event.match,
+            eventDate: event.shortDate,
+            koTime: event.ko,
+            openTime: event.openTime,
+            guestNumber: i + 1,
+            totalGuests: guests,
+            customerName: customerName,
+          }),
         })
+
+        if (supabase) {
+          await supabase.from('bookings').insert({
+            booking_ref: ref,
+            event_slug: slug,
+            event_name: event.match,
+            customer_name: customerName,
+            customer_email: customerEmail,
+            guest_number: i + 1,
+            guests,
+            total_paid: totalPaid,
+            scanned_at: null,
+          })
+        }
       }
 
-      // QR encodes a URL to the scan verification endpoint
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://legends-series.com'
-      const scanUrl = `${siteUrl}/api/scan/${bookingRef}`
-      const qrDataURL = await generateQRDataURL(scanUrl)
+      const bookingRef = guestBookingRefs[0]
 
       const html = buildConfirmationEmail({
         customerName,
@@ -83,18 +104,23 @@ export async function POST(req: NextRequest) {
         event,
         guests,
         bookingRef,
-        qrDataURL,
+        qrDataURL: '',
         totalPaid,
       })
 
       if (resend) {
         await resend.emails.send({
-          from: 'Legends Series <info@legends-series.com>',
+          from: 'Legends Series <noreply@contact.legends-series.com>',
+          replyTo: 'info@legends-series.com',
           to: customerEmail,
           subject: `Booking Confirmed — ${event.match} | ${event.shortDate}`,
           html,
+          attachments: attachments.map((a) => ({
+            filename: a.filename,
+            content: a.content,
+          })),
         })
-        console.log(`Confirmation email sent to ${customerEmail} for ${event.match}`)
+        console.log(`Confirmation email sent to ${customerEmail} for ${event.match} (${guests} QR codes)`)
       } else {
         console.warn('Resend not configured — skipping email send')
       }

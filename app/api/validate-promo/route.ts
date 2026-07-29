@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ valid: false, error: 'Invalid promo code' })
     }
 
-    const promo = codes.data[0]
+    const promo = codes.data[0] as any
     const coupon = promo.coupon
 
     return NextResponse.json({
