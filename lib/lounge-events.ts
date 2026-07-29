@@ -152,22 +152,22 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
         'Rugby legends entertain throughout with Q&As and stories. Live music keeps the atmosphere going. No queues, no overcrowded bars.',
     },
     {
-      time: `${ko}\n(Anthems)`,
-      label: 'Bar Closes — Head to Your Seat',
+      time: ko,
+      label: `${event.match} Kicks Off`,
       description:
-        'The all-inclusive bar closes at the anthems. Head in with your match ticket. The marquee stays open on reduced service (drinks £5 each) for anyone staying.',
+        'Head to your seat with your match ticket — or stay and watch on the big screens in the Legends Lounge. Drinks available at £6 each during the match.',
     },
     {
       time: 'During\nMatch',
-      label: 'In the Stadium',
+      label: 'In the Stadium or Legends Lounge',
       description:
-        "You're in your seat. The marquee is waiting — we reopen the bar the moment the final whistle goes.",
+        "Whether you're in your seat or watching in the marquee, the atmosphere is electric. The all-inclusive bar reopens the moment the final whistle goes.",
     },
     {
       time: koEnd,
-      label: "Bar Reopens — Butcher's Pie Served",
+      label: "Full Time — All-Inclusive Drinks Back On",
       description:
-        'All-inclusive bar back on immediately at full time. Hot butcher\'s pie served. Post-match analysis and other internationals on all screens.',
+        'All-inclusive bar back on immediately. Post-match entertainment, legends on the mic and hot butcher\'s pie served. The best part of the day.',
     },
     {
       time: event.lastOrders,

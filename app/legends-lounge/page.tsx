@@ -24,7 +24,7 @@ const included = [
 
 const notIncluded = [
   { item: 'Match ticket', note: 'Not included and we are unable to source them — obtain yours through official channels (RFU / Twickenham) before booking.' },
-  { item: 'Drinks during the match', note: 'The all-inclusive bar closes at the anthems while you\'re in the stadium. Drinks available at £5 each during the match for anyone remaining in the marquee.' },
+  { item: 'Drinks during the match', note: 'The all-inclusive bar pauses during the match. Drinks available at £6 each for anyone watching in the marquee. All-inclusive service resumes at full time.' },
 ]
 
 // Timeline based on a standard afternoon kickoff
@@ -40,9 +40,9 @@ const timeline = [
     description: 'Rugby legends entertain throughout the afternoon with Q&As, stories and good company. Live music keeps the atmosphere going. No queues, no overcrowded bars, no rushing.',
   },
   {
-    time: 'Anthems',
-    label: 'Bar Closes — Into the Stadium',
-    description: 'The all-inclusive bar closes at the anthems. Head into the stadium and enjoy the match with your ticket. The marquee stays open on reduced service (drinks at £5 each) for anyone who stays.',
+    time: 'Kickoff',
+    label: 'Head to Your Seat or Watch in the Lounge',
+    description: 'Head to the stadium with your match ticket — or stay and watch on the big screens in the Legends Lounge. Drinks available at £6 each during the match.',
   },
   {
     time: 'During Match',
@@ -470,7 +470,7 @@ export default function LegendsLoungePage() {
               { q: 'Can you source match tickets for me?', a: 'Unfortunately we are unable to source match tickets. We recommend purchasing directly through the RFU or Twickenham Stadium box office well in advance, as matches do sell out.' },
               { q: 'What happens if I don\'t have a match ticket?', a: 'You\'re still welcome. The marquee stays open throughout the match with every game shown live on giant screens. Many of our guests choose to stay in the Lounge for the full day without attending the match itself.' },
               { q: 'What\'s included in the price?', a: 'Everything — unlimited drinks (beer, wine, spirits, soft drinks), hog roast, hot pies post-match, live music, rugby legends throughout the day, and all profits go to charity. No hidden extras.' },
-              { q: 'Is the bar open all day?', a: 'The all-inclusive bar is open from arrival until the anthems. It closes while the match is on, with drinks available at £5 each for anyone staying in the marquee. It reopens on an all-inclusive basis after the final whistle.' },
+              { q: 'Is the bar open all day?', a: 'The all-inclusive bar is open from arrival until kickoff. During the match, drinks are available at £6 each — whether you\'re watching in the stadium or on the big screens in the Lounge. All-inclusive service resumes at full time.' },
               { q: 'Which legends will be at my event?', a: 'We announce the legends for each event closer to the time. Follow us on social media or sign up to our mailing list to be the first to know. Previous legends have included some of the biggest names in rugby.' },
               { q: 'How many people can attend?', a: 'The Legends Lounge is capped at 300 guests per match to keep the atmosphere right. Once a date is sold out, it\'s gone — we don\'t oversell.' },
             ].map((faq, i) => (

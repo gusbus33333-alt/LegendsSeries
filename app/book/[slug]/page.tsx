@@ -142,8 +142,9 @@ export default function BookEventPage({ params }: PageProps) {
                       <span className="text-ink/30 text-xs mt-0.5">✕</span>
                       <p className="text-ink/50 text-xs leading-snug">
                         <strong className="text-ink/70">Drinks during the match</strong> — the
-                        all-inclusive bar closes at the anthems. Drinks available at £5 each for
-                        anyone staying in the marquee.
+                        all-inclusive bar pauses during the match. Drinks available at £6 each
+                        whether you&apos;re in the stadium or watching in the Lounge. All-inclusive
+                        service resumes at full time.
                       </p>
                     </li>
                   </ul>
