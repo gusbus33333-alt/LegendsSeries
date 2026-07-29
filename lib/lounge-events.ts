@@ -12,8 +12,12 @@ export interface LoungeEvent {
   competition: string
   isFinals: boolean
   games?: string[]        // individual match names for double-headers
+  finalsKOs?: string[]    // KO times for each final match
   ko: string              // e.g. "16:40" or "TBC"
   openTime: string        // marquee opens
+  lastOrders: string      // last orders time
+  doorsClose: string      // marquee closes time
+  tvGames?: string[]      // other fixtures shown on screens e.g. "Wales vs New Zealand — 14:10"
   price: number           // inc. VAT
   priceLabel: string      // "£250 inc VAT"
   priceExVat: string      // "£208 ex VAT"
@@ -74,7 +78,14 @@ export interface TimelineEntry {
 }
 
 export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
-  if (event.isFinals) {
+  if (event.isFinals && event.finalsKOs) {
+    const ko1 = event.finalsKOs[0]
+    const ko1End = addMinutes(ko1, 120)
+    const ko2 = event.finalsKOs[1]
+    const ko2End = addMinutes(ko2, 120)
+    const game1 = event.games?.[0] ?? 'Match 1'
+    const game2 = event.games?.[1] ?? 'Match 2'
+
     return [
       {
         time: event.openTime,
@@ -83,46 +94,56 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
           'Early doors for the big double-header. Bar opens, hog roast serving from the off. Come early — it fills up fast.',
       },
       {
-        time: 'Match 1 KO',
-        label: 'First Final Underway',
+        time: ko1,
+        label: `${game1} — Kickoff`,
         description:
-          'First final kicks off on all screens. All-inclusive bar open throughout.',
+          'First match kicks off on all screens. All-inclusive bar open throughout.',
       },
       {
-        time: 'Between Matches',
-        label: 'Legends Back On Stage',
+        time: ko1End,
+        label: 'First Match Ends',
         description:
-          'Live analysis, legends on the mic and music while you enjoy the hog roast.',
+          'Live analysis, legends on the mic and music between games. Hog roast and bar still flowing.',
       },
       {
-        time: 'Match 2 KO',
-        label: 'Second Final Underway',
+        time: ko2,
+        label: `${game2} — Kickoff`,
         description:
-          'Second final on the screens — or head out to the stadium if you have your ticket.',
+          'Second match underway on screens — or head out to the stadium if you have your ticket.',
       },
       {
-        time: 'Full Time',
+        time: ko2End,
         label: "Bar Reopens — Butcher's Pie Served",
         description:
           'All-inclusive bar back on the moment the final whistle goes. Hot butcher\'s pie served. Soak it all in.',
       },
       {
-        time: 'Close',
+        time: event.lastOrders,
+        label: 'Last Orders',
+        description: 'Last orders at the bar. A proper matchday done right.',
+      },
+      {
+        time: event.doorsClose,
         label: 'Marquee Closes',
         description:
-          'A full day of world-class rugby, celebrated properly. Exact closing time confirmed on booking.',
+          'A full day of world-class rugby, celebrated properly.',
       },
     ]
   }
 
   const ko = event.ko !== 'TBC' ? event.ko : '15:00'
+  const koEnd = addMinutes(ko, 120)
+
+  const tvLine = event.tvGames?.length
+    ? ` ${event.tvGames.join(' and ')} on the big screens before kick-off.`
+    : ''
 
   return [
     {
       time: event.openTime,
       label: 'Marquee Opens',
       description:
-        'Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving. Get in early for the best table.',
+        `Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving. Get in early for the best table.${tvLine}`,
     },
     {
       time: `${event.openTime} – KO`,
@@ -131,34 +152,34 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
         'Rugby legends entertain throughout with Q&As and stories. Live music keeps the atmosphere going. No queues, no overcrowded bars.',
     },
     {
-      time: `${ko} (Anthems)`,
+      time: `${ko}\n(Anthems)`,
       label: 'Bar Closes — Head to Your Seat',
       description:
         'The all-inclusive bar closes at the anthems. Head in with your match ticket. The marquee stays open on reduced service (drinks £5 each) for anyone staying.',
     },
     {
-      time: 'During Match',
+      time: 'During\nMatch',
       label: 'In the Stadium',
       description:
         "You're in your seat. The marquee is waiting — we reopen the bar the moment the final whistle goes.",
     },
     {
-      time: addMinutes(ko, 110),
+      time: koEnd,
       label: "Bar Reopens — Butcher's Pie Served",
       description:
-        'All-inclusive bar back on immediately at full time. Hot butcher\'s pie served. Post-match analysis and other Internationals on all screens.',
+        'All-inclusive bar back on immediately at full time. Hot butcher\'s pie served. Post-match analysis and other internationals on all screens.',
     },
     {
-      time: addMinutes(ko, 200),
+      time: event.lastOrders,
       label: 'Last Orders',
       description:
         'Last orders at the bar. A proper matchday done right.',
     },
     {
-      time: addMinutes(ko, 230),
+      time: event.doorsClose,
       label: 'Marquee Closes',
       description:
-        'Approximately 3.5 hours after the final whistle. Exact times confirmed on booking.',
+        `Doors close at ${event.doorsClose}. Exact times confirmed on booking.`,
     },
   ]
 }
@@ -173,8 +194,10 @@ export const loungeEvents: LoungeEvent[] = [
     match: 'England vs Australia',
     competition: 'Nations Championship',
     isFinals: false,
-    ko: '14:00',
-    openTime: '11:00',
+    ko: '15:10',
+    openTime: '12:30',
+    lastOrders: '19:10',
+    doorsClose: '19:30',
     price: 250,
     priceLabel: '£208.33+ (£250 inc VAT)',
     priceExVat: '£208.33 ex VAT',
@@ -182,7 +205,7 @@ export const loungeEvents: LoungeEvent[] = [
     heroPhoto: '/lounge-photos/LLL-238.jpg',
     cardPhoto: '/lounge-photos/LLL-158.jpg',
     blurb:
-      'The Wallabies at Twickenham — a fixture steeped in history and guaranteed to deliver. Australia always travel with a passionate following, and the home crowd will be in full voice. Three hours of legends, live music and unlimited drinks before kick-off. Be in your seat for 14:00.',
+      'The Wallabies at Twickenham — a fixture steeped in history and guaranteed to deliver. Australia always travel with a passionate following, and the home crowd will be in full voice. Three hours of legends, live music and unlimited drinks before kick-off. Be in your seat for 15:10.',
   },
   {
     slug: 'england-vs-japan-nov-14',
@@ -194,6 +217,9 @@ export const loungeEvents: LoungeEvent[] = [
     isFinals: false,
     ko: '16:40',
     openTime: '13:30',
+    lastOrders: '20:40',
+    doorsClose: '21:00',
+    tvGames: ['Wales vs New Zealand — 14:10'],
     price: 198,
     priceLabel: '£165+ (£198 inc VAT)',
     priceExVat: '£165 ex VAT',
@@ -211,8 +237,11 @@ export const loungeEvents: LoungeEvent[] = [
     match: 'England vs New Zealand',
     competition: 'Nations Championship',
     isFinals: false,
-    ko: '15:00',
-    openTime: '12:00',
+    ko: '14:10',
+    openTime: '11:30',
+    lastOrders: '18:40',
+    doorsClose: '19:00',
+    tvGames: ['Ireland vs South Africa — 16:40'],
     price: 250,
     priceLabel: '£208.33+ (£250 inc VAT)',
     priceExVat: '£208.33 ex VAT',
@@ -220,7 +249,7 @@ export const loungeEvents: LoungeEvent[] = [
     heroPhoto: '/lounge-photos/LLL-195.jpg',
     cardPhoto: '/lounge-photos/LLL-095.jpg',
     blurb:
-      "The biggest fixture in world rugby. The All Blacks at Twickenham — the haka, the atmosphere, the history. This is the game every rugby fan needs to experience once. Be in the Lounge from noon and let us look after the build-up properly.",
+      "The biggest fixture in world rugby. The All Blacks at Twickenham — the haka, the atmosphere, the history. This is the game every rugby fan needs to experience once. Be in the Lounge from 11:30 and let us look after the build-up properly.",
   },
   {
     slug: 'nations-finals-nov-27',
@@ -231,8 +260,11 @@ export const loungeEvents: LoungeEvent[] = [
     competition: 'Nations Cup Finals',
     isFinals: true,
     games: ['North 6 vs South 6', 'North 3 vs South 3'],
-    ko: 'TBC',
-    openTime: '09:30',
+    finalsKOs: ['16:40', '20:10'],
+    ko: '16:40',
+    openTime: '15:00',
+    lastOrders: '23:00',
+    doorsClose: '23:30',
     price: 300,
     priceLabel: '£250+ (£300 inc VAT)',
     priceExVat: '£250 ex VAT',
@@ -240,7 +272,7 @@ export const loungeEvents: LoungeEvent[] = [
     heroPhoto: '/lounge-photos/LLL-262.jpg',
     cardPhoto: '/lounge-photos/LLL-284.jpg',
     blurb:
-      "Day one of the Nations Cup Finals — two full internationals in one day at Twickenham. The Lounge runs all day with legends, live music, hog roast and unlimited drinks from the first whistle to the last. This is what the new tournament has been building towards.",
+      "Day one of the Nations Cup Finals — two full internationals in one day at Twickenham. The Lounge runs all evening with legends, live music, hog roast and unlimited drinks from the first whistle to the last. This is what the new tournament has been building towards.",
   },
   {
     slug: 'nations-finals-nov-28',
@@ -251,8 +283,11 @@ export const loungeEvents: LoungeEvent[] = [
     competition: 'Nations Cup Finals',
     isFinals: true,
     games: ['North 5 vs South 5', 'North 2 vs South 2'],
-    ko: 'TBC',
-    openTime: '09:30',
+    finalsKOs: ['13:10', '16:40'],
+    ko: '13:10',
+    openTime: '11:30',
+    lastOrders: '20:00',
+    doorsClose: '20:30',
     price: 300,
     priceLabel: '£250+ (£300 inc VAT)',
     priceExVat: '£250 ex VAT',
@@ -271,8 +306,11 @@ export const loungeEvents: LoungeEvent[] = [
     competition: 'Nations Cup Finals',
     isFinals: true,
     games: ['North 4 vs South 4', 'North 1 vs South 1 — Grand Final'],
-    ko: 'TBC',
-    openTime: '09:30',
+    finalsKOs: ['13:10', '16:40'],
+    ko: '13:10',
+    openTime: '11:30',
+    lastOrders: '20:00',
+    doorsClose: '20:30',
     price: 300,
     priceLabel: '£250+ (£300 inc VAT)',
     priceExVat: '£250 ex VAT',
