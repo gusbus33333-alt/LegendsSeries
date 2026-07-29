@@ -6,6 +6,7 @@ import { getEventBySlug } from '@/lib/lounge-events'
 import { generateQRDataURL, generateTicketPNG } from '@/lib/qr'
 import { buildConfirmationEmail } from '@/lib/booking-email'
 import { createClient } from '@supabase/supabase-js'
+import crypto from 'crypto'
 
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -14,22 +15,40 @@ function getSupabase() {
   return createClient(url, key)
 }
 
+function verifyStripeWebhook(payload: string, sigHeader: string, secret: string): boolean {
+  const parts = sigHeader.split(',')
+  const timestamp = parts.find(p => p.startsWith('t='))?.split('=')[1]
+  const signatures = parts.filter(p => p.startsWith('v1=')).map(p => p.split('=')[1])
+
+  if (!timestamp || signatures.length === 0) return false
+
+  const signedPayload = `${timestamp}.${payload}`
+  const expectedSig = crypto
+    .createHmac('sha256', secret)
+    .update(signedPayload)
+    .digest('hex')
+
+  return signatures.some(sig => crypto.timingSafeEqual(
+    Buffer.from(sig, 'hex'),
+    Buffer.from(expectedSig, 'hex')
+  ))
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.text()
   const sig = req.headers.get('stripe-signature')
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
-  if (!sig || !process.env.STRIPE_WEBHOOK_SECRET) {
+  if (!sig || !webhookSecret) {
     return NextResponse.json({ error: 'Missing signature or webhook secret' }, { status: 400 })
   }
 
-  let stripeEvent: Stripe.Event
-
-  try {
-    stripeEvent = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET)
-  } catch (err) {
-    console.error('Webhook signature verification failed:', err)
+  if (!verifyStripeWebhook(body, sig, webhookSecret)) {
+    console.error('Webhook signature verification failed')
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
+
+  const stripeEvent = JSON.parse(body)
 
   if (stripeEvent.type === 'checkout.session.completed') {
     const session = stripeEvent.data.object as Stripe.Checkout.Session
