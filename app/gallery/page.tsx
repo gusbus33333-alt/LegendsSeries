@@ -3,13 +3,12 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-type Category = 'all' | 'lounge' | 'bils' | 'golf'
+type Category = 'all' | 'lounge' | 'bils'
 
 const categories: { key: Category; label: string }[] = [
   { key: 'all', label: 'All' },
   { key: 'lounge', label: 'Legends Lounge' },
   { key: 'bils', label: 'British & Irish Legends 2025' },
-  { key: 'golf', label: 'Golf' },
 ]
 
 const loungeFiles = [
@@ -70,7 +69,7 @@ export default function GalleryPage() {
           </h1>
           <div className="gold-rule mt-6" />
           <p className="text-white/50 text-base mt-5 max-w-lg leading-relaxed">
-            Photos from the Legends Lounge, British &amp; Irish Legends tour, and golf days.
+            Photos from the Legends Lounge and British &amp; Irish Legends tour.
           </p>
         </div>
       </section>
