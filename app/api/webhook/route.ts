@@ -69,7 +69,22 @@ export async function POST(req: NextRequest) {
     const discount = session.total_details?.amount_discount
       ? `£${(session.total_details.amount_discount / 100).toFixed(2)}`
       : null
-    const promoCode = session.metadata?.promo_code || null
+
+    let promoCode = session.metadata?.promo_code || null
+    if (!promoCode && stripe) {
+      try {
+        const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+          expand: ['total_details.breakdown'],
+        })
+        const discounts = (fullSession as any).total_details?.breakdown?.discounts
+        if (discounts?.[0]?.discount?.promotion_code) {
+          const pc = await stripe.promotionCodes.retrieve(
+            discounts[0].discount.promotion_code
+          )
+          promoCode = pc.code
+        }
+      } catch { /* metadata fallback is fine */ }
+    }
 
     try {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://legends-series.com'
