@@ -19,56 +19,75 @@ export async function GET(
     return htmlResponse('System Error', 'Database not configured.', 'error')
   }
 
-  const { data: booking, error } = await supabase
-    .from('bookings')
+  // Check if already scanned
+  const { data: existingScan } = await supabase
+    .from('scans')
     .select('*')
-    .eq('booking_ref', ref)
+    .eq('guest_ref', ref)
     .single()
 
-  if (error || !booking) {
-    return htmlResponse('Invalid Ticket', `Booking reference ${ref} not found.`, 'error')
-  }
-
-  if (booking.scanned_at) {
+  if (existingScan) {
+    const time = new Date(existingScan.scanned_at).toLocaleTimeString('en-GB', {
+      hour: '2-digit', minute: '2-digit',
+    })
     return htmlResponse(
       'Already Scanned',
-      `This ticket was already scanned at ${new Date(booking.scanned_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}. Booking: ${ref} · ${booking.guests} guest${booking.guests > 1 ? 's' : ''} · ${booking.event_name}`,
+      `This ticket was already scanned at ${time}.<br><br><strong>${existingScan.customer_name}</strong><br>Guest ${existingScan.guest_number} of ${existingScan.total_guests} · ${existingScan.event_name}`,
       'warning'
     )
   }
 
-  const { error: updateError } = await supabase
+  // Find the booking that contains this guest ref
+  const { data: booking } = await supabase
     .from('bookings')
-    .update({ scanned_at: new Date().toISOString() })
-    .eq('booking_ref', ref)
+    .select('*')
+    .contains('guest_refs', [ref])
+    .single()
 
-  if (updateError) {
-    return htmlResponse('Scan Error', 'Could not mark ticket as scanned. Try again.', 'error')
+  if (!booking) {
+    return htmlResponse('Invalid Ticket', `Booking reference <strong>${ref}</strong> not found.`, 'error')
+  }
+
+  const guestIndex = (booking.guest_refs as string[]).indexOf(ref)
+  const guestNumber = guestIndex + 1
+
+  // Record the scan
+  const { error: insertError } = await supabase.from('scans').insert({
+    guest_ref: ref,
+    event_name: booking.event_name,
+    customer_name: booking.customer_name,
+    guest_number: guestNumber,
+    total_guests: booking.guests,
+  })
+
+  if (insertError) {
+    return htmlResponse('Scan Error', 'Could not record scan. Try again.', 'error')
   }
 
   return htmlResponse(
-    'Entry Approved ✓',
-    `${booking.customer_name} · ${booking.guests} guest${booking.guests > 1 ? 's' : ''} · ${booking.event_name}`,
+    'Entry Approved',
+    `<strong>${booking.customer_name}</strong><br>Guest ${guestNumber} of ${booking.guests} · ${booking.event_name}`,
     'success'
   )
 }
 
 function htmlResponse(title: string, message: string, status: 'success' | 'warning' | 'error') {
   const colors = {
-    success: { bg: '#0a2e0a', border: '#22c55e', text: '#22c55e' },
-    warning: { bg: '#2e2a0a', border: '#eab308', text: '#eab308' },
-    error: { bg: '#2e0a0a', border: '#ef4444', text: '#ef4444' },
+    success: { bg: '#0a2e0a', border: '#22c55e', text: '#22c55e', icon: '✓' },
+    warning: { bg: '#2e2a0a', border: '#eab308', text: '#eab308', icon: '⚠' },
+    error: { bg: '#2e0a0a', border: '#ef4444', text: '#ef4444', icon: '✗' },
   }
   const c = colors[status]
 
   const html = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>${title} — Legends Series</title></head>
-<body style="margin:0;padding:40px 20px;background:#0a0a0b;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;box-sizing:border-box;">
-<div style="max-width:400px;width:100%;background:${c.bg};border:2px solid ${c.border};border-radius:12px;padding:40px 30px;text-align:center;">
-<h1 style="color:${c.text};font-size:28px;margin:0 0 15px;letter-spacing:1px;">${title}</h1>
-<p style="color:#cccccc;font-size:16px;line-height:1.5;margin:0;">${message}</p>
-<p style="color:#ffffff40;font-size:12px;margin:20px 0 0;">${new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</p>
+<body style="margin:0;padding:40px 20px;background:#0a0a0b;font-family:system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;box-sizing:border-box;">
+<div style="max-width:400px;width:100%;background:${c.bg};border:2px solid ${c.border};border-radius:16px;padding:40px 30px;text-align:center;">
+<div style="font-size:60px;margin:0 0 10px;">${c.icon}</div>
+<h1 style="color:${c.text};font-size:26px;margin:0 0 20px;letter-spacing:1px;font-weight:700;">${title}</h1>
+<p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0;">${message}</p>
+<p style="color:#ffffff30;font-size:11px;margin:24px 0 0;">${new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })} · Legends Series</p>
 </div></body></html>`
 
   return new NextResponse(html, { headers: { 'Content-Type': 'text/html' } })
