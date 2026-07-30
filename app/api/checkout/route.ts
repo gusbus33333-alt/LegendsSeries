@@ -4,7 +4,7 @@ import { getEventBySlug } from '@/lib/lounge-events'
 
 export async function POST(req: NextRequest) {
   try {
-    const { slug, guests, promoCode } = await req.json()
+    const { slug, guests, promoCode, marketingOptIn } = await req.json()
 
     const event = getEventBySlug(slug)
     if (!event) {
@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
         event_date: event.date,
         guests: String(guestCount),
         ...(promoCode ? { promo_code: promoCode } : {}),
+        marketing_opt_in: marketingOptIn ? 'yes' : 'no',
       },
       success_url: `${req.nextUrl.origin}/book/${slug}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.nextUrl.origin}/book/${slug}`,

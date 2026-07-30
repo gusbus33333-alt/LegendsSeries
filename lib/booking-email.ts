@@ -146,12 +146,16 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.date}</td>
                       </tr>
                       <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Marquee Opens</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.openTime}</td>
+                      </tr>
+                      <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Kick-off</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.ko === 'TBC' ? 'TBC — we\'ll update you' : event.ko}</td>
                       </tr>
                       <tr>
-                        <td style="color:#999999;font-size:13px;padding:6px 0;">Marquee Opens</td>
-                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.openTime}</td>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Marquee Closes</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.doorsClose}</td>
                       </tr>
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Guests</td>
@@ -203,7 +207,7 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr><td style="color:#cccccc;font-size:13px;line-height:1.6;padding:4px 0;">• Roads close around the stadium <strong style="color:#ffffff;">2 hours prior to kick-off</strong>, so please plan accordingly.</td></tr>
                       <tr><td style="color:#cccccc;font-size:13px;line-height:1.6;padding:4px 0;">• This booking is for the Legends Lounge hospitality experience — <strong style="color:#ffffff;">a match ticket is not required</strong>. The marquee stays open during the game and shows every match on giant screens. If you don't have a match ticket, you're welcome to stay and watch from the Lounge. During the match, drinks are charged at £6 each.</td></tr>
-                      <tr><td style="color:#cccccc;font-size:13px;line-height:1.6;padding:4px 0;">• If you invited guests and have not submitted their names yet, please reply to this email to let us know — it helps our staff on the day.</td></tr>
+
                     </table>
                   </td>
                 </tr>

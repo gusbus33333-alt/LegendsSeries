@@ -17,6 +17,8 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [discount, setDiscount] = useState<PromoDiscount | null>(null)
+  const [termsAccepted, setTermsAccepted] = useState(false)
+  const [marketingOptIn, setMarketingOptIn] = useState(false)
 
   const discountedPrice = discount
     ? discount.percentOff
@@ -33,11 +35,17 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
     setLoading(true)
     setError('')
 
+    if (!termsAccepted) {
+      setError('Please accept the terms and conditions to continue.')
+      setLoading(false)
+      return
+    }
+
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, guests, promoCode: discount?.code || undefined }),
+        body: JSON.stringify({ slug, guests, promoCode: discount?.code || undefined, marketingOptIn }),
       })
 
       const data = await res.json()
@@ -112,6 +120,35 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
           </div>
         </div>
       )}
+
+      {/* Terms and conditions */}
+      <label className="flex items-start gap-2 cursor-pointer group">
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={(e) => { setTermsAccepted(e.target.checked); setError('') }}
+          className="mt-0.5 accent-[#b8953f] w-4 h-4 shrink-0"
+        />
+        <span className="text-white/50 text-[0.65rem] leading-relaxed group-hover:text-white/70 transition-colors">
+          I agree to the{' '}
+          <a href="/terms" target="_blank" className="text-gold underline underline-offset-2">
+            terms and conditions
+          </a>
+        </span>
+      </label>
+
+      {/* Marketing opt-in */}
+      <label className="flex items-start gap-2 cursor-pointer group">
+        <input
+          type="checkbox"
+          checked={marketingOptIn}
+          onChange={(e) => setMarketingOptIn(e.target.checked)}
+          className="mt-0.5 accent-[#b8953f] w-4 h-4 shrink-0"
+        />
+        <span className="text-white/50 text-[0.65rem] leading-relaxed group-hover:text-white/70 transition-colors">
+          I&apos;d like early access to future Legends Series events and exclusive offers
+        </span>
+      </label>
 
       {/* Book now button */}
       <button

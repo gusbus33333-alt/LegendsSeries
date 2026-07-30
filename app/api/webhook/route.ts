@@ -137,6 +137,7 @@ export async function POST(req: NextRequest) {
           total_paid: totalPaid,
           promo_code: promoCode,
           discount_amount: discount,
+          marketing_opt_in: session.metadata?.marketing_opt_in === 'yes',
         })
       }
 

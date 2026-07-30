@@ -126,7 +126,7 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
         time: event.doorsClose,
         label: 'Marquee Closes',
         description:
-          'A full day of world-class rugby, celebrated properly.',
+          'Till the next time, we say goodbye.',
       },
     ]
   }
@@ -190,7 +190,7 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
       time: event.doorsClose,
       label: 'Marquee Closes',
       description:
-        `Doors close at ${event.doorsClose}. Exact times confirmed on booking.`,
+        'Till the next time, we say goodbye.',
     },
   ]
 
