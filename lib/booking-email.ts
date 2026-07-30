@@ -116,7 +116,7 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
               ${buildEventDetails(event)}
 
               <p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 30px;">
-                Please check and share our socials on <a href="https://www.facebook.com/BritishAndIrishLegends" style="color:#b8953f;font-weight:bold;text-decoration:none;">Facebook</a> and <a href="https://www.instagram.com/legends.series" style="color:#b8953f;font-weight:bold;text-decoration:none;">Instagram</a> for a chance to win 2 tickets to the Legends Lounge during the 2027 Six Nations — we'll be posting speaker announcements and event updates in the build-up.
+                We'll be posting speaker announcements and event updates in the build-up to the Nations Championship. Please check and share our socials on <a href="https://www.facebook.com/BritishAndIrishLegends" style="color:#b8953f;font-weight:bold;text-decoration:none;">Facebook</a> and <a href="https://www.instagram.com/legends.series" style="color:#b8953f;font-weight:bold;text-decoration:none;">Instagram</a> for updates and a chance to win 2 tickets to the Legends Lounge during the 2027 Six Nations.
               </p>
 
               <!-- QR ticket note -->
