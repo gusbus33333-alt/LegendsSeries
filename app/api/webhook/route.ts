@@ -69,9 +69,7 @@ export async function POST(req: NextRequest) {
     const discount = session.total_details?.amount_discount
       ? `£${(session.total_details.amount_discount / 100).toFixed(2)}`
       : null
-    const promoCode = (session as any).discounts?.[0]?.promotion_code
-      || session.metadata?.promo_code
-      || null
+    const promoCode = session.metadata?.promo_code || null
 
     try {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://legends-series.com'
@@ -100,21 +98,21 @@ export async function POST(req: NextRequest) {
           }),
         })
 
-        if (supabase) {
-          await supabase.from('bookings').insert({
-            booking_ref: ref,
-            event_slug: slug,
-            event_name: event.match,
-            customer_name: customerName,
-            customer_email: customerEmail,
-            guest_number: i + 1,
-            guests,
-            total_paid: totalPaid,
-            promo_code: promoCode,
-            discount_amount: discount,
-            scanned_at: null,
-          })
-        }
+      }
+
+      if (supabase) {
+        await supabase.from('bookings').insert({
+          booking_ref: guestBookingRefs[0],
+          guest_refs: guestBookingRefs,
+          event_slug: slug,
+          event_name: event.match,
+          customer_name: customerName,
+          customer_email: customerEmail,
+          guests,
+          total_paid: totalPaid,
+          promo_code: promoCode,
+          discount_amount: discount,
+        })
       }
 
       const bookingRef = guestBookingRefs[0]
