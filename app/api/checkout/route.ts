@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
         }
         return { allow_promotion_codes: true }
       })(),
+      phone_number_collection: { enabled: true },
       customer_creation: 'always',
       metadata: {
         event_slug: slug,

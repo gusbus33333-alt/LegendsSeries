@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
     const guests = parseInt(session.metadata?.guests || '1')
     const customerEmail = session.customer_details?.email
     const customerName = session.customer_details?.name || 'Guest'
+    const customerPhone = session.customer_details?.phone || null
 
     if (!slug || !customerEmail) {
       console.error('Missing metadata or customer email', { slug, customerEmail })
@@ -131,6 +132,7 @@ export async function POST(req: NextRequest) {
           event_name: event.match,
           customer_name: customerName,
           customer_email: customerEmail,
+          customer_phone: customerPhone,
           guests,
           total_paid: totalPaid,
           promo_code: promoCode,
