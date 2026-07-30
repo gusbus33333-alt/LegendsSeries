@@ -13,23 +13,7 @@ export default function EventsGrid({ events }: { events: Event[] }) {
   return (
     <>
       {/* Controls row */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-12">
-        {/* Filter tabs */}
-        <ScrollReveal className="flex flex-wrap gap-3">
-          {categories.map((cat, i) => (
-            <button
-              key={cat}
-              className={`px-5 py-2 text-xs tracking-[0.2em] uppercase font-semibold border transition-all duration-200 ${
-                i === 0
-                  ? 'bg-gold border-gold text-ink'
-                  : 'border-ink/20 text-ink/50 hover:border-gold hover:text-gold'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </ScrollReveal>
-
+      <div className="flex flex-wrap items-center justify-end gap-4 mb-12">
         {/* VAT toggle */}
         <div className="flex items-center gap-3">
           <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${!includeVat ? 'text-ink' : 'text-ink/40'}`}>
