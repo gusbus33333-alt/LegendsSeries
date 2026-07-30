@@ -41,7 +41,7 @@ export async function GET(
   const { data: booking } = await supabase
     .from('bookings')
     .select('*')
-    .contains('guest_refs', [ref])
+    .filter('guest_refs', 'cs', JSON.stringify([ref]))
     .single()
 
   if (!booking) {
