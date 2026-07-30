@@ -39,7 +39,16 @@ export async function POST(req: NextRequest) {
   const sig = req.headers.get('stripe-signature')
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
-  // TODO: Re-enable signature verification once Stripe Workbench signing is resolved
+  if (!sig || !webhookSecret) {
+    console.error('Missing signature or webhook secret')
+    return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
+  }
+
+  if (!verifyStripeWebhook(body, sig, webhookSecret)) {
+    console.error('Invalid webhook signature')
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+  }
+
   const stripeEvent = JSON.parse(body)
   console.log('Webhook received:', stripeEvent.type)
 
