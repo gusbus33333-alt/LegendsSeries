@@ -270,7 +270,6 @@ export const legends: Legend[] = [
     country: 'England',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     clubs: 'Leicester / Bath / England / Lions',
-    caps: 71,
     stat: '2003 World Cup winner. Nicknamed "Mad Dog" — once played an entire half with blood pouring from a head wound and refused to come off',
     achievements: [
       '2003 Rugby World Cup Winner',
