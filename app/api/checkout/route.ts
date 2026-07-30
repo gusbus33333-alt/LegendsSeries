@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
         event_match: event.match,
         event_date: event.date,
         guests: String(guestCount),
+        ...(promoCode ? { promo_code: promoCode } : {}),
       },
       success_url: `${req.nextUrl.origin}/book/${slug}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.nextUrl.origin}/book/${slug}`,

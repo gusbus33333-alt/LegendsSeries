@@ -66,6 +66,13 @@ export async function POST(req: NextRequest) {
       ? `£${(session.amount_total / 100).toFixed(2)}`
       : event.priceLabel
 
+    const discount = session.total_details?.amount_discount
+      ? `£${(session.total_details.amount_discount / 100).toFixed(2)}`
+      : null
+    const promoCode = (session as any).discounts?.[0]?.promotion_code
+      || session.metadata?.promo_code
+      || null
+
     try {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://legends-series.com'
       const supabase = getSupabase()
@@ -103,6 +110,8 @@ export async function POST(req: NextRequest) {
             guest_number: i + 1,
             guests,
             total_paid: totalPaid,
+            promo_code: promoCode,
+            discount_amount: discount,
             scanned_at: null,
           })
         }
