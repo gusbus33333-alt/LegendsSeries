@@ -85,11 +85,6 @@ export default async function ConfirmationPage({ params, searchParams }: PagePro
             </p>
           )}
 
-          <p className="text-white/30 text-xs leading-relaxed max-w-sm">
-            Our team will be in touch within 24 hours with full event details,
-            including exact timings and location directions.
-          </p>
-
           <div className="flex flex-col sm:flex-row gap-4 mt-2">
             <Link href="/legends-lounge" className="btn-gold min-w-[180px]">
               Back to Legends Lounge

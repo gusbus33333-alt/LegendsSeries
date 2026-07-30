@@ -79,6 +79,10 @@ export async function POST(req: NextRequest) {
       ? `£${(session.total_details.amount_discount / 100).toFixed(2)}`
       : null
 
+    const vatAmount = session.amount_total
+      ? `£${(session.amount_total / 100 / 6).toFixed(2)}`
+      : null
+
     let promoCode = session.metadata?.promo_code || null
     if (!promoCode && stripe) {
       try {
@@ -137,6 +141,7 @@ export async function POST(req: NextRequest) {
           total_paid: totalPaid,
           promo_code: promoCode,
           discount_amount: discount,
+          vat_amount: vatAmount,
           marketing_opt_in: session.metadata?.marketing_opt_in === 'yes',
         })
       }

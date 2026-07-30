@@ -25,7 +25,7 @@ const directions = {
   address: 'Access Self Storage, 30 Rugby Road, Twickenham, TW1 1DG',
   w3w: 'really.placed.likely',
   landmark: 'Directly opposite Gate F of Twickenham Stadium, behind the blue vertical iron railings.',
-  byTrain: 'Twickenham station is a 10-minute walk. Trains run from London Waterloo every 15 minutes on matchday. If you arrive at the Twickenham Stadium statue, turn right onto Rugby Road. Continue a short distance and you will find us behind the blue railings, opposite Gate F.',
+  byTrain: 'Twickenham station is a 10-minute walk. Trains run from London Waterloo every 15 minutes on matchday. If you arrive at the Twickenham Stadium statue, turn right onto Rugby Road. Continue a short distance and you will find us behind the blue railings, opposite Gate F. <a href="https://www.instagram.com/reel/DU0tcPNCPNi/" style="color:#b8953f;font-weight:bold;text-decoration:none;">Watch our walking guide from the station →</a>',
   byCar: 'Please note that all surrounding roads close 2 hours before kick-off, so we recommend arriving early or planning your journey accordingly. Limited parking available nearby.',
   onArrival: 'Look for the Legends Lounge marquee behind the blue vertical iron railings within the Access Self Storage facility, opposite Gate F. Show your QR code at the entrance.',
 }
