@@ -17,7 +17,7 @@ export default function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero-bils.png"
+          src="/AAMI Park.jpeg"
           alt="British & Irish Legends lineup at AAMI Park, Melbourne"
           fill
           className="object-cover"
