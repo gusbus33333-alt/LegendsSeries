@@ -44,12 +44,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
   }
 
-  if (!verifyStripeWebhook(body, sig, webhookSecret)) {
-    console.error('Invalid webhook signature')
-    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+  let stripeEvent: Stripe.Event
+  try {
+    stripeEvent = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+  } catch (err) {
+    // Fall back to manual verification for Workbench event destinations
+    if (verifyStripeWebhook(body, sig, webhookSecret)) {
+      stripeEvent = JSON.parse(body)
+    } else {
+      console.error('Invalid webhook signature:', err)
+      return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+    }
   }
-
-  const stripeEvent = JSON.parse(body)
   console.log('Webhook received:', stripeEvent.type)
 
   if (stripeEvent.type === 'checkout.session.completed') {
