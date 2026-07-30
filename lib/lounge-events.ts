@@ -142,7 +142,7 @@ export function buildTimeline(event: LoungeEvent): TimelineEntry[] {
       time: event.openTime,
       label: 'Marquee Opens',
       description:
-        'Bar opens. Lager, Guinness, wine, soft drinks — all included. Hog roast serving.',
+        'Bar Opens: Lager, Cider, Bitter & Guinness on draught. Prosecco, white and red wine. Plus tea, coffee, non-alcoholic and soft drinks. Hog roast serving.',
     },
     {
       time: `${event.openTime} – ${ko}`,
