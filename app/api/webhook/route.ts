@@ -39,24 +39,17 @@ export async function POST(req: NextRequest) {
   const sig = req.headers.get('stripe-signature')
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
-  if (!sig || !webhookSecret) {
-    console.error('Missing signature or webhook secret')
-    return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
-  }
+  const parsed = JSON.parse(body)
 
+  // Verify the event is real by retrieving it from Stripe
   let stripeEvent: Stripe.Event
   try {
-    stripeEvent = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    stripeEvent = await stripe.events.retrieve(parsed.id)
   } catch (err) {
-    // Fall back to manual verification for Workbench event destinations
-    if (verifyStripeWebhook(body, sig, webhookSecret)) {
-      stripeEvent = JSON.parse(body)
-    } else {
-      console.error('Invalid webhook signature:', err)
-      return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
-    }
+    console.error('Could not verify event with Stripe:', err)
+    return NextResponse.json({ error: 'Unverified event' }, { status: 400 })
   }
-  console.log('Webhook received:', stripeEvent.type)
+  console.log('Webhook verified:', stripeEvent.type)
 
   if (stripeEvent.type === 'checkout.session.completed') {
     const session = stripeEvent.data.object as Stripe.Checkout.Session
