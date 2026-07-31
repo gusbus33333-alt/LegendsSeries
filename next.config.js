@@ -3,7 +3,6 @@ const nextConfig = {
   experimental: {
     outputFileTracingIncludes: {
       '/api/webhook': ['./lib/fonts/**/*'],
-      '/api/test-email': ['./lib/fonts/**/*'],
     },
   },
   images: {

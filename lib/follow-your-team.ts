@@ -10,18 +10,18 @@ export interface FollowTeam {
 }
 
 export const teams: FollowTeam[] = [
-  { id: 'england', name: 'England', code: 'ENG', badge: '/team-icons-black/eng.png', color: '#ffffff', hemisphere: 'north' },
-  { id: 'france', name: 'France', code: 'FRA', badge: '/team-icons-black/fra.png', color: '#002395', hemisphere: 'north' },
-  { id: 'ireland', name: 'Ireland', code: 'IRE', badge: '/team-icons-black/ire.png', color: '#169b62', hemisphere: 'north' },
-  { id: 'italy', name: 'Italy', code: 'ITA', badge: '/team-icons-black/ita.png', color: '#0066b3', hemisphere: 'north' },
-  { id: 'scotland', name: 'Scotland', code: 'SCO', badge: '/team-icons-black/sco.png', color: '#1a237e', hemisphere: 'north' },
-  { id: 'wales', name: 'Wales', code: 'WAL', badge: '/team-icons-black/wal.png', color: '#d4213d', hemisphere: 'north' },
-  { id: 'argentina', name: 'Argentina', code: 'ARG', badge: '/team-icons-black/arg.png', color: '#6cace4', hemisphere: 'south' },
-  { id: 'australia', name: 'Australia', code: 'AUS', badge: '/team-icons-black/aus.png', color: '#f2a900', hemisphere: 'south' },
-  { id: 'fiji', name: 'Fiji', code: 'FIJ', badge: '/team-icons-black/fij.png', color: '#ffffff', hemisphere: 'south' },
-  { id: 'japan', name: 'Japan', code: 'JPN', badge: '/team-icons-black/jpn.png', color: '#cc0033', hemisphere: 'south' },
-  { id: 'new-zealand', name: 'New Zealand', code: 'NZL', badge: '/team-icons-black/nzl.png', color: '#1a1a1a', hemisphere: 'south' },
-  { id: 'south-africa', name: 'South Africa', code: 'RSA', badge: '/team-icons-black/rsa.png', color: '#007a4d', hemisphere: 'south' },
+  { id: 'england', name: 'England', code: 'ENG', badge: '/team-icons-black/eng.webp', color: '#ffffff', hemisphere: 'north' },
+  { id: 'france', name: 'France', code: 'FRA', badge: '/team-icons-black/fra.webp', color: '#002395', hemisphere: 'north' },
+  { id: 'ireland', name: 'Ireland', code: 'IRE', badge: '/team-icons-black/ire.webp', color: '#169b62', hemisphere: 'north' },
+  { id: 'italy', name: 'Italy', code: 'ITA', badge: '/team-icons-black/ita.webp', color: '#0066b3', hemisphere: 'north' },
+  { id: 'scotland', name: 'Scotland', code: 'SCO', badge: '/team-icons-black/sco.webp', color: '#1a237e', hemisphere: 'north' },
+  { id: 'wales', name: 'Wales', code: 'WAL', badge: '/team-icons-black/wal.webp', color: '#d4213d', hemisphere: 'north' },
+  { id: 'argentina', name: 'Argentina', code: 'ARG', badge: '/team-icons-black/arg.webp', color: '#6cace4', hemisphere: 'south' },
+  { id: 'australia', name: 'Australia', code: 'AUS', badge: '/team-icons-black/aus.webp', color: '#f2a900', hemisphere: 'south' },
+  { id: 'fiji', name: 'Fiji', code: 'FIJ', badge: '/team-icons-black/fij.webp', color: '#ffffff', hemisphere: 'south' },
+  { id: 'japan', name: 'Japan', code: 'JPN', badge: '/team-icons-black/jpn.webp', color: '#cc0033', hemisphere: 'south' },
+  { id: 'new-zealand', name: 'New Zealand', code: 'NZL', badge: '/team-icons-black/nzl.webp', color: '#1a1a1a', hemisphere: 'south' },
+  { id: 'south-africa', name: 'South Africa', code: 'RSA', badge: '/team-icons-black/rsa.webp', color: '#007a4d', hemisphere: 'south' },
 ]
 
 export const followYourTeamPrice = 300
