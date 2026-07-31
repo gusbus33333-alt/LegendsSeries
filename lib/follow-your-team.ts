@@ -1,0 +1,33 @@
+export interface FollowTeam {
+  id: string
+  name: string
+  code: string
+  badge: string
+  color: string
+  hemisphere: 'north' | 'south'
+}
+
+export const teams: FollowTeam[] = [
+  { id: 'england', name: 'England', code: 'ENG', badge: '/team-icons-black/eng.png', color: '#ffffff', hemisphere: 'north' },
+  { id: 'france', name: 'France', code: 'FRA', badge: '/team-icons-black/fra.png', color: '#002395', hemisphere: 'north' },
+  { id: 'ireland', name: 'Ireland', code: 'IRE', badge: '/team-icons-black/ire.png', color: '#169b62', hemisphere: 'north' },
+  { id: 'italy', name: 'Italy', code: 'ITA', badge: '/team-icons-black/ita.png', color: '#0066b3', hemisphere: 'north' },
+  { id: 'scotland', name: 'Scotland', code: 'SCO', badge: '/team-icons-black/sco.png', color: '#1a237e', hemisphere: 'north' },
+  { id: 'wales', name: 'Wales', code: 'WAL', badge: '/team-icons-black/wal.png', color: '#d4213d', hemisphere: 'north' },
+  { id: 'argentina', name: 'Argentina', code: 'ARG', badge: '/team-icons-black/arg.png', color: '#6cace4', hemisphere: 'south' },
+  { id: 'australia', name: 'Australia', code: 'AUS', badge: '/team-icons-black/aus.png', color: '#f2a900', hemisphere: 'south' },
+  { id: 'fiji', name: 'Fiji', code: 'FIJ', badge: '/team-icons-black/fij.png', color: '#ffffff', hemisphere: 'south' },
+  { id: 'japan', name: 'Japan', code: 'JPN', badge: '/team-icons-black/jpn.png', color: '#cc0033', hemisphere: 'south' },
+  { id: 'new-zealand', name: 'New Zealand', code: 'NZL', badge: '/team-icons-black/nzl.png', color: '#1a1a1a', hemisphere: 'south' },
+  { id: 'south-africa', name: 'South Africa', code: 'RSA', badge: '/team-icons-black/rsa.png', color: '#007a4d', hemisphere: 'south' },
+]
+
+export const followYourTeamPrice = 300
+export const followYourTeamPriceLabel = '£250+ (£300 inc VAT)'
+export const followYourTeamPriceExVat = '£250 ex VAT'
+
+export const finalsMatchdays = [
+  { day: 'Friday 27th November 2026', shortDay: 'Fri 27 Nov', positions: '6th & 3rd place', slug: 'nations-finals-nov-27' },
+  { day: 'Saturday 28th November 2026', shortDay: 'Sat 28 Nov', positions: '5th & 2nd place', slug: 'nations-finals-nov-28' },
+  { day: 'Sunday 29th November 2026', shortDay: 'Sun 29 Nov', positions: '4th & 1st place (Grand Final)', slug: 'nations-finals-nov-29' },
+]

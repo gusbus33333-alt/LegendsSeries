@@ -1,18 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { getEventBySlug } from '@/lib/lounge-events'
+import { teams, followYourTeamPrice } from '@/lib/follow-your-team'
 
 export async function POST(req: NextRequest) {
   try {
-    const { slug, guests, promoCode, marketingOptIn } = await req.json()
-
-    const event = getEventBySlug(slug)
-    if (!event) {
-      return NextResponse.json({ error: 'Event not found' }, { status: 404 })
-    }
+    const { slug, guests, promoCode, marketingOptIn, teamId, teamName } = await req.json()
 
     const guestCount = Math.max(1, Math.min(10, parseInt(guests) || 1))
-    const unitAmount = event.price * 100 // Stripe uses pence
+
+    let productName: string
+    let productDescription: string
+    let unitAmount: number
+    let eventSlug: string
+    let eventMatch: string
+    let eventDate: string
+
+    if (slug === 'follow-your-team') {
+      const team = teams.find((t) => t.id === teamId)
+      if (!team) {
+        return NextResponse.json({ error: 'Team not found' }, { status: 404 })
+      }
+      productName = `Follow Your Team — ${team.name}`
+      productDescription = `Nations Cup Finals Weekend · ${guestCount} ${guestCount === 1 ? 'guest' : 'guests'}`
+      unitAmount = followYourTeamPrice * 100
+      eventSlug = 'follow-your-team'
+      eventMatch = `Follow Your Team — ${team.name}`
+      eventDate = '27th–29th November 2026'
+    } else {
+      const event = getEventBySlug(slug)
+      if (!event) {
+        return NextResponse.json({ error: 'Event not found' }, { status: 404 })
+      }
+      productName = `Legends Lounge — ${event.match}`
+      productDescription = `${event.date} · ${guestCount} ${guestCount === 1 ? 'guest' : 'guests'}`
+      unitAmount = event.price * 100
+      eventSlug = slug
+      eventMatch = event.match
+      eventDate = event.date
+    }
 
     const sessionParams: Record<string, unknown> = {
       mode: 'payment',
@@ -23,8 +49,8 @@ export async function POST(req: NextRequest) {
             currency: 'gbp',
             unit_amount: unitAmount,
             product_data: {
-              name: `Legends Lounge — ${event.match}`,
-              description: `${event.date} · ${guestCount} ${guestCount === 1 ? 'guest' : 'guests'}`,
+              name: productName,
+              description: productDescription,
             },
           },
           quantity: guestCount,
@@ -44,10 +70,11 @@ export async function POST(req: NextRequest) {
       phone_number_collection: { enabled: true },
       customer_creation: 'always',
       metadata: {
-        event_slug: slug,
-        event_match: event.match,
-        event_date: event.date,
+        event_slug: eventSlug,
+        event_match: eventMatch,
+        event_date: eventDate,
         guests: String(guestCount),
+        ...(teamId ? { team_id: teamId, team_name: teamName } : {}),
         ...(promoCode ? { promo_code: promoCode } : {}),
         marketing_opt_in: marketingOptIn ? 'yes' : 'no',
       },

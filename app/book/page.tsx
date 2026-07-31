@@ -102,6 +102,38 @@ export default function BookPage() {
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Follow Your Team CTA */}
+          <ScrollReveal delay={0.3}>
+            <Link
+              href="/book/follow-your-team"
+              className="group mt-10 block border border-gold/40 p-6 lg:p-8 hover:border-gold/70 transition-all duration-200"
+            >
+              <div className="flex flex-col sm:flex-row items-center gap-5">
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                    <span className="bg-red-600 text-white text-[0.55rem] tracking-[0.2em] uppercase font-bold px-2.5 py-1">
+                      Limited Tickets
+                    </span>
+                  </div>
+                  <p className="text-white font-bold text-xl lg:text-2xl tracking-tight">
+                    Follow Your Team
+                  </p>
+                  <p className="text-white/40 text-sm mt-2 leading-relaxed max-w-lg">
+                    Pick the team you&apos;re supporting and get full Legends Lounge hospitality on the
+                    day they play during Finals Weekend. Once they&apos;re gone, they&apos;re gone.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <p className="text-gold font-bold text-xl">£250+ (£300 inc VAT)</p>
+                    <p className="text-white/25 text-[0.6rem]">£250 ex VAT per person</p>
+                  </div>
+                  <span className="text-gold text-2xl group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 

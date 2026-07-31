@@ -10,6 +10,8 @@ export interface DbEvent {
   flag: string | null
   date: string | null
   date_range: string | null
+  /** Sortable start date (YYYY-MM-DD). `date`/`date_range` are display text only. */
+  start_date: string | null
   price: number
   price_display: string
   capacity: number | null

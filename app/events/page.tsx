@@ -44,8 +44,9 @@ export default async function EventsPage() {
   const { data, error } = await supabase
     .from('events')
     .select('*')
-    .order('featured', { ascending: false })
-    .order('price', { ascending: true })
+    // Chronological — soonest first. `date`/`date_range` are display text,
+    // so `start_date` is the sortable source of truth.
+    .order('start_date', { ascending: true, nullsFirst: false })
 
   const events = (data ?? [])
     .map(toEvent)

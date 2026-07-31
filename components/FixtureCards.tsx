@@ -257,6 +257,41 @@ export default function FixtureCards() {
           ))}
         </div>
 
+        {/* Follow Your Team CTA */}
+        {(filter === 'all' || filter === 'finals') && (
+          <div className="mb-10">
+            <Link
+              href="/book/follow-your-team"
+              className="group block bg-gradient-to-r from-[#17171a] to-[#121214] border border-gold/40 rounded-[6px] p-8 transition-all duration-250 hover:-translate-y-1 hover:border-gold/70 hover:shadow-[0_18px_40px_rgba(0,0,0,.5)]"
+            >
+              <div className="flex flex-col sm:flex-row items-center gap-6">
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="flex items-center justify-center sm:justify-start gap-3 mb-3">
+                    <span className="text-gold text-[0.6rem] tracking-[0.3em] uppercase font-semibold border border-gold/40 px-3 py-1">
+                      Nations Cup Finals
+                    </span>
+                    <span className="bg-red-600 text-white text-[0.6rem] tracking-[0.2em] uppercase font-bold px-3 py-1">
+                      Limited
+                    </span>
+                  </div>
+                  <p className="text-white font-bold text-xl lg:text-2xl tracking-tight">
+                    Follow Your Team
+                  </p>
+                  <p className="text-white/40 text-sm mt-2 leading-relaxed max-w-lg">
+                    Pick your team and get full Legends Lounge hospitality on the day they play
+                    during Finals Weekend. One team, one day, full package.
+                  </p>
+                </div>
+                <div className="flex-shrink-0 flex items-center gap-2">
+                  <span className="text-gold text-[22px] font-bold">{includeVat ? '£300' : '£250+'}</span>
+                  <span className="text-white/35 text-[10px] tracking-[0.12em]">{includeVat ? 'inc VAT' : 'ex VAT'}<br />per person</span>
+                </div>
+                <span className="text-gold text-2xl group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </Link>
+          </div>
+        )}
+
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {visible.map((fixture) => (
