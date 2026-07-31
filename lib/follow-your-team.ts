@@ -1,3 +1,5 @@
+import type { LoungeEvent } from './lounge-events'
+
 export interface FollowTeam {
   id: string
   name: string
@@ -25,6 +27,35 @@ export const teams: FollowTeam[] = [
 export const followYourTeamPrice = 300
 export const followYourTeamPriceLabel = '£250+ (£300 inc VAT)'
 export const followYourTeamPriceExVat = '£250 ex VAT'
+
+/**
+ * Follow Your Team isn't tied to a single matchday — the team's final league
+ * position decides which of the three Finals days they play. This shapes the
+ * booking as a LoungeEvent so it flows through the existing confirmation
+ * pipeline, with times left TBC because each day runs to a different schedule.
+ */
+export function buildFollowYourTeamEvent(teamName: string): LoungeEvent {
+  return {
+    slug: 'follow-your-team',
+    date: '27th–29th November 2026',
+    shortDate: '27–29 Nov',
+    dayOfWeek: 'TBC',
+    match: `Follow Your Team — ${teamName}`,
+    competition: 'Nations Cup Finals',
+    isFinals: false,
+    ko: 'TBC',
+    openTime: 'TBC',
+    lastOrders: 'TBC',
+    doorsClose: 'TBC',
+    price: followYourTeamPrice,
+    priceLabel: followYourTeamPriceLabel,
+    priceExVat: followYourTeamPriceExVat,
+    bookingUrl: '/book/follow-your-team',
+    heroPhoto: '/lounge-photos/LLL-262.jpg',
+    cardPhoto: '/lounge-photos/LLL-284.jpg',
+    blurb: `Full Legends Lounge hospitality on the day ${teamName} play during Finals Weekend.`,
+  }
+}
 
 export const finalsMatchdays = [
   { day: 'Friday 27th November 2026', shortDay: 'Fri 27 Nov', positions: '6th & 3rd place', slug: 'nations-finals-nov-27' },

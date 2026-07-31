@@ -1,4 +1,5 @@
 import { LoungeEvent, buildTimeline } from './lounge-events'
+import { finalsMatchdays } from './follow-your-team'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -19,6 +20,8 @@ interface BookingEmailData {
   bookingRef: string
   qrDataURL: string
   totalPaid: string
+  /** Set for Follow Your Team bookings — the matchday is confirmed later. */
+  followTeam?: string
 }
 
 const directions = {
@@ -30,10 +33,14 @@ const directions = {
   onArrival: 'Look for the Legends Lounge marquee behind the blue vertical iron railings within the Access Self Storage facility, opposite Gate F. Show your QR code at the entrance.',
 }
 
-function buildEventIntro(event: LoungeEvent, guests: number): string {
+function buildEventIntro(event: LoungeEvent, guests: number, followTeam?: string): string {
   const guestBit = guests > 1
     ? ` for you and your ${guests - 1 === 1 ? 'guest' : `${guests - 1} guests`}`
     : ''
+
+  if (followTeam) {
+    return `Thank you for booking Follow Your Team${guestBit} — you're following <strong style="color:#ffffff;">${followTeam}</strong> through the Nations Cup Finals Weekend at Twickenham. Whichever day ${followTeam} play, you'll have full Legends Lounge hospitality: the best speakers, live music, a hog roast with all the trimmings, a hot butcher's pie after the game and unlimited drinks all day. Veggie options available for both pre and post-match.`
+  }
 
   if (event.isFinals) {
     return `Thank you for booking the Legends Lounge${guestBit} for the <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have an incredible day — the best speakers, fantastic entertainment, a hog roast with all the bits, a hot butcher's pie after the game and unlimited drinks all day. Veggie options available for both pre and post-match.`
@@ -42,7 +49,13 @@ function buildEventIntro(event: LoungeEvent, guests: number): string {
   return `Thank you for booking the Legends Lounge${guestBit} for <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have a cracking day — the best speakers, some fabulous entertainment (pre &amp; post-match), a hog roast with all the trimmings, a hot butcher's pie after the game and unlimited drinks for the full session. No probs, there are veggie options for both pre and post-match.`
 }
 
-function buildEventDetails(event: LoungeEvent): string {
+function buildEventDetails(event: LoungeEvent, followTeam?: string): string {
+  if (followTeam) {
+    return `<p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 20px;">
+      <strong style="color:#ffffff;">Your matchday is confirmed once the league stage finishes.</strong> ${followTeam}&rsquo;s final position decides which of the three Finals days they play — as soon as the fixtures are set, we&rsquo;ll email you the exact day and times. Nothing for you to do in the meantime; your booking is secure either way.
+    </p>`
+  }
+
   if (event.isFinals) {
     return `<p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 20px;">
       Your ticket is <strong style="color:#ffffff;">interchangeable across all three Finals days</strong> — if your team's schedule changes or you fancy a different day, just turn up on whichever day suits you. Same wristband, same experience.
@@ -59,8 +72,10 @@ function buildEventDetails(event: LoungeEvent): string {
 }
 
 export function buildConfirmationEmail(data: BookingEmailData): string {
-  const { customerName, event, guests, bookingRef, qrDataURL, totalPaid } = data
-  const timeline = buildTimeline(event)
+  const { customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam } = data
+  // A Follow Your Team booking has no fixed schedule yet, so there is no
+  // honest timeline to show — the matchday block replaces it below.
+  const timeline = followTeam ? [] : buildTimeline(event)
   const guestLabel = guests === 1 ? '1 guest' : `${guests} guests`
 
   const timelineRows = timeline
@@ -110,10 +125,10 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
               </p>
 
               <p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 20px;">
-                ${buildEventIntro(event, guests)}
+                ${buildEventIntro(event, guests, followTeam)}
               </p>
 
-              ${buildEventDetails(event)}
+              ${buildEventDetails(event, followTeam)}
 
               <p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 30px;">
                 We'll be posting speaker announcements and event updates in the build-up to the Nations Championship. Please check and share our socials on <a href="https://www.facebook.com/BritishAndIrishLegends" style="color:#b8953f;font-weight:bold;text-decoration:none;">Facebook</a> and <a href="https://www.instagram.com/legends.series" style="color:#b8953f;font-weight:bold;text-decoration:none;">Instagram</a> for updates and a chance to win 2 tickets to the Legends Lounge during the 2027 Six Nations.
@@ -145,6 +160,16 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Date</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.date}</td>
                       </tr>
+                      ${followTeam ? `
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Team</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;font-weight:bold;">${followTeam}</td>
+                      </tr>
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Your Matchday</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">Confirmed after the league stage</td>
+                      </tr>
+                      ` : `
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Marquee Opens</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.openTime}</td>
@@ -157,6 +182,7 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Marquee Closes</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${event.doorsClose}</td>
                       </tr>
+                      `}
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Guests</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${guestLabel}</td>
@@ -187,6 +213,27 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
               </table>
               ` : ''}
 
+              ${followTeam ? `
+              <!-- Which day will my team play -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;background-color:#141414;border:1px solid #b8953f33;">
+                <tr>
+                  <td style="padding:20px 25px;">
+                    <p style="color:#b8953f;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 15px;">Which Day Will ${followTeam} Play?</p>
+                    <p style="color:#999999;font-size:13px;line-height:1.5;margin:0 0 15px;">Each Finals day hosts two matches, decided by where the teams finish in the league:</p>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      ${finalsMatchdays.map((d) => `
+                      <tr>
+                        <td style="padding:8px 0;border-bottom:1px solid #ffffff10;">
+                          <p style="color:#b8953f;font-weight:bold;font-size:14px;margin:0 0 3px;">${d.shortDay}</p>
+                          <p style="color:#ffffff;font-size:13px;margin:0;">${d.positions}</p>
+                        </td>
+                      </tr>`).join('')}
+                    </table>
+                    <p style="color:#999999;font-size:12px;line-height:1.5;margin:15px 0 0;">We&rsquo;ll confirm your day and full timings by email as soon as the league stage finishes.</p>
+                  </td>
+                </tr>
+              </table>
+              ` : `
               <!-- Timeline -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;background-color:#141414;border:1px solid #b8953f33;">
                 <tr>
@@ -198,6 +245,7 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                   </td>
                 </tr>
               </table>
+              `}
 
               <!-- Important info -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;background-color:#1a1a1d;border-left:3px solid #b8953f;padding:0;">

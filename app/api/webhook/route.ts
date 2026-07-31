@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { resend } from '@/lib/email'
 import { getEventBySlug } from '@/lib/lounge-events'
+import { buildFollowYourTeamEvent } from '@/lib/follow-your-team'
 import { generateQRDataURL, generateTicketPNG } from '@/lib/qr'
 import { buildConfirmationEmail } from '@/lib/booking-email'
 import { createClient } from '@supabase/supabase-js'
@@ -65,7 +66,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true })
     }
 
-    const event = getEventBySlug(slug)
+    // Follow Your Team has no fixed matchday, so it isn't in lounge-events —
+    // build the event from the team recorded at checkout.
+    const followTeam = slug === 'follow-your-team'
+      ? session.metadata?.team_name || 'Your Team'
+      : undefined
+
+    const event = followTeam
+      ? buildFollowYourTeamEvent(followTeam)
+      : getEventBySlug(slug)
+
     if (!event) {
       console.error('Event not found for slug:', slug)
       return NextResponse.json({ received: true })
@@ -156,6 +166,7 @@ export async function POST(req: NextRequest) {
         bookingRef,
         qrDataURL: '',
         totalPaid,
+        followTeam,
       })
 
       if (resend) {
@@ -163,7 +174,9 @@ export async function POST(req: NextRequest) {
           from: 'Legends Series <noreply@contact.legends-series.com>',
           replyTo: 'info@legends-series.com',
           to: customerEmail,
-          subject: `Booking Confirmed — ${event.match} | ${event.shortDate}`,
+          subject: followTeam
+            ? `Booking Confirmed — Follow ${followTeam} | Finals Weekend 2026`
+            : `Booking Confirmed — ${event.match} | ${event.shortDate}`,
           html,
           attachments: attachments.map((a) => ({
             filename: a.filename,
