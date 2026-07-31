@@ -135,11 +135,6 @@ export default function BookingPolicyPage() {
             <li>You provide the replacement guest&apos;s full name and contact details</li>
             <li>The replacement guest agrees to our Terms &amp; Conditions</li>
           </ul>
-          <p>
-            For Legends Lounge Nations Championship Finals events, your ticket is interchangeable
-            across all three finals days (Friday, Saturday, Sunday), allowing you flexibility
-            regardless of which teams are scheduled on which day.
-          </p>
 
           <h2>Cancellation by Us</h2>
           <p>If we need to cancel an event, we will offer you either:</p>
