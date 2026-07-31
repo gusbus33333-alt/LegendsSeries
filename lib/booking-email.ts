@@ -56,11 +56,11 @@ function buildEventDetails(event: LoungeEvent, followTeam?: string): string {
     </p>`
   }
 
-  if (event.isFinals) {
-    return `<p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 20px;">
-      Your ticket is <strong style="color:#ffffff;">interchangeable across all three Finals days</strong> — if your team's schedule changes or you fancy a different day, just turn up on whichever day suits you. Same wristband, same experience.
-    </p>`
-  }
+  // Finals tickets used to be interchangeable across the three days. Follow
+  // Your Team now covers people who want to track a specific side, so a
+  // finals ticket is for the day it was booked. Times are in the details
+  // table and the timeline below.
+  if (event.isFinals) return ''
 
   const koText = event.ko === 'TBC'
     ? 'Kick-off time is still TBC — we\'ll update you as soon as it\'s confirmed.'
@@ -207,7 +207,7 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                   <td style="padding:20px 25px;">
                     <p style="color:#b8953f;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 15px;">Games on This Day</p>
                     ${event.games.map((g) => `<p style="color:#ffffff;font-size:14px;margin:8px 0;">${g}</p>`).join('')}
-                    <p style="color:#999999;font-size:12px;margin:10px 0 0;">Your ticket is interchangeable across all three Finals days.</p>
+                    <p style="color:#999999;font-size:12px;margin:10px 0 0;">Both matches are shown live on the giant screens in the Lounge.</p>
                   </td>
                 </tr>
               </table>
