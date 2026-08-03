@@ -5,7 +5,10 @@ import { teams, followYourTeamPrice } from '@/lib/follow-your-team'
 
 export async function POST(req: NextRequest) {
   try {
-    const { slug, guests, promoCode, marketingOptIn, teamId, teamName } = await req.json()
+    const { slug, guests, promoCode, marketingOptIn, teamId, teamName, note } = await req.json()
+
+    // Stripe rejects a metadata value over 500 characters.
+    const customerNote = typeof note === 'string' ? note.trim().slice(0, 500) : ''
 
     const guestCount = Math.max(1, Math.min(10, parseInt(guests) || 1))
 
@@ -76,6 +79,7 @@ export async function POST(req: NextRequest) {
         guests: String(guestCount),
         ...(teamId ? { team_id: teamId, team_name: teamName } : {}),
         ...(promoCode ? { promo_code: promoCode } : {}),
+        ...(customerNote ? { customer_note: customerNote } : {}),
         marketing_opt_in: marketingOptIn ? 'yes' : 'no',
       },
       success_url: `${req.nextUrl.origin}/book/${slug}/confirmation?session_id={CHECKOUT_SESSION_ID}`,

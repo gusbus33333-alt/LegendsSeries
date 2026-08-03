@@ -4,12 +4,17 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { teams, followYourTeamPrice, finalsMatchdays, type FollowTeam } from '@/lib/follow-your-team'
+import NoteToOrganisers from './NoteToOrganisers'
+import PromoCode, { type PromoDiscount } from './PromoCode'
 
 export default function FollowYourTeamCheckout() {
   const [selectedTeam, setSelectedTeam] = useState<FollowTeam | null>(null)
   const [guests, setGuests] = useState(1)
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
+  const [discount, setDiscount] = useState<PromoDiscount | null>(null)
+  // Stripe caps a metadata value at 500 characters.
+  const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const checkoutRef = useRef<HTMLDivElement>(null)
@@ -23,6 +28,17 @@ export default function FollowYourTeamCheckout() {
   const scrollToCheckout = () => {
     checkoutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
+
+  const discountedPrice = discount
+    ? discount.percentOff
+      ? followYourTeamPrice * (1 - discount.percentOff / 100)
+      : discount.amountOff
+        ? Math.max(0, followYourTeamPrice - discount.amountOff)
+        : followYourTeamPrice
+    : followYourTeamPrice
+
+  const total = discountedPrice * guests
+  const hasSaving = discount && discountedPrice < followYourTeamPrice
 
   // Hide the floating prompt once the booking card is actually on screen.
   useEffect(() => {
@@ -64,7 +80,9 @@ export default function FollowYourTeamCheckout() {
           guests,
           teamId: selectedTeam.id,
           teamName: selectedTeam.name,
+          promoCode: discount?.code || undefined,
           marketingOptIn,
+          note: note.trim() || undefined,
         }),
       })
 
@@ -245,11 +263,36 @@ export default function FollowYourTeamCheckout() {
                 </div>
               </div>
 
+              {/* Promo code */}
+              <PromoCode
+                onApply={setDiscount}
+                appliedCode={discount?.code || ''}
+                onRemove={() => setDiscount(null)}
+              />
+
+              {/* Saving breakdown when a code is applied */}
+              {hasSaving && (
+                <div className="border border-gold/20 bg-gold/5 px-3 py-2.5 flex flex-col gap-1">
+                  <div className="flex justify-between text-white/40 text-[0.6rem]">
+                    <span>Original ({guests} {guests === 1 ? 'guest' : 'guests'})</span>
+                    <span className="line-through">£{(followYourTeamPrice * guests).toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-[0.6rem]">
+                    <span className="text-gold">
+                      Discount{discount.percentOff ? ` (${discount.percentOff}% off)` : ''}
+                    </span>
+                    <span className="text-gold">
+                      −£{((followYourTeamPrice - discountedPrice) * guests).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              )}
+
               {/* Price */}
               <div className="flex justify-between items-baseline">
                 <span className="text-white/40 text-[0.6rem] uppercase tracking-widest">Total</span>
                 <span className="text-gold font-bold text-xl">
-                  £{(followYourTeamPrice * guests).toFixed(2)}
+                  £{total.toFixed(2)}
                 </span>
               </div>
 
@@ -262,6 +305,11 @@ export default function FollowYourTeamCheckout() {
                   Limited availability — once they&apos;re gone, they&apos;re gone
                 </span>
               </div>
+
+              <div className="h-px bg-white/10" />
+
+              {/* Note to organisers */}
+              <NoteToOrganisers value={note} onChange={setNote} id="fyt-note" />
 
               <div className="h-px bg-white/10" />
 

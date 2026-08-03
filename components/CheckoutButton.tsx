@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import PromoCode, { type PromoDiscount } from './PromoCode'
+import NoteToOrganisers from './NoteToOrganisers'
 
 interface CheckoutButtonProps {
   slug: string
@@ -19,6 +20,8 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
   const [discount, setDiscount] = useState<PromoDiscount | null>(null)
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
+  // Stripe caps a metadata value at 500 characters.
+  const [note, setNote] = useState('')
 
   const discountedPrice = discount
     ? discount.percentOff
@@ -45,7 +48,13 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, guests, promoCode: discount?.code || undefined, marketingOptIn }),
+        body: JSON.stringify({
+          slug,
+          guests,
+          promoCode: discount?.code || undefined,
+          marketingOptIn,
+          note: note.trim() || undefined,
+        }),
       })
 
       const data = await res.json()
@@ -120,6 +129,9 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
           </div>
         </div>
       )}
+
+      {/* Note to organisers */}
+      <NoteToOrganisers value={note} onChange={setNote} />
 
       {/* Terms and conditions */}
       <label className="flex items-start gap-2 cursor-pointer group">

@@ -31,6 +31,8 @@ interface TicketData {
   guestNumber: number
   totalGuests: number
   customerName: string
+  /** Optional gold pills, e.g. ['CHARITY WINNER', 'MERCH INCLUDED']. */
+  badges?: string[]
 }
 
 let interRegular: ArrayBuffer | null = null
@@ -57,8 +59,10 @@ export async function generateTicketPNG(data: TicketData): Promise<Buffer> {
   })
   const qrB64 = `data:image/png;base64,${qrPng.toString('base64')}`
 
+  const badges = data.badges?.filter(Boolean) ?? []
   const width = 600
-  const height = 820
+  // Badge row needs its own vertical space or the footer overlaps the venue text.
+  const height = 820 + (badges.length ? 46 : 0)
   const gold = '#b8953f'
 
   const markup = {
@@ -106,6 +110,30 @@ export async function generateTicketPNG(data: TicketData): Promise<Buffer> {
             { type: 'div', props: { style: { color: '#ffffff', fontSize: '14px', fontWeight: 700, marginTop: '4px' }, children: data.openTime } },
           ] } },
         ] } },
+        // Badges (charity winner, merch included, …)
+        ...(badges.length
+          ? [{ type: 'div', props: { style: { display: 'flex', justifyContent: 'center', marginTop: '16px' }, children: badges.map((b) => ({
+              type: 'div',
+              props: {
+                style: {
+                  display: 'flex',
+                  color: gold,
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  letterSpacing: '2px',
+                  border: `1px solid ${gold}`,
+                  borderRadius: '999px',
+                  paddingTop: '6px',
+                  paddingBottom: '6px',
+                  paddingLeft: '14px',
+                  paddingRight: '14px',
+                  marginLeft: '5px',
+                  marginRight: '5px',
+                },
+                children: b,
+              },
+            })) } }]
+          : []),
         // Divider
         { type: 'div', props: { style: { width: '520px', height: '1px', backgroundColor: '#b8953f33', marginTop: '14px' } } },
         // QR code with white background

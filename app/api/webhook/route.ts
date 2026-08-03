@@ -153,6 +153,7 @@ export async function POST(req: NextRequest) {
           discount_amount: discount,
           vat_amount: vatAmount,
           marketing_opt_in: session.metadata?.marketing_opt_in === 'yes',
+          customer_note: session.metadata?.customer_note || null,
         })
       }
 
@@ -167,6 +168,7 @@ export async function POST(req: NextRequest) {
         qrDataURL: '',
         totalPaid,
         followTeam,
+        customerNote: session.metadata?.customer_note || undefined,
       })
 
       if (resend) {

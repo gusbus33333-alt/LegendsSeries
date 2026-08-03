@@ -31,6 +31,7 @@ export async function GET(req: NextRequest) {
     qrDataURL,
     totalPaid: followTeam ? '£600.00' : '£396.00',
     followTeam,
+    customerNote: req.nextUrl.searchParams.get('note') || undefined,
   })
 
   return new NextResponse(html, { headers: { 'Content-Type': 'text/html' } })

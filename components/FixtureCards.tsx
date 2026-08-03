@@ -297,7 +297,7 @@ export default function FixtureCards() {
           {visible.map((fixture) => (
             <article
               key={fixture.slug}
-              className="bg-gradient-to-b from-[#17171a] to-[#121214] border border-gold/28 rounded-[6px] p-8 pb-7 flex flex-col transition-all duration-250 hover:-translate-y-1 hover:border-gold/60 hover:shadow-[0_18px_40px_rgba(0,0,0,.5)]"
+              className="group relative bg-gradient-to-b from-[#17171a] to-[#121214] border border-gold/28 rounded-[6px] p-8 pb-7 flex flex-col transition-all duration-250 hover:-translate-y-1 hover:border-gold/60 hover:shadow-[0_18px_40px_rgba(0,0,0,.5)]"
             >
               {/* Competition label */}
               <p className="text-[10px] font-bold tracking-[0.34em] uppercase text-gold text-center mb-5">
@@ -346,10 +346,15 @@ export default function FixtureCards() {
                 </div>
               </div>
 
-              {/* CTA */}
+              {/*
+                CTA — its ::after stretches over the whole card so any click
+                navigates. Keep filter/transform off this element: either would
+                make it the containing block for the ::after and collapse the
+                overlay back to the button. Hover uses gradient stops instead.
+              */}
               <Link
                 href={`/book/${fixture.slug}`}
-                className="mt-5 block text-center bg-gradient-to-r from-gold to-[#c9a24b] text-ink text-[12px] font-bold tracking-[0.2em] uppercase py-3.5 rounded-[2px] transition-all duration-200 hover:brightness-110 hover:-translate-y-px"
+                className="mt-5 block text-center bg-gradient-to-r from-gold to-[#c9a24b] group-hover:from-[#cda94c] group-hover:to-[#dcb75f] text-ink text-[12px] font-bold tracking-[0.2em] uppercase py-3.5 rounded-[2px] transition-all duration-200 after:absolute after:inset-0 after:content-[''] after:rounded-[6px]"
               >
                 More info &amp; booking
               </Link>

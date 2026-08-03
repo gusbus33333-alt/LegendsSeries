@@ -12,6 +12,16 @@ function getLogoBase64(): string {
   return logoBase64
 }
 
+/** The note is customer-supplied, so it must never reach the email as raw HTML. */
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 interface BookingEmailData {
   customerName: string
   customerEmail: string
@@ -22,6 +32,8 @@ interface BookingEmailData {
   totalPaid: string
   /** Set for Follow Your Team bookings — the matchday is confirmed later. */
   followTeam?: string
+  /** Free-text note from the booking form (club name, dietary needs, …). */
+  customerNote?: string
 }
 
 const directions = {
@@ -72,7 +84,7 @@ function buildEventDetails(event: LoungeEvent, followTeam?: string): string {
 }
 
 export function buildConfirmationEmail(data: BookingEmailData): string {
-  const { customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam } = data
+  const { customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam, customerNote } = data
   // A Follow Your Team booking has no fixed schedule yet, so there is no
   // honest timeline to show — the matchday block replaces it below.
   const timeline = followTeam ? [] : buildTimeline(event)
@@ -145,6 +157,19 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                   </td>
                 </tr>
               </table>
+
+              ${customerNote ? `
+              <!-- Customer's note back to them, so they can check we have it right -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;background-color:#141414;border:1px solid #b8953f33;">
+                <tr>
+                  <td style="padding:20px 25px;">
+                    <p style="color:#b8953f;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 12px;">Your Note to Us</p>
+                    <p style="color:#ffffff;font-size:14px;line-height:1.6;margin:0;">${escapeHtml(customerNote).replace(/\n/g, '<br/>')}</p>
+                    <p style="color:#999999;font-size:12px;line-height:1.5;margin:12px 0 0;">We&rsquo;ve passed this to the organisers. If anything looks wrong, just reply to this email.</p>
+                  </td>
+                </tr>
+              </table>
+              ` : ''}
 
               <!-- Booking summary -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;background-color:#141414;border:1px solid #b8953f33;">

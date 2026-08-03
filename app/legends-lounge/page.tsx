@@ -238,7 +238,7 @@ export default function LegendsLoungePage() {
               {/* Trust signals */}
               <div className="flex flex-wrap gap-6">
                 <div className="border-l-2 border-gold pl-4">
-                  <p className="text-ink font-bold text-2xl">20m</p>
+                  <p className="text-ink font-bold text-2xl">20 metres</p>
                   <p className="text-ink/40 text-xs uppercase tracking-widest">From the stadium</p>
                 </div>
                 <div className="border-l-2 border-gold pl-4">

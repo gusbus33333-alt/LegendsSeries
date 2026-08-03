@@ -156,7 +156,7 @@ export default function BookPage() {
               { icon: '·', label: 'Live Music' },
               { icon: '·', label: 'All Internationals on Screen' },
               { icon: '·', label: 'Charity Donation Included' },
-              { icon: '·', label: '20m from the Stadium' },
+              { icon: '·', label: '20 metres from the Stadium' },
             ].map((item) => (
               <div
                 key={item.label}
