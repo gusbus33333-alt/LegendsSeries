@@ -133,6 +133,17 @@ function TeamBadge({ icon, code }: { icon: string; code: string }) {
   )
 }
 
+const ORDINALS: Record<string, string> = {
+  '1': '1st', '2': '2nd', '3': '3rd', '4': '4th', '5': '5th', '6': '6th',
+}
+
+/** 'N6' → 'NORTH 6TH'. Spells the badge codes out so the matchup is unambiguous. */
+function sideLabel(code: string): string {
+  const side = code.charAt(0).toUpperCase() === 'N' ? 'North' : 'South'
+  const position = code.slice(1)
+  return `${side} ${ORDINALS[position] ?? position}`.toUpperCase()
+}
+
 // ── Finals badge (image-based) ────────────────────────────────────────────────
 function FinalsBadge({ code }: { code: string }) {
   const file = `/team-icons/${code.toLowerCase()}_badge.png`
@@ -173,10 +184,17 @@ function FinalsMatchup({ games }: { games: GamePair[] }) {
               <FinalsBadge code={game.south} />
             </div>
 
-            {/* Game label */}
-            <p className="text-center text-[9px] font-semibold tracking-[0.22em] uppercase text-white/30">
-              {isGrandFinal ? game.label : `Match ${i + 1}`}
-            </p>
+            {/* Matchup spelled out — understandable without clicking through */}
+            <div className="text-center">
+              <p className="text-[9px] font-semibold tracking-[0.22em] uppercase text-white/30 mb-1.5">
+                {isGrandFinal ? game.label : `Match ${i + 1}`}
+              </p>
+              <p className="text-white font-bold text-[15px] leading-tight tracking-[0.03em]">
+                {sideLabel(game.north)}
+                <span className="text-white/30 font-normal italic px-1.5">vs</span>
+                {sideLabel(game.south)}
+              </p>
+            </div>
           </div>
         )
       })}
@@ -193,7 +211,9 @@ function vatPrice(exVat: string, includeVat: boolean): string {
 
 export default function FixtureCards() {
   const [filter, setFilter] = useState<Filter>('all')
-  const [includeVat, setIncludeVat] = useState(false)
+  // Consumers pay the VAT-inclusive price, so that is what leads. The toggle
+  // stays for anyone booking through a business.
+  const [includeVat, setIncludeVat] = useState(true)
 
   const chips: { value: Filter; label: string }[] = [
     { value: 'all', label: 'All fixtures' },
@@ -216,6 +236,11 @@ export default function FixtureCards() {
           <p className="text-white/40 max-w-xl mx-auto text-sm leading-relaxed">
             Every England international and all three Nations Cup Finals double headers, hosted at the
             Legends Lounge moments from the stadium.
+          </p>
+          <p className="text-white/55 text-sm mt-5">
+            <span className="text-gold font-semibold">£198 – £300</span> per person, inc VAT
+            <span className="text-white/20 mx-3">|</span>
+            Capped at <span className="text-gold font-semibold">300</span> places per matchday
           </p>
         </div>
 
@@ -257,41 +282,6 @@ export default function FixtureCards() {
           ))}
         </div>
 
-        {/* Follow Your Team CTA */}
-        {(filter === 'all' || filter === 'finals') && (
-          <div className="mb-10">
-            <Link
-              href="/book/follow-your-team"
-              className="group block bg-gradient-to-r from-[#17171a] to-[#121214] border border-gold/40 rounded-[6px] p-8 transition-all duration-250 hover:-translate-y-1 hover:border-gold/70 hover:shadow-[0_18px_40px_rgba(0,0,0,.5)]"
-            >
-              <div className="flex flex-col sm:flex-row items-center gap-6">
-                <div className="flex-1 text-center sm:text-left">
-                  <div className="flex items-center justify-center sm:justify-start gap-3 mb-3">
-                    <span className="text-gold text-[0.6rem] tracking-[0.3em] uppercase font-semibold border border-gold/40 px-3 py-1">
-                      Nations Cup Finals
-                    </span>
-                    <span className="bg-red-600 text-white text-[0.6rem] tracking-[0.2em] uppercase font-bold px-3 py-1">
-                      Limited
-                    </span>
-                  </div>
-                  <p className="text-white font-bold text-xl lg:text-2xl tracking-tight">
-                    Follow Your Team
-                  </p>
-                  <p className="text-white/40 text-sm mt-2 leading-relaxed max-w-lg">
-                    Pick your team and get full Legends Lounge hospitality on the day they play
-                    during Finals Weekend. One team, one day, full package.
-                  </p>
-                </div>
-                <div className="flex-shrink-0 flex items-center gap-2">
-                  <span className="text-gold text-[22px] font-bold">{includeVat ? '£300' : '£250+'}</span>
-                  <span className="text-white/35 text-[10px] tracking-[0.12em]">{includeVat ? 'inc VAT' : 'ex VAT'}<br />per person</span>
-                </div>
-                <span className="text-gold text-2xl group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </Link>
-          </div>
-        )}
-
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {visible.map((fixture) => (
@@ -304,8 +294,8 @@ export default function FixtureCards() {
                 {fixture.competition}
               </p>
 
-              {/* Matchup visual */}
-              <div className="flex items-center justify-center mb-5">
+              {/* Matchup visual — symmetry earns its place here */}
+              <div className="flex items-center justify-center mb-6">
                 {fixture.cat === 'eng' ? (
                   <div className="flex items-center gap-4">
                     <TeamBadge icon={fixture.homeIcon} code={fixture.homeCode} />
@@ -317,32 +307,35 @@ export default function FixtureCards() {
                 )}
               </div>
 
-              {/* Match title (England only) */}
+              {/* Everything below is read, compared and scanned — so it is left-aligned */}
               {fixture.cat === 'eng' && (
-                <p className="text-center font-bold tracking-[0.05em] uppercase text-[17px] leading-tight text-white">
+                <h3 className="font-bold tracking-[0.03em] uppercase text-[19px] leading-tight text-white">
                   {fixture.title}
-                </p>
+                </h3>
               )}
 
-              <p className="text-center text-[12px] text-white/35 tracking-[0.04em] mt-1.5">
+              <p className="text-[12px] text-white/45 tracking-[0.04em] mt-2">
                 {fixture.date}
               </p>
 
-              <p className="text-center text-[11px] text-white/25 leading-relaxed mt-3 px-2">
+              <p className="text-[12px] text-white/35 leading-relaxed mt-3">
                 {fixture.blurb}
               </p>
 
-              {/* Meta */}
-              <div className="flex items-baseline justify-between border-t border-gold/20 mt-6 pt-5">
-                <div>
-                  <span className="text-[22px] font-bold text-gold/90 leading-none">{includeVat ? fixture.priceInc.replace(/ inc VAT.*/, '') : fixture.price}</span>
-                  <span className="block text-[10px] tracking-[0.12em] text-white/35 mt-1">
-                    {includeVat ? 'inc VAT' : 'ex VAT'} per person
+              {/* Price dominates; supporting detail recedes */}
+              <div className="border-t border-gold/20 mt-auto pt-5">
+                <div className="flex items-end justify-between gap-3">
+                  <div>
+                    <span className="block text-[32px] font-bold text-gold leading-none">
+                      {includeVat ? fixture.priceInc.replace(/ inc VAT.*/, '') : fixture.price}
+                    </span>
+                    <span className="block text-[10px] tracking-[0.12em] text-white/40 mt-1.5">
+                      per person &middot; {includeVat ? 'inc VAT' : 'ex VAT'}
+                    </span>
+                  </div>
+                  <span className="text-[10px] tracking-[0.1em] uppercase text-white/30 text-right leading-snug pb-1">
+                    {fixture.cat === 'finals' ? 'Two matches' : 'Full day'}
                   </span>
-                </div>
-                <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase text-gold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0" />
-                  Limited places
                 </div>
               </div>
 
@@ -361,6 +354,45 @@ export default function FixtureCards() {
             </article>
           ))}
         </div>
+
+        {/* Follow Your Team — sits under the Finals double headers it solves for */}
+        {(filter === 'all' || filter === 'finals') && (
+          <div className="mt-10">
+            <Link
+              href="/book/follow-your-team"
+              className="group block bg-gradient-to-r from-[#17171a] to-[#121214] border border-gold/40 rounded-[6px] p-8 transition-all duration-250 hover:-translate-y-1 hover:border-gold/70 hover:shadow-[0_18px_40px_rgba(0,0,0,.5)]"
+            >
+              <div className="flex flex-col sm:flex-row items-center gap-6">
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="flex items-center justify-center sm:justify-start gap-3 mb-3">
+                    <span className="text-gold text-[0.6rem] tracking-[0.3em] uppercase font-semibold border border-gold/40 px-3 py-1">
+                      Nations Cup Finals
+                    </span>
+                    <span className="bg-red-600 text-white text-[0.6rem] tracking-[0.2em] uppercase font-bold px-3 py-1">
+                      Limited
+                    </span>
+                  </div>
+                  <p className="text-white font-bold text-xl lg:text-2xl tracking-tight">
+                    Follow Your Team
+                  </p>
+                  <p className="text-white/55 text-sm mt-2 leading-relaxed max-w-xl">
+                    As you aren&apos;t sure which day your team will play currently, pick this package
+                    and select your team to visit on the day they play.
+                  </p>
+                  <p className="text-white/35 text-xs mt-2 leading-relaxed max-w-xl">
+                    It takes the guessing out of where they finish — pick your team now and
+                    we&apos;ll confirm your day as soon as the fixtures are set.
+                  </p>
+                </div>
+                <div className="flex-shrink-0 flex items-center gap-2">
+                  <span className="text-gold text-[22px] font-bold">{includeVat ? '£300' : '£250+'}</span>
+                  <span className="text-white/35 text-[10px] tracking-[0.12em]">{includeVat ? 'inc VAT' : 'ex VAT'}<br />per person</span>
+                </div>
+                <span className="text-gold text-2xl group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   )

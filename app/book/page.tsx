@@ -119,9 +119,14 @@ export default function BookPage() {
                   <p className="text-white font-bold text-xl lg:text-2xl tracking-tight">
                     Follow Your Team
                   </p>
-                  <p className="text-white/40 text-sm mt-2 leading-relaxed max-w-lg">
-                    Pick the team you&apos;re supporting and get full Legends Lounge hospitality on the
-                    day they play during Finals Weekend. Once they&apos;re gone, they&apos;re gone.
+                  <p className="text-white/55 text-sm mt-2 leading-relaxed max-w-xl">
+                    As you aren&apos;t sure which day your team will play currently, pick this package
+                    and select your team to visit on the day they play.
+                  </p>
+                  <p className="text-white/35 text-xs mt-2 leading-relaxed max-w-xl">
+                    It takes the guessing out of where they finish — you don&apos;t need to know their
+                    final position in advance. Pick your team now and we&apos;ll confirm your day as
+                    soon as the fixtures are set.
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -168,7 +173,7 @@ export default function BookPage() {
             ))}
           </div>
           <p className="text-center text-ink/30 text-xs mt-6">
-            Match tickets are not included. Obtain through official channels before booking.
+            Match tickets are not included. Obtain through your own sources or enjoy the whole day in the marquee.
           </p>
         </div>
       </section>

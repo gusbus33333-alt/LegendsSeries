@@ -34,6 +34,10 @@ interface BookingEmailData {
   followTeam?: string
   /** Free-text note from the booking form (club name, dietary needs, …). */
   customerNote?: string
+  adults?: number
+  under16?: number
+  carParking?: number
+  busParking?: number
 }
 
 const directions = {
@@ -84,7 +88,11 @@ function buildEventDetails(event: LoungeEvent, followTeam?: string): string {
 }
 
 export function buildConfirmationEmail(data: BookingEmailData): string {
-  const { customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam, customerNote } = data
+  const {
+    customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam, customerNote,
+    adults, under16 = 0, carParking = 0, busParking = 0,
+  } = data
+  const adultCount = adults ?? guests
   // A Follow Your Team booking has no fixed schedule yet, so there is no
   // honest timeline to show — the matchday block replaces it below.
   const timeline = followTeam ? [] : buildTimeline(event)
@@ -210,8 +218,29 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                       `}
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Guests</td>
-                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${guestLabel}</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${under16 > 0 ? `${adultCount} adult${adultCount === 1 ? '' : 's'}` : guestLabel}</td>
                       </tr>
+                      ${under16 > 0 ? `
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Under 16s</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${under16} &middot; 15 and under</td>
+                      </tr>` : ''}
+                      ${carParking > 0 ? `
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Car parking</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${carParking} ${carParking === 1 ? 'space' : 'spaces'}</td>
+                      </tr>` : ''}
+                      ${busParking > 0 ? `
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Bus parking</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${busParking} ${busParking === 1 ? 'space' : 'spaces'}</td>
+                      </tr>` : ''}
+                      ${carParking > 0 || busParking > 0 ? `
+                      <tr>
+                        <td colspan="2" style="color:#b8953f;font-size:12px;padding:4px 0 6px;line-height:1.5;">
+                          Must be removed by 9am the morning after the game.
+                        </td>
+                      </tr>` : ''}
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Total Paid</td>
                         <td style="color:#b8953f;font-size:13px;padding:6px 0;text-align:right;font-weight:bold;">${totalPaid}</td>

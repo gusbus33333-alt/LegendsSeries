@@ -3,6 +3,7 @@ import { Poppins, Cormorant_Garamond } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { Analytics } from '@vercel/analytics/next'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -52,6 +53,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main>{children}</main>
         <Footer />
+        {/* Scroll depth and page data, so layout decisions can be measured
+            rather than argued. Cookieless — no consent banner needed. */}
+        <Analytics />
       </body>
     </html>
   )

@@ -11,6 +11,7 @@ import {
 } from '@/lib/lounge-events'
 import ScrollReveal from '@/components/ScrollReveal'
 import CheckoutButton from '@/components/CheckoutButton'
+import MobileBookingBar from '@/components/MobileBookingBar'
 
 interface PageProps {
   params: { slug: string }
@@ -84,7 +85,22 @@ export default function BookEventPage({ params }: PageProps) {
         </div>
       </section>
 
-
+      {/* Mobile only: the booking card stacks far below, so lead with the price */}
+      <section className="lg:hidden bg-ink border-t border-white/10">
+        <div className="px-6 py-5 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-white/35 text-[0.6rem] tracking-[0.2em] uppercase">Per person</p>
+            <p className="text-gold font-bold text-3xl leading-none mt-1">
+              £{event.price}
+              <span className="text-white/40 text-xs font-normal ml-2">inc VAT</span>
+            </p>
+            <p className="text-white/30 text-[0.65rem] mt-1.5">Hospitality only · match ticket not required</p>
+          </div>
+          <a href="#booking-card" className="btn-gold flex-shrink-0 px-6 py-3 text-[0.7rem]">
+            Book Now
+          </a>
+        </div>
+      </section>
 
       {/* ── Main content ──────────────────────────────────────────────── */}
       <section className="py-20 lg:py-28 bg-parchment">
@@ -135,7 +151,8 @@ export default function BookEventPage({ params }: PageProps) {
                       <span className="text-ink/30 text-xs mt-0.5">✕</span>
                       <p className="text-ink/50 text-xs leading-snug">
                         <strong className="text-ink/70">Match ticket</strong> — not included and
-                        we cannot source them. Obtain through official channels before booking.
+                        we cannot source them. Obtain through your own sources or enjoy the whole
+                        day in the marquee.
                       </p>
                     </li>
                     <li className="flex items-start gap-2">
@@ -185,7 +202,7 @@ export default function BookEventPage({ params }: PageProps) {
 
             {/* ── Right: booking card (sticky) ───────────────────────── */}
             <div className="lg:col-span-1">
-              <div className="sticky top-28">
+              <div id="booking-card" className="sticky top-28">
                 <ScrollReveal>
                   <div className="bg-ink">
                     {/* Price header */}
@@ -193,8 +210,12 @@ export default function BookEventPage({ params }: PageProps) {
                       <p className="text-white/35 text-[0.65rem] tracking-[0.2em] uppercase mb-1">
                         Price per person
                       </p>
-                      <p className="text-gold font-bold text-4xl">{event.priceLabel}</p>
-                      <p className="text-white/25 text-xs mt-1">{event.priceExVat} per person</p>
+                      {/* Lead with what they actually pay; ex-VAT stays for business bookers */}
+                      <p className="text-gold font-bold text-4xl leading-none">
+                        £{event.price}
+                        <span className="text-white/40 text-sm font-normal ml-2">inc VAT</span>
+                      </p>
+                      <p className="text-white/25 text-xs mt-2">{event.priceExVat} per person</p>
                     </div>
 
                     <div className="h-px bg-white/10 mx-7" />
@@ -327,6 +348,8 @@ export default function BookEventPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      <MobileBookingBar priceLabel={`£${event.price} inc VAT`} targetId="booking-card" />
     </>
   )
 }

@@ -8,8 +8,9 @@ export default function BadgeStrip() {
   // Duplicate for seamless loop
   const items = [...codes, ...codes]
 
+  // Tighter above than below: sits close under the hero, keeps its gap to the section after
   return (
-    <div className="py-10 overflow-hidden bg-ink">
+    <div className="pt-7 pb-10 overflow-hidden bg-ink">
       <div
         className="flex gap-6"
         style={{

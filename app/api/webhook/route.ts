@@ -56,7 +56,12 @@ export async function POST(req: NextRequest) {
     const session = stripeEvent.data.object as Stripe.Checkout.Session
 
     const slug = session.metadata?.event_slug
+    // `guests` is every attendee needing a pass (adults + under 16s).
     const guests = parseInt(session.metadata?.guests || '1')
+    const adults = parseInt(session.metadata?.adults || String(guests))
+    const under16 = parseInt(session.metadata?.under_16 || '0')
+    const carParking = parseInt(session.metadata?.car_parking || '0')
+    const busParking = parseInt(session.metadata?.bus_parking || '0')
     const customerEmail = session.customer_details?.email
     const customerName = session.customer_details?.name || 'Guest'
     const customerPhone = session.customer_details?.phone || null
@@ -154,6 +159,10 @@ export async function POST(req: NextRequest) {
           vat_amount: vatAmount,
           marketing_opt_in: session.metadata?.marketing_opt_in === 'yes',
           customer_note: session.metadata?.customer_note || null,
+          adults,
+          under_16: under16,
+          car_parking: carParking,
+          bus_parking: busParking,
         })
       }
 
@@ -169,6 +178,10 @@ export async function POST(req: NextRequest) {
         totalPaid,
         followTeam,
         customerNote: session.metadata?.customer_note || undefined,
+        adults,
+        under16,
+        carParking,
+        busParking,
       })
 
       if (resend) {

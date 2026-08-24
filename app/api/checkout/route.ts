@@ -1,16 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
-import { getEventBySlug } from '@/lib/lounge-events'
+import {
+  getEventBySlug,
+  under16Price,
+  CAR_PARKING_PRICE,
+  BUS_PARKING_PRICE,
+  MAX_CAR_PARKING,
+  MAX_BUS_PARKING,
+} from '@/lib/lounge-events'
 import { teams, followYourTeamPrice } from '@/lib/follow-your-team'
+
+const clamp = (value: unknown, min: number, max: number) =>
+  Math.max(min, Math.min(max, parseInt(String(value)) || 0))
 
 export async function POST(req: NextRequest) {
   try {
-    const { slug, guests, promoCode, marketingOptIn, teamId, teamName, note } = await req.json()
+    const {
+      slug, guests, promoCode, marketingOptIn, teamId, teamName, note,
+      under16, carParking, busParking,
+    } = await req.json()
 
     // Stripe rejects a metadata value over 500 characters.
     const customerNote = typeof note === 'string' ? note.trim().slice(0, 500) : ''
 
-    const guestCount = Math.max(1, Math.min(10, parseInt(guests) || 1))
+    const guestCount = clamp(guests, 1, 30)
+    const under16Count = clamp(under16, 0, 30)
+    const carCount = clamp(carParking, 0, MAX_CAR_PARKING)
+    const busCount = clamp(busParking, 0, MAX_BUS_PARKING)
 
     let productName: string
     let productDescription: string
@@ -43,21 +59,37 @@ export async function POST(req: NextRequest) {
       eventDate = event.date
     }
 
+    // Each ticket type and extra is its own line so the Stripe receipt itemises them.
+    const lineItem = (name: string, description: string, pence: number, quantity: number) => ({
+      price_data: {
+        currency: 'gbp',
+        unit_amount: pence,
+        product_data: { name, description },
+      },
+      quantity,
+    })
+
+    const childAmount = Math.round(under16Price(unitAmount / 100) * 100)
+
     const sessionParams: Record<string, unknown> = {
       mode: 'payment',
       payment_method_types: ['card'],
       line_items: [
-        {
-          price_data: {
-            currency: 'gbp',
-            unit_amount: unitAmount,
-            product_data: {
-              name: productName,
-              description: productDescription,
-            },
-          },
-          quantity: guestCount,
-        },
+        lineItem(productName, productDescription, unitAmount, guestCount),
+        ...(under16Count > 0
+          ? [lineItem(
+              `${productName} — Under 16`,
+              `${eventDate} · 15 and under · half price`,
+              childAmount,
+              under16Count,
+            )]
+          : []),
+        ...(carCount > 0
+          ? [lineItem('Car Parking', `${eventDate} · matchday car parking`, CAR_PARKING_PRICE * 100, carCount)]
+          : []),
+        ...(busCount > 0
+          ? [lineItem('Bus Parking', `${eventDate} · matchday coach parking`, BUS_PARKING_PRICE * 100, busCount)]
+          : []),
       ],
       ...await (async () => {
         if (promoCode) {
@@ -76,7 +108,13 @@ export async function POST(req: NextRequest) {
         event_slug: eventSlug,
         event_match: eventMatch,
         event_date: eventDate,
-        guests: String(guestCount),
+        // `guests` is every attendee needing a pass, so the webhook's QR loop
+        // covers under 16s too. The breakdown is kept alongside it.
+        guests: String(guestCount + under16Count),
+        adults: String(guestCount),
+        under_16: String(under16Count),
+        car_parking: String(carCount),
+        bus_parking: String(busCount),
         ...(teamId ? { team_id: teamId, team_name: teamName } : {}),
         ...(promoCode ? { promo_code: promoCode } : {}),
         ...(customerNote ? { customer_note: customerNote } : {}),

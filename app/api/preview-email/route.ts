@@ -32,6 +32,11 @@ export async function GET(req: NextRequest) {
     totalPaid: followTeam ? '£600.00' : '£396.00',
     followTeam,
     customerNote: req.nextUrl.searchParams.get('note') || undefined,
+    // ?adults=2&under16=2&car=1&bus=1
+    adults: Number(req.nextUrl.searchParams.get('adults')) || undefined,
+    under16: Number(req.nextUrl.searchParams.get('under16')) || 0,
+    carParking: Number(req.nextUrl.searchParams.get('car')) || 0,
+    busParking: Number(req.nextUrl.searchParams.get('bus')) || 0,
   })
 
   return new NextResponse(html, { headers: { 'Content-Type': 'text/html' } })

@@ -561,16 +561,6 @@ export const legends: Legend[] = [
     stat: '87 caps, 58 tries for Wales. IRB World Player of the Year 2008. Scored a try in his final Test — because of course he did',
   },
 
-  {
-    id: 'sam-warburton',
-    slug: 'sam-warburton',
-    name: 'Sam Warburton',
-    country: 'Wales',
-    flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
-    clubs: 'Cardiff, Wales & British & Irish Lions',
-    stat: 'Before he became the youngest ever Welsh Captain, he played football with Gareth Bale. Captained two Lions tours, an immense leader of men',
-  },
-
   // ── IRELAND ───────────────────────────────────────────────────────────────
   {
     id: 'craig-gilroy',
@@ -986,6 +976,26 @@ export const COUNTRY_ORDER = [
   'LooseHeadz',
   'Wooden Spoon',
 ]
+
+/**
+ * Legends photographed in the Legends Lounge at previous events — the hero shot
+ * (Tuilagi, Armitage) and the England v Ireland feature (Toner, Byrne, McCarthy).
+ * Named so the Lounge page can evidence past attendance rather than only
+ * promising a line-up. Not a claim about who attends future events.
+ */
+export const PREVIOUS_LOUNGE_LEGENDS = [
+  'manu-tuilagi',
+  'delon-armitage',
+  'devin-toner',
+  'shane-byrne',
+  'mike-mccarthy',
+]
+
+export function getLegendsBySlugs(slugs: string[]): Legend[] {
+  return slugs
+    .map((slug) => legends.find((l) => l.slug === slug))
+    .filter((l): l is Legend => Boolean(l))
+}
 
 export const legendsByCountry = COUNTRY_ORDER.reduce<Record<string, Legend[]>>(
   (acc, country) => {

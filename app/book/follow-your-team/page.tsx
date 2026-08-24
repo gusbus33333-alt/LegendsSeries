@@ -127,7 +127,8 @@ export default function FollowYourTeamPage() {
                   <span className="text-ink/30 text-xs mt-0.5">{'✕'}</span>
                   <p className="text-ink/50 text-xs leading-snug">
                     <strong className="text-ink/70">Match ticket</strong> — not included and
-                    we cannot source them. Obtain through official channels before booking.
+                    we cannot source them. Obtain through your own sources or enjoy the whole
+                    day in the marquee.
                   </p>
                 </li>
                 <li className="flex items-start gap-2">

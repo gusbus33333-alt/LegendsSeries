@@ -347,3 +347,17 @@ export function getEventBySlug(slug: string): LoungeEvent | undefined {
 export function getOtherEvents(slug: string): LoungeEvent[] {
   return loungeEvents.filter((e) => e.slug !== slug)
 }
+
+// ─── Optional extras (same on every matchday, prices inc VAT) ────────────────
+export const CAR_PARKING_PRICE = 40
+export const BUS_PARKING_PRICE = 150
+export const MAX_CAR_PARKING = 10
+export const MAX_BUS_PARKING = 5
+
+/** Under 16s (15 and under) pay half the adult price. */
+export const UNDER_16_RATE = 0.5
+
+/** Half price, rounded to the penny so Stripe gets a clean integer of pence. */
+export function under16Price(adultPrice: number): number {
+  return Math.round(adultPrice * UNDER_16_RATE * 100) / 100
+}

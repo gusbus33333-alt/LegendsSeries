@@ -4,6 +4,14 @@ import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import PromoCode, { type PromoDiscount } from './PromoCode'
 import NoteToOrganisers from './NoteToOrganisers'
+import QuantityRow from './QuantityRow'
+import {
+  CAR_PARKING_PRICE,
+  BUS_PARKING_PRICE,
+  MAX_CAR_PARKING,
+  MAX_BUS_PARKING,
+  under16Price,
+} from '@/lib/lounge-events'
 
 interface CheckoutButtonProps {
   slug: string
@@ -15,6 +23,9 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
   const searchParams = useSearchParams()
   const initialGuests = Math.min(30, Math.max(1, Number(searchParams.get('guests')) || 1))
   const [guests, setGuests] = useState(initialGuests)
+  const [under16, setUnder16] = useState(0)
+  const [carParking, setCarParking] = useState(0)
+  const [busParking, setBusParking] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [discount, setDiscount] = useState<PromoDiscount | null>(null)
@@ -31,8 +42,16 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
         : price
     : price
 
-  const total = discountedPrice * guests
+  // Under 16s are half the adult price; the promo code applies to them too.
+  const fullChildPrice = under16Price(price)
+  const childPrice = under16Price(discountedPrice)
+  const ticketsFull = price * guests + fullChildPrice * under16
+  const ticketsTotal = discountedPrice * guests + childPrice * under16
+  const discountAmount = ticketsFull - ticketsTotal
+  const extrasTotal = carParking * CAR_PARKING_PRICE + busParking * BUS_PARKING_PRICE
+  const total = ticketsTotal + extrasTotal
   const hasSaving = discount && discountedPrice < price
+  const hasExtras = under16 > 0 || carParking > 0 || busParking > 0
 
   const handleCheckout = async () => {
     setLoading(true)
@@ -51,6 +70,9 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
         body: JSON.stringify({
           slug,
           guests,
+          under16,
+          carParking,
+          busParking,
           promoCode: discount?.code || undefined,
           marketingOptIn,
           note: note.trim() || undefined,
@@ -74,31 +96,40 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
 
   return (
     <div className="flex flex-col gap-3">
-      {/* Guest selector */}
-      <div className="flex items-center justify-between">
-        <label className="text-white/40 text-[0.6rem] uppercase tracking-widest">
-          Guests
-        </label>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setGuests((g) => Math.max(1, g - 1))}
-            className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm"
-            disabled={guests <= 1}
-          >
-            −
-          </button>
-          <span className="text-white font-semibold text-sm w-6 text-center">{guests}</span>
-          <button
-            type="button"
-            onClick={() => setGuests((g) => Math.min(10, g + 1))}
-            className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm"
-            disabled={guests >= 30}
-          >
-            +
-          </button>
-        </div>
-      </div>
+      {/* Tickets */}
+      <QuantityRow label="Guests" value={guests} onChange={setGuests} min={1} max={30} />
+      <QuantityRow
+        label="Under 16s"
+        hint={`15 and under · half price (£${under16Price(price).toFixed(2)})`}
+        value={under16}
+        onChange={setUnder16}
+        max={30}
+      />
+
+      <div className="h-px bg-white/10 my-1" />
+
+      {/* Parking */}
+      <QuantityRow
+        label="Car parking"
+        hint={`£${CAR_PARKING_PRICE} per car`}
+        value={carParking}
+        onChange={setCarParking}
+        max={MAX_CAR_PARKING}
+      />
+      <QuantityRow
+        label="Bus parking"
+        hint={`£${BUS_PARKING_PRICE} per coach`}
+        value={busParking}
+        onChange={setBusParking}
+        max={MAX_BUS_PARKING}
+      />
+
+      {/* Applies to both parking types, so stated once rather than in each hint */}
+      <p className="text-white/25 text-[0.55rem] leading-snug -mt-1">
+        Must be removed by 9am the morning after the game.
+      </p>
+
+      <div className="h-px bg-white/10 my-1" />
 
       {/* Promo code */}
       <PromoCode
@@ -108,20 +139,39 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
       />
 
       {/* Price summary when discount applied */}
-      {hasSaving && (
+      {/* Itemised once there is anything beyond plain adult tickets */}
+      {(hasSaving || hasExtras) && (
         <div className="border border-gold/20 bg-gold/5 px-3 py-2.5 flex flex-col gap-1">
           <div className="flex justify-between text-white/40 text-[0.6rem]">
-            <span>Original ({guests} {guests === 1 ? 'guest' : 'guests'})</span>
-            <span className="line-through">£{(price * guests).toFixed(2)}</span>
+            <span>{guests} × Guest</span>
+            <span>£{(price * guests).toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-[0.6rem]">
-            <span className="text-gold">
-              Discount{discount.percentOff ? ` (${discount.percentOff}% off)` : ''}
-            </span>
-            <span className="text-gold">
-              −£{((price - discountedPrice) * guests).toFixed(2)}
-            </span>
-          </div>
+          {under16 > 0 && (
+            <div className="flex justify-between text-white/40 text-[0.6rem]">
+              <span>{under16} × Under 16</span>
+              <span>£{(fullChildPrice * under16).toFixed(2)}</span>
+            </div>
+          )}
+          {carParking > 0 && (
+            <div className="flex justify-between text-white/40 text-[0.6rem]">
+              <span>{carParking} × Car parking</span>
+              <span>£{(carParking * CAR_PARKING_PRICE).toFixed(2)}</span>
+            </div>
+          )}
+          {busParking > 0 && (
+            <div className="flex justify-between text-white/40 text-[0.6rem]">
+              <span>{busParking} × Bus parking</span>
+              <span>£{(busParking * BUS_PARKING_PRICE).toFixed(2)}</span>
+            </div>
+          )}
+          {hasSaving && (
+            <div className="flex justify-between text-[0.6rem]">
+              <span className="text-gold">
+                Discount{discount.percentOff ? ` (${discount.percentOff}% off)` : ''}
+              </span>
+              <span className="text-gold">−£{discountAmount.toFixed(2)}</span>
+            </div>
+          )}
           <div className="h-px bg-white/10 my-1" />
           <div className="flex justify-between">
             <span className="text-white text-xs font-semibold">Total</span>

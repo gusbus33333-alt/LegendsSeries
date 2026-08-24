@@ -15,15 +15,19 @@ const photos = [
   { src: '/lounge-photos/LLL-256.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-262.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-284.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
-  { src: '/lounge-photos/LLL-297.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
+  { src: '/lounge-photos/LLL-318.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-371.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-388.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-416.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
   { src: '/lounge-photos/LLL-209.jpg',  alt: 'Legends Lounge — England vs Ireland, Six Nations 2026' },
 ]
 
+/** Shown on mobile before "view all" — the full set is a lot of scrolling. */
+const MOBILE_PREVIEW = 8
+
 export default function LoungeGallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const [showAll, setShowAll] = useState(false)
 
   const close = useCallback(() => setLightboxIndex(null), [])
   const prev = useCallback(() =>
@@ -54,16 +58,15 @@ export default function LoungeGallery() {
 
           <div className="text-center mb-12">
             <p className="section-label mb-3">In the room</p>
-            <h2 className="text-4xl font-bold text-white leading-tight">
-              England vs Ireland<br />
-              <span className="text-gold">Six Nations 2026</span>
+            <h2 className="text-4xl font-bold text-gold leading-tight">
+              Six Nations 2026
             </h2>
             <div className="flex justify-center mt-5">
               <div className="gold-rule-lg" />
             </div>
+            {/* Frames these as evidence of past events, not the fixtures on sale */}
             <p className="text-white/40 text-sm mt-4">
-              Photography by{' '}
-              <span className="text-white/60">Kim Watson</span>
+              From our England v Ireland Lounge, March 2026
             </p>
           </div>
 
@@ -75,7 +78,9 @@ export default function LoungeGallery() {
             {photos.map((photo, i) => (
               <div
                 key={photo.src}
-                className="break-inside-avoid mb-1.5 overflow-hidden cursor-pointer group relative"
+                className={`break-inside-avoid mb-1.5 overflow-hidden cursor-pointer group relative ${
+                  !showAll && i >= MOBILE_PREVIEW ? 'hidden md:block' : ''
+                }`}
                 style={{ marginBottom: '6px' }}
                 onClick={() => setLightboxIndex(i)}
               >
@@ -98,6 +103,18 @@ export default function LoungeGallery() {
               </div>
             ))}
           </div>
+
+          {!showAll && (
+            <div className="md:hidden flex justify-center mt-6">
+              <button
+                type="button"
+                onClick={() => setShowAll(true)}
+                className="text-gold text-xs tracking-[0.2em] uppercase font-semibold hover:text-gold-dark transition-colors"
+              >
+                View all {photos.length} photos →
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
