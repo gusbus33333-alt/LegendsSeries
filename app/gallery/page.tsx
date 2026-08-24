@@ -68,7 +68,7 @@ export default function GalleryPage() {
             Gallery
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/50 text-base mt-5 max-w-lg leading-relaxed">
+          <p className="text-white/75 text-base mt-5 max-w-lg leading-relaxed">
             Photos from the Legends Lounge and British &amp; Irish Legends tour.
           </p>
         </div>
@@ -95,7 +95,7 @@ export default function GalleryPage() {
           </div>
 
           {filtered.length === 0 ? (
-            <p className="text-ink/50 text-center py-20 text-lg">
+            <p className="text-ink/72 text-center py-20 text-lg">
               Photos coming soon.
             </p>
           ) : (
@@ -127,7 +127,7 @@ export default function GalleryPage() {
               >
                 Load more photos
               </button>
-              <p className="text-ink/40 text-sm mt-3">
+              <p className="text-ink/65 text-sm mt-3">
                 Showing {shown.length} of {filtered.length}
               </p>
             </div>
@@ -142,14 +142,14 @@ export default function GalleryPage() {
           onClick={() => setLightbox(null)}
         >
           <button
-            className="absolute top-6 right-6 text-white/70 hover:text-white text-4xl leading-none"
+            className="absolute top-6 right-6 text-white/90 hover:text-white text-4xl leading-none"
             onClick={() => setLightbox(null)}
             aria-label="Close"
           >
             &times;
           </button>
           <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl px-2"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-4xl px-2"
             onClick={(e) => {
               e.stopPropagation()
               setLightbox(lightbox > 0 ? lightbox - 1 : shown.length - 1)
@@ -168,7 +168,7 @@ export default function GalleryPage() {
             sizes="90vw"
           />
           <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl px-2"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white text-4xl px-2"
             onClick={(e) => {
               e.stopPropagation()
               setLightbox(lightbox < shown.length - 1 ? lightbox + 1 : 0)
@@ -177,7 +177,7 @@ export default function GalleryPage() {
           >
             &#8250;
           </button>
-          <p className="absolute bottom-6 text-white/40 text-sm">
+          <p className="absolute bottom-6 text-white/65 text-sm">
             {lightbox + 1} / {shown.length}
           </p>
         </div>

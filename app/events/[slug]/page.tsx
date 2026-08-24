@@ -61,14 +61,14 @@ export default async function EventPage({ params }: PageProps) {
           <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight max-w-3xl">
             {row.title}
           </h1>
-          <p className="text-white/60 text-lg mt-3">{row.subtitle}</p>
+          <p className="text-white/85 text-lg mt-3">{row.subtitle}</p>
           <div className="flex items-center gap-4 mt-6 flex-wrap">
-            <span className="text-white/40 text-sm">{row.date_range}</span>
-            <span className="text-white/20">·</span>
-            <span className="text-white/40 text-sm">Up to {row.capacity} guests</span>
+            <span className="text-white/65 text-sm">{row.date_range}</span>
+            <span className="text-white/45">·</span>
+            <span className="text-white/65 text-sm">Up to {row.capacity} guests</span>
             {(row.spots_left ?? 999) <= 20 && (
               <>
-                <span className="text-white/20">·</span>
+                <span className="text-white/45">·</span>
                 <span className="text-gold text-sm font-semibold">
                   Only {row.spots_left} spots remaining
                 </span>
@@ -120,7 +120,7 @@ export default async function EventPage({ params }: PageProps) {
                       </span>
                     ))}
                   </div>
-                  <p className="text-ink/40 text-xs mt-4">
+                  <p className="text-ink/65 text-xs mt-4">
                     Legend lineup subject to availability. Substitutions of equivalent stature may apply.
                   </p>
                 </ScrollReveal>
@@ -132,10 +132,10 @@ export default async function EventPage({ params }: PageProps) {
               <ScrollReveal className="sticky top-28">
                 <div className="bg-ink p-8 flex flex-col gap-6">
                   <div>
-                    <p className="text-white/40 text-xs tracking-widest uppercase">Price per person</p>
+                    <p className="text-white/65 text-xs tracking-widest uppercase">Price per person</p>
                     <p className="text-gold font-bold text-4xl mt-1">{row.price_display}</p>
                     {(row.spots_left ?? 999) <= 20 && (
-                      <p className="text-white/50 text-xs mt-2">
+                      <p className="text-white/75 text-xs mt-2">
                         ⚡ Only {row.spots_left} places remaining
                       </p>
                     )}
@@ -152,7 +152,7 @@ export default async function EventPage({ params }: PageProps) {
                         {(row.included ?? []).map((item, i) => (
                           <li key={i} className="flex items-start gap-2.5">
                             <span className="text-gold mt-0.5">✓</span>
-                            <span className="text-white/60 text-xs leading-snug">{item}</span>
+                            <span className="text-white/85 text-xs leading-snug">{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -169,12 +169,12 @@ export default async function EventPage({ params }: PageProps) {
                   </Link>
                   <Link
                     href="/contact"
-                    className="text-center text-white/30 text-xs tracking-widest uppercase hover:text-gold transition-colors"
+                    className="text-center text-white/55 text-xs tracking-widest uppercase hover:text-gold transition-colors"
                   >
                     Enquire first →
                   </Link>
 
-                  <p className="text-white/20 text-[0.65rem] text-center leading-relaxed">
+                  <p className="text-white/45 text-[0.65rem] text-center leading-relaxed">
                     Secure your place with a 25% deposit. Balance due 60 days before event.
                   </p>
                 </div>
@@ -188,7 +188,7 @@ export default async function EventPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <Link
             href="/events"
-            className="text-ink/40 hover:text-gold text-xs tracking-[0.2em] uppercase transition-colors"
+            className="text-ink/65 hover:text-gold text-xs tracking-[0.2em] uppercase transition-colors"
           >
             ← Back to all events
           </Link>

@@ -66,7 +66,7 @@ export default function BookEventPage({ params }: PageProps) {
           <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-lg">
             {event.match}
           </h1>
-          <p className="text-white/70 text-base mt-3">
+          <p className="text-white/90 text-base mt-3">
             {event.date}
             {event.ko !== 'TBC' ? ` · Kickoff ${event.ko}` : ''}
           </p>
@@ -75,7 +75,7 @@ export default function BookEventPage({ params }: PageProps) {
               {event.games.map((g) => (
                 <span
                   key={g}
-                  className="text-white/40 text-xs border border-white/15 px-3 py-1 w-fit"
+                  className="text-white/65 text-xs border border-white/15 px-3 py-1 w-fit"
                 >
                   {g}
                 </span>
@@ -89,12 +89,12 @@ export default function BookEventPage({ params }: PageProps) {
       <section className="lg:hidden bg-ink border-t border-white/10">
         <div className="px-6 py-5 flex items-center justify-between gap-4">
           <div>
-            <p className="text-white/35 text-[0.6rem] tracking-[0.2em] uppercase">Per person</p>
+            <p className="text-white/60 text-[0.6rem] tracking-[0.2em] uppercase">Per person</p>
             <p className="text-gold font-bold text-3xl leading-none mt-1">
               £{event.price}
-              <span className="text-white/40 text-xs font-normal ml-2">inc VAT</span>
+              <span className="text-white/65 text-xs font-normal ml-2">inc VAT</span>
             </p>
-            <p className="text-white/30 text-[0.65rem] mt-1.5">Hospitality only · match ticket not required</p>
+            <p className="text-white/55 text-[0.65rem] mt-1.5">Hospitality only · match ticket not required</p>
           </div>
           <a href="#booking-card" className="btn-gold flex-shrink-0 px-6 py-3 text-[0.7rem]">
             Book Now
@@ -115,8 +115,8 @@ export default function BookEventPage({ params }: PageProps) {
                 <p className="section-label mb-3">The Event</p>
                 <h2 className="text-2xl font-bold text-ink mb-4">{event.match}</h2>
                 <div className="w-10 h-px bg-gold mb-5" />
-                <p className="text-ink/65 text-base leading-relaxed">{event.blurb}</p>
-                <p className="text-ink/50 text-sm leading-relaxed mt-4">
+                <p className="text-ink/80 text-base leading-relaxed">{event.blurb}</p>
+                <p className="text-ink/72 text-sm leading-relaxed mt-4">
                   The Legends Lounge is our exclusive marquee situated{' '}
                   <strong>just 20 metres from Twickenham Stadium</strong>. It&apos;s for genuine
                   rugby fans who have their match ticket and want the full matchday experience — not
@@ -136,28 +136,28 @@ export default function BookEventPage({ params }: PageProps) {
                       <span className="flex-shrink-0 text-gold mt-0.5 font-bold">✓</span>
                       <div>
                         <p className="text-ink font-semibold text-sm">{item.label}</p>
-                        <p className="text-ink/45 text-xs leading-snug mt-0.5">{item.detail}</p>
+                        <p className="text-ink/70 text-xs leading-snug mt-0.5">{item.detail}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
                 {/* Not included */}
                 <div className="mt-6 p-4 border border-ink/15 bg-ink/3">
-                  <p className="text-ink/50 text-xs font-semibold tracking-[0.15em] uppercase mb-3">
+                  <p className="text-ink/72 text-xs font-semibold tracking-[0.15em] uppercase mb-3">
                     Not Included
                   </p>
                   <ul className="flex flex-col gap-2">
                     <li className="flex items-start gap-2">
-                      <span className="text-ink/30 text-xs mt-0.5">✕</span>
-                      <p className="text-ink/50 text-xs leading-snug">
+                      <span className="text-ink/58 text-xs mt-0.5">✕</span>
+                      <p className="text-ink/72 text-xs leading-snug">
                         <strong className="text-ink/70">Match ticket</strong> — not included and
                         we cannot source them. Obtain through your own sources or enjoy the whole
                         day in the marquee.
                       </p>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-ink/30 text-xs mt-0.5">✕</span>
-                      <p className="text-ink/50 text-xs leading-snug">
+                      <span className="text-ink/58 text-xs mt-0.5">✕</span>
+                      <p className="text-ink/72 text-xs leading-snug">
                         <strong className="text-ink/70">Drinks during the match</strong> — the
                         all-inclusive bar pauses during the match. Drinks available at £6 each
                         whether you&apos;re in the stadium or watching in the Lounge. All-inclusive
@@ -190,7 +190,7 @@ export default function BookEventPage({ params }: PageProps) {
                       {/* content */}
                       <div className="pb-8">
                         <p className="text-ink font-bold text-sm mb-1">{entry.label}</p>
-                        <p className="text-ink/50 text-xs leading-relaxed">
+                        <p className="text-ink/72 text-xs leading-relaxed">
                           {entry.description}
                         </p>
                       </div>
@@ -207,15 +207,15 @@ export default function BookEventPage({ params }: PageProps) {
                   <div className="bg-ink">
                     {/* Price header */}
                     <div className="p-7 pb-5">
-                      <p className="text-white/35 text-[0.65rem] tracking-[0.2em] uppercase mb-1">
+                      <p className="text-white/60 text-[0.65rem] tracking-[0.2em] uppercase mb-1">
                         Price per person
                       </p>
                       {/* Lead with what they actually pay; ex-VAT stays for business bookers */}
                       <p className="text-gold font-bold text-4xl leading-none">
                         £{event.price}
-                        <span className="text-white/40 text-sm font-normal ml-2">inc VAT</span>
+                        <span className="text-white/65 text-sm font-normal ml-2">inc VAT</span>
                       </p>
-                      <p className="text-white/25 text-xs mt-2">{event.priceExVat} per person</p>
+                      <p className="text-white/50 text-xs mt-2">{event.priceExVat} per person</p>
                     </div>
 
                     <div className="h-px bg-white/10 mx-7" />
@@ -225,7 +225,7 @@ export default function BookEventPage({ params }: PageProps) {
                       <div className="flex items-start gap-3">
                         <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                         <div>
-                          <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">
+                          <p className="text-white/65 text-[0.6rem] uppercase tracking-widest">
                             Date
                           </p>
                           <p className="text-white text-sm font-semibold">{event.date}</p>
@@ -234,7 +234,7 @@ export default function BookEventPage({ params }: PageProps) {
                       <div className="flex items-start gap-3">
                         <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                         <div>
-                          <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">
+                          <p className="text-white/65 text-[0.6rem] uppercase tracking-widest">
                             Marquee Opens
                           </p>
                           <p className="text-white text-sm font-semibold">{event.openTime}</p>
@@ -244,7 +244,7 @@ export default function BookEventPage({ params }: PageProps) {
                         <div className="flex items-start gap-3">
                           <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                           <div>
-                            <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">
+                            <p className="text-white/65 text-[0.6rem] uppercase tracking-widest">
                               Kickoff
                             </p>
                             <p className="text-white text-sm font-semibold">{event.ko}</p>
@@ -255,11 +255,11 @@ export default function BookEventPage({ params }: PageProps) {
                         <div className="flex items-start gap-3">
                           <span className="text-gold text-sm mt-0.5 font-bold">—</span>
                           <div>
-                            <p className="text-white/40 text-[0.6rem] uppercase tracking-widest mb-1">
+                            <p className="text-white/65 text-[0.6rem] uppercase tracking-widest mb-1">
                               Matches
                             </p>
                             {event.games.map((g) => (
-                              <p key={g} className="text-white/70 text-xs">
+                              <p key={g} className="text-white/90 text-xs">
                                 {g}
                               </p>
                             ))}
@@ -275,7 +275,7 @@ export default function BookEventPage({ params }: PageProps) {
                       <CheckoutButton slug={event.slug} price={event.price} />
                       <Link
                         href="/contact"
-                        className="text-center text-white/30 hover:text-gold text-xs tracking-[0.15em] uppercase transition-colors py-1"
+                        className="text-center text-white/55 hover:text-gold text-xs tracking-[0.15em] uppercase transition-colors py-1"
                       >
                         Enquire first →
                       </Link>
@@ -285,7 +285,7 @@ export default function BookEventPage({ params }: PageProps) {
 
                     {/* Disclaimer */}
                     <div className="px-7 py-5">
-                      <p className="text-white/20 text-[0.6rem] leading-relaxed text-center">
+                      <p className="text-white/45 text-[0.6rem] leading-relaxed text-center">
                         Hospitality experience only. Match ticket not included. Prices per person
                         inc. VAT.
                       </p>
@@ -323,7 +323,7 @@ export default function BookEventPage({ params }: PageProps) {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">
+                    <p className="text-white/65 text-[0.6rem] uppercase tracking-widest">
                       {other.shortDate}
                     </p>
                     <p className="text-white text-sm font-semibold leading-snug group-hover:text-gold transition-colors truncate">
@@ -331,7 +331,7 @@ export default function BookEventPage({ params }: PageProps) {
                     </p>
                     <p className="text-gold text-xs mt-0.5">{other.priceLabel}</p>
                   </div>
-                  <span className="text-white/20 group-hover:text-gold transition-colors text-sm">
+                  <span className="text-white/45 group-hover:text-gold transition-colors text-sm">
                     →
                   </span>
                 </Link>
@@ -341,7 +341,7 @@ export default function BookEventPage({ params }: PageProps) {
           <div className="mt-8 text-center">
             <Link
               href="/book"
-              className="text-white/30 hover:text-gold text-xs tracking-[0.2em] uppercase transition-colors"
+              className="text-white/55 hover:text-gold text-xs tracking-[0.2em] uppercase transition-colors"
             >
               ← Back to all dates
             </Link>

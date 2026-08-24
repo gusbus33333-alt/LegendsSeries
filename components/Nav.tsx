@@ -66,7 +66,7 @@ export default function Nav() {
                 className={`text-xs tracking-[0.2em] uppercase font-medium transition-colors duration-200 ${
                   pathname === link.href
                     ? 'text-gold'
-                    : 'text-white/70 hover:text-gold'
+                    : 'text-white/90 hover:text-gold'
                 }`}
               >
                 {link.label}
@@ -123,7 +123,7 @@ export default function Nav() {
           <Link
             href="/"
             className={`py-3 text-xs tracking-[0.25em] uppercase font-medium border-b border-white/5 transition-colors ${
-              pathname === '/' ? 'text-gold' : 'text-white/70 hover:text-gold'
+              pathname === '/' ? 'text-gold' : 'text-white/90 hover:text-gold'
             }`}
           >
             Home
@@ -135,7 +135,7 @@ export default function Nav() {
               className={`py-3 text-xs tracking-[0.25em] uppercase font-medium border-b border-white/5 transition-colors ${
                 pathname === link.href
                   ? 'text-gold'
-                  : 'text-white/70 hover:text-gold'
+                  : 'text-white/90 hover:text-gold'
               }`}
             >
               {link.label}

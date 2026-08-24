@@ -49,7 +49,7 @@ export default function LegendsPage() {
             The Legends
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/50 text-base mt-6 max-w-xl leading-relaxed">
+          <p className="text-white/75 text-base mt-6 max-w-xl leading-relaxed">
             World Cup winners. Lions tourists. Icons who defined a generation.
             Our roster spans four nations and beyond — different legends attend
             different events, each confirmed and announced individually per trip.
@@ -59,17 +59,17 @@ export default function LegendsPage() {
           <div className="flex flex-wrap items-center gap-6 sm:gap-10 mt-10">
             <div>
               <span className="text-gold font-bold text-3xl">90+</span>
-              <p className="text-white/40 text-xs tracking-[0.2em] uppercase mt-1">Legends on our roster</p>
+              <p className="text-white/65 text-xs tracking-[0.2em] uppercase mt-1">Legends on our roster</p>
             </div>
             <div className="w-px h-10 bg-white/10" />
             <div>
               <span className="text-gold font-bold text-3xl">4</span>
-              <p className="text-white/40 text-xs tracking-[0.2em] uppercase mt-1">Home nations represented</p>
+              <p className="text-white/65 text-xs tracking-[0.2em] uppercase mt-1">Home nations represented</p>
             </div>
             <div className="w-px h-10 bg-white/10" />
             <div>
               <span className="text-gold font-bold text-3xl">30+</span>
-              <p className="text-white/40 text-xs tracking-[0.2em] uppercase mt-1">British &amp; Irish Lions</p>
+              <p className="text-white/65 text-xs tracking-[0.2em] uppercase mt-1">British &amp; Irish Lions</p>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function LegendsPage() {
                 className={`flex-shrink-0 px-4 py-1.5 text-xs tracking-[0.15em] uppercase font-semibold transition-all duration-200 rounded-sm ${
                   active === f
                     ? 'bg-gold text-ink'
-                    : 'text-white/40 hover:text-white/80'
+                    : 'text-white/65 hover:text-white/80'
                 }`}
               >
                 {FILTER_LABELS[f] ?? f}
@@ -109,7 +109,7 @@ export default function LegendsPage() {
                   {FILTER_LABELS[country] ?? country}
                 </h2>
                 <div className="flex-1 h-px bg-ink/8" />
-                <span className="text-ink/30 text-xs tracking-widest uppercase">{items.length} legends</span>
+                <span className="text-ink/58 text-xs tracking-widest uppercase">{items.length} legends</span>
               </div>
 
               {/* Legend cards */}
@@ -131,19 +131,19 @@ export default function LegendsPage() {
                       {legend.caps && (
                         <div className="flex-shrink-0 text-right">
                           <span className="text-gold font-bold text-lg leading-none">{legend.caps}</span>
-                          <p className="text-ink/30 text-[0.6rem] uppercase tracking-widest">caps</p>
+                          <p className="text-ink/58 text-[0.6rem] uppercase tracking-widest">caps</p>
                         </div>
                       )}
                     </div>
 
                     <div className="w-6 h-px bg-gold/50 my-2.5" />
 
-                    <p className="text-ink/50 text-[0.7rem] leading-relaxed line-clamp-2">
+                    <p className="text-ink/72 text-[0.7rem] leading-relaxed line-clamp-2">
                       {legend.clubs}
                     </p>
 
                     {legend.stat && (
-                      <p className="text-ink/40 text-[0.65rem] leading-snug mt-2 italic line-clamp-2">
+                      <p className="text-ink/65 text-[0.65rem] leading-snug mt-2 italic line-clamp-2">
                         &ldquo;{legend.stat}&rdquo;
                       </p>
                     )}
@@ -168,9 +168,9 @@ export default function LegendsPage() {
                     {l.flag} {l.country}
                   </p>
                   <div className="w-6 h-px bg-gold/50 my-2.5" />
-                  <p className="text-ink/50 text-[0.7rem]">{l.clubs}</p>
+                  <p className="text-ink/72 text-[0.7rem]">{l.clubs}</p>
                   {l.homeLocation && (
-                    <p className="text-ink/30 text-[0.65rem] mt-1">{l.homeLocation}</p>
+                    <p className="text-ink/58 text-[0.65rem] mt-1">{l.homeLocation}</p>
                   )}
                 </div>
               ))}
@@ -190,7 +190,7 @@ export default function LegendsPage() {
             <div className="flex justify-center mt-5">
               <div className="gold-rule-lg" />
             </div>
-            <p className="text-white/50 text-sm mt-6 max-w-xl mx-auto leading-relaxed">
+            <p className="text-white/75 text-sm mt-6 max-w-xl mx-auto leading-relaxed">
               Our legends aren&apos;t there to wave from across the room. They&apos;re with you
               throughout — on the flight, at dinner, for Q&As, and sharing stories that never
               make the broadcast. This is the access fans have always deserved.
@@ -226,10 +226,10 @@ export default function LegendsPage() {
                 className="border border-white/10 p-8 hover:border-gold/30 transition-colors flex flex-col gap-4 h-full"
               >
                 <h3 className="text-gold font-semibold text-base">{item.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed flex-1">{item.description}</p>
+                <p className="text-white/75 text-sm leading-relaxed flex-1">{item.description}</p>
                 <Link
                   href={item.link}
-                  className="text-white/40 hover:text-gold text-xs tracking-[0.2em] uppercase transition-colors"
+                  className="text-white/65 hover:text-gold text-xs tracking-[0.2em] uppercase transition-colors"
                 >
                   {item.cta} →
                 </Link>
@@ -242,7 +242,7 @@ export default function LegendsPage() {
       {/* CTA */}
       <div className="py-20 bg-parchment">
         <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
-          <p className="text-ink/50 text-sm mb-6 max-w-lg mx-auto">
+          <p className="text-ink/72 text-sm mb-6 max-w-lg mx-auto">
             Legends are confirmed and announced individually for each event.
             Get in touch to find out who&apos;s attending the event you&apos;re interested in.
           </p>

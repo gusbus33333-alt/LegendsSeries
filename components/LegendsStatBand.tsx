@@ -36,7 +36,7 @@ export default function LegendsStatBand() {
               >
                 {stat.value}
               </p>
-              <p className="text-white/45 text-[0.6rem] sm:text-[0.65rem] tracking-[0.25em] uppercase mt-3">
+              <p className="text-white/70 text-[0.6rem] sm:text-[0.65rem] tracking-[0.25em] uppercase mt-3">
                 {stat.label}
               </p>
             </div>
@@ -44,10 +44,10 @@ export default function LegendsStatBand() {
         </div>
 
         <div className="text-center mt-10">
-          <p className="text-white/55 text-sm">Across {LOUNGE_EVENTS_SO_FAR}.</p>
+          <p className="text-white/80 text-sm">Across {LOUNGE_EVENTS_SO_FAR}.</p>
           {/* Load-bearing: line-ups genuinely vary, and this is what stops a
               guest booking on the expectation of one specific name. */}
-          <p className="text-white/35 text-sm mt-2">
+          <p className="text-white/60 text-sm mt-2">
             Every matchday line-up is different. These are the legends who&apos;ve joined us so far.
           </p>
         </div>

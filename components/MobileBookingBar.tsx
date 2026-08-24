@@ -40,7 +40,7 @@ export default function MobileBookingBar({ priceLabel, targetId }: MobileBooking
   return createPortal(
     <div className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-ink/95 backdrop-blur-sm border-t border-gold/30 px-4 py-3 flex items-center justify-between gap-4">
       <div className="min-w-0">
-        <p className="text-white/40 text-[0.55rem] tracking-[0.2em] uppercase">Per person</p>
+        <p className="text-white/65 text-[0.55rem] tracking-[0.2em] uppercase">Per person</p>
         <p className="text-gold font-bold text-lg leading-tight truncate">{priceLabel}</p>
       </div>
       <button

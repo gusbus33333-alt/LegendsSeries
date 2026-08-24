@@ -56,7 +56,7 @@ export default async function FeaturedEvents() {
           </div>
           <Link
             href="/events"
-            className="text-xs tracking-[0.2em] uppercase font-semibold text-ink/50 hover:text-gold transition-colors flex items-center gap-2 flex-shrink-0"
+            className="text-xs tracking-[0.2em] uppercase font-semibold text-ink/72 hover:text-gold transition-colors flex items-center gap-2 flex-shrink-0"
           >
             View all events <span className="text-gold">→</span>
           </Link>

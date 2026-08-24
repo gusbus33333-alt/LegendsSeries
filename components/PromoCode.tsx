@@ -25,12 +25,12 @@ export default function PromoCode({ onApply, appliedCode, onRemove }: PromoCodeP
       <div className="flex items-center justify-between bg-gold/10 border border-gold/30 px-3 py-2">
         <div className="flex items-center gap-2">
           <span className="text-gold text-xs font-semibold tracking-wide uppercase">{appliedCode}</span>
-          <span className="text-white/40 text-[0.6rem]">applied</span>
+          <span className="text-white/65 text-[0.6rem]">applied</span>
         </div>
         <button
           type="button"
           onClick={onRemove}
-          className="text-white/30 hover:text-white/60 text-xs transition-colors"
+          className="text-white/55 hover:text-white/85 text-xs transition-colors"
         >
           Remove
         </button>
@@ -43,7 +43,7 @@ export default function PromoCode({ onApply, appliedCode, onRemove }: PromoCodeP
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="text-white/30 hover:text-white/50 text-[0.65rem] tracking-[0.1em] uppercase transition-colors text-left"
+        className="text-white/80 hover:text-gold text-[0.75rem] tracking-[0.1em] uppercase transition-colors text-left"
       >
         Have a promo code?
       </button>
@@ -90,7 +90,7 @@ export default function PromoCode({ onApply, appliedCode, onRemove }: PromoCodeP
           value={code}
           onChange={(e) => { setCode(e.target.value.toUpperCase()); setError('') }}
           placeholder="Enter code"
-          className="flex-1 bg-white/5 border border-white/15 text-white text-xs px-3 py-2 placeholder:text-white/20 focus:border-gold focus:outline-none transition-colors tracking-wide uppercase"
+          className="flex-1 bg-white/5 border border-white/15 text-white text-xs px-3 py-2 placeholder:text-white/45 focus:border-gold focus:outline-none transition-colors tracking-wide uppercase"
           onKeyDown={(e) => { if (e.key === 'Enter') handleApply() }}
         />
         <button

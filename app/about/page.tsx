@@ -53,7 +53,7 @@ export default function AboutPage() {
             About Legends Series
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/50 text-base mt-6 max-w-xl leading-relaxed italic"
+          <p className="text-white/75 text-base mt-6 max-w-xl leading-relaxed italic"
              style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(18px, 2vw, 22px)' }}>
             More Than Hospitality. Extraordinary Sporting Experiences.
           </p>
@@ -71,7 +71,7 @@ export default function AboutPage() {
                 Bringing Fans Closer<br />to Sporting Greatness
               </h2>
               <div className="gold-rule mt-5 mb-8" />
-              <div className="flex flex-col gap-5 text-ink/65 text-base leading-relaxed">
+              <div className="flex flex-col gap-5 text-ink/80 text-base leading-relaxed">
                 <p>
                   Sport has an incredible ability to bring people together. The memories that
                   last longest aren&apos;t always what happens during the match — they&apos;re the
@@ -111,7 +111,7 @@ export default function AboutPage() {
                     sizes="50vw"
                   />
                 </div>
-                <p className="text-ink/40 text-xs mt-2 italic leading-relaxed">
+                <p className="text-ink/65 text-xs mt-2 italic leading-relaxed">
                   Chris Butterworth attending the Second Test in Melbourne alongside British &amp; Irish
                   Legends, partners and travelling supporters.
                 </p>
@@ -126,7 +126,7 @@ export default function AboutPage() {
                     sizes="50vw"
                   />
                 </div>
-                <p className="text-ink/40 text-xs mt-2 italic leading-relaxed">
+                <p className="text-ink/65 text-xs mt-2 italic leading-relaxed">
                   Welcoming guests to the first Legends Lounge experience, bringing fans together
                   with rugby legends for an unforgettable matchday.
                 </p>
@@ -147,7 +147,7 @@ export default function AboutPage() {
             <div className="flex justify-center mt-5 mb-8">
               <div className="gold-rule" />
             </div>
-            <div className="flex flex-col gap-5 text-white/50 text-base leading-relaxed">
+            <div className="flex flex-col gap-5 text-white/75 text-base leading-relaxed">
               <p>
                 We believe the greatest sporting memories are created through genuine human connection.
               </p>
@@ -170,7 +170,7 @@ export default function AboutPage() {
       <section className="py-16 bg-parchment">
         <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
           <ScrollReveal>
-            <p className="text-ink/60 text-lg leading-relaxed italic"
+            <p className="text-ink/78 text-lg leading-relaxed italic"
                style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(20px, 2.5vw, 26px)' }}>
               Whether you&apos;re enjoying all-inclusive hospitality just moments from the stadium,
               travelling overseas alongside sporting legends or hearing stories that have never
@@ -206,7 +206,7 @@ export default function AboutPage() {
                   </span>
                   <h3 className="text-white font-bold text-xl">{value.title}</h3>
                   <div className="w-8 h-px bg-gold" />
-                  <p className="text-white/50 text-sm leading-relaxed">{value.description}</p>
+                  <p className="text-white/75 text-sm leading-relaxed">{value.description}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -224,7 +224,7 @@ export default function AboutPage() {
                 Leveraging Sport<br />for Good
               </h2>
               <div className="gold-rule mt-5 mb-8" />
-              <div className="flex flex-col gap-5 text-ink/65 text-base leading-relaxed">
+              <div className="flex flex-col gap-5 text-ink/80 text-base leading-relaxed">
                 <p>
                   Our mission is to harness the power of sport to create unforgettable experiences
                   while making a meaningful impact beyond the game.
@@ -238,7 +238,7 @@ export default function AboutPage() {
                   sharing their passion and experience after retirement, while supporting charitable
                   organisations and grassroots sport to help inspire the next generation.
                 </p>
-                <p className="text-ink/50 italic">
+                <p className="text-ink/72 italic">
                   For us, success isn&apos;t measured solely by the events we host — it&apos;s measured
                   by the memories we create, the people we bring together and the positive impact we
                   leave behind.
@@ -252,26 +252,26 @@ export default function AboutPage() {
                 Creating a Lasting Impact
               </h2>
               <div className="gold-rule mt-5 mb-8" />
-              <p className="text-ink/60 text-base leading-relaxed mb-6">
+              <p className="text-ink/78 text-base leading-relaxed mb-6">
                 Every Legends Series event supports organisations connected to the sport and
                 the legends involved. For our rugby events, we&apos;re proud to support:
               </p>
               <div className="flex flex-col gap-6">
                 <div className="border border-ink/15 p-7">
                   <p className="text-gold font-bold text-lg mb-2">LooseHeadz</p>
-                  <p className="text-ink/60 text-sm leading-relaxed">
+                  <p className="text-ink/78 text-sm leading-relaxed">
                     Working to tackle the stigma surrounding mental health in rugby by encouraging
                     players, coaches and supporters to speak openly and support one another.
                   </p>
                 </div>
                 <div className="border border-ink/15 p-7">
                   <p className="text-gold font-bold text-lg mb-2">Wooden Spoon</p>
-                  <p className="text-ink/60 text-sm leading-relaxed">
+                  <p className="text-ink/78 text-sm leading-relaxed">
                     The children&apos;s charity of rugby — funding life-changing projects for
                     disabled and disadvantaged children and young people across the UK and Ireland.
                   </p>
                 </div>
-                <p className="text-ink/40 text-xs leading-relaxed">
+                <p className="text-ink/65 text-xs leading-relaxed">
                   As Legends Series continues to grow across different sports, we&apos;ll continue
                   to partner with charities that reflect the values of each event and help
                   strengthen the communities at the heart of sport.
@@ -289,7 +289,7 @@ export default function AboutPage() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Join the Story
             </h2>
-            <p className="text-white/50 text-sm mb-8 leading-relaxed max-w-md mx-auto">
+            <p className="text-white/75 text-sm mb-8 leading-relaxed max-w-md mx-auto">
               Every event we create adds another chapter. Yours is waiting.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

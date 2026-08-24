@@ -131,7 +131,7 @@ export default function LegendsLoungePage() {
             All-inclusive matchday hospitality
           </p>
 
-          <p className="text-white/70 text-sm sm:text-base leading-relaxed mt-4 max-w-xl mx-auto">
+          <p className="text-white/90 text-sm sm:text-base leading-relaxed mt-4 max-w-xl mx-auto">
             A private marquee 20 metres from Twickenham Stadium. Hog roast, unlimited bar,
             rugby legends and live music — from the build-up right through to last orders.
           </p>
@@ -164,13 +164,13 @@ export default function LegendsLoungePage() {
                 Nations Championship Fixtures
               </p>
               {/* The most common pre-purchase question, answered next to the prices */}
-              <p className="text-white/35 text-[0.65rem] tracking-[0.1em] uppercase mt-1.5">
+              <p className="text-white/60 text-[0.65rem] tracking-[0.1em] uppercase mt-1.5">
                 Hospitality only &middot; Match ticket not required
               </p>
             </div>
             <a
               href="#fixtures"
-              className="text-white/40 hover:text-gold text-[0.65rem] tracking-[0.15em] uppercase transition-colors whitespace-nowrap"
+              className="text-white/65 hover:text-gold text-[0.65rem] tracking-[0.15em] uppercase transition-colors whitespace-nowrap"
             >
               Full details ↓
             </a>
@@ -190,7 +190,7 @@ export default function LegendsLoungePage() {
                   {event.isFinals ? `Finals — ${event.dayOfWeek}` : event.match}
                 </p>
                 {/* mt-auto keeps prices on one baseline when a fixture name wraps */}
-                <p className="text-white/45 text-xs mt-auto pt-2">£{event.price}</p>
+                <p className="text-white/70 text-xs mt-auto pt-2">£{event.price}</p>
               </Link>
             ))}
           </div>
@@ -211,32 +211,32 @@ export default function LegendsLoungePage() {
                 A Great Day Out,<br />Done Properly
               </h2>
               <div className="gold-rule mt-5 mb-8" />
-              <p className="text-ink/65 text-base leading-relaxed mb-8">
+              <p className="text-ink/80 text-base leading-relaxed mb-8">
                 The Legends Lounge is our exclusive marquee situated just 20 metres from Twickenham
                 Stadium. It&rsquo;s where the matchday starts — and where it carries on after the final
                 whistle. Enjoy a hog roast, unlimited drinks, live music and time with rugby legends,
                 all just steps from the stadium.
               </p>
 
-              <p className="text-ink/65 text-base leading-relaxed mb-8">
-                Think of it as the perfect middle ground: not a crowded pub, not a £500 corporate
-                package. Proper rugby atmosphere, proper food, proper company — built around your
-                match ticket, not instead of it.
+              <p className="text-ink/80 text-base leading-relaxed mb-8">
+                Think of it as the perfect middle ground: not a crowded pub jostling at the bar,
+                not a £1,500 corporate package. Proper rugby atmosphere, proper food, proper
+                company — built around your match ticket, not instead of it.
               </p>
 
               {/* Trust signals */}
               <div className="flex flex-wrap gap-6">
                 <div className="border-l-2 border-gold pl-4">
                   <p className="text-ink font-bold text-2xl">20 metres</p>
-                  <p className="text-ink/40 text-xs uppercase tracking-widest">From the stadium</p>
+                  <p className="text-ink/65 text-xs uppercase tracking-widest">From the stadium</p>
                 </div>
                 <div className="border-l-2 border-gold pl-4">
                   <p className="text-ink font-bold text-2xl">5hrs+</p>
-                  <p className="text-ink/40 text-xs uppercase tracking-widest">Of hospitality</p>
+                  <p className="text-ink/65 text-xs uppercase tracking-widest">Of hospitality</p>
                 </div>
                 <div className="border-l-2 border-gold pl-4">
-                  <p className="text-ink font-bold text-2xl">300</p>
-                  <p className="text-ink/40 text-xs uppercase tracking-widest">Places this season</p>
+                  <p className="text-ink font-bold text-2xl">450</p>
+                  <p className="text-ink/65 text-xs uppercase tracking-widest">Places per matchday</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -264,10 +264,10 @@ export default function LegendsLoungePage() {
                     <p className="text-white font-bold text-lg lg:text-xl leading-tight">
                       England vs Ireland
                     </p>
-                    <p className="text-white/70 text-sm mt-1.5">
+                    <p className="text-white/90 text-sm mt-1.5">
                       3 Irish Legends — 130 international caps — 4 happy guests
                     </p>
-                    <p className="text-white/45 text-xs tracking-[0.12em] mt-2.5">
+                    <p className="text-white/70 text-xs tracking-[0.12em] mt-2.5">
                       Devin Toner &middot; Shane Byrne &middot; Mike McCarthy
                     </p>
                   </div>
@@ -289,11 +289,11 @@ export default function LegendsLoungePage() {
                 Who you&apos;ll be
                 <span className="block text-gold">drinking with</span>
               </h2>
-              <p className="text-white/55 text-base leading-relaxed mt-6">
+              <p className="text-white/80 text-base leading-relaxed mt-6">
                 Not a wave from across the room. Legends spend the day in the marquee —
                 Q&amp;As, stories, photos, and a pint with whoever wants one.
               </p>
-              <p className="text-white/35 text-sm leading-relaxed mt-4">
+              <p className="text-white/60 text-sm leading-relaxed mt-4">
                 These are legends who have joined us in the Lounge before. Each event&apos;s
                 line-up is confirmed closer to the day.
               </p>
@@ -315,7 +315,7 @@ export default function LegendsLoungePage() {
                       <p className="text-white font-bold text-xl lg:text-2xl leading-tight">
                         {legend.name}
                       </p>
-                      <p className="text-white/45 text-sm mt-1.5">{credentials(legend)}</p>
+                      <p className="text-white/70 text-sm mt-1.5">{credentials(legend)}</p>
                     </div>
                   </ScrollReveal>
                 ))}
@@ -341,7 +341,7 @@ export default function LegendsLoungePage() {
                         <p className="text-white font-semibold text-[15px] leading-tight">
                           {legend.name}
                         </p>
-                        <p className="text-white/40 text-xs mt-1">{credentials(legend)}</p>
+                        <p className="text-white/65 text-xs mt-1">{credentials(legend)}</p>
                       </div>
                     ))}
                   </div>
@@ -378,7 +378,7 @@ export default function LegendsLoungePage() {
                   <h3 className="text-white font-bold text-xl lg:text-2xl leading-tight mb-3">
                     {item.label}
                   </h3>
-                  <p className="text-white/45 text-sm leading-relaxed">{item.detail}</p>
+                  <p className="text-white/70 text-sm leading-relaxed">{item.detail}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -393,7 +393,7 @@ export default function LegendsLoungePage() {
                     <span className="w-1 h-1 rounded-full bg-gold flex-shrink-0" />
                     <p className="text-white font-semibold text-sm">{item.label}</p>
                   </div>
-                  <p className="text-white/35 text-xs mt-1.5 leading-snug pl-[14px]">{item.detail}</p>
+                  <p className="text-white/60 text-xs mt-1.5 leading-snug pl-[14px]">{item.detail}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -402,14 +402,14 @@ export default function LegendsLoungePage() {
           {/* Not included */}
           <ScrollReveal>
             <div className="border border-white/10 p-6">
-              <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-semibold mb-4">Not Included — Worth Knowing</p>
+              <p className="text-white/85 text-xs tracking-[0.2em] uppercase font-semibold mb-4">Not Included — Worth Knowing</p>
               <div className="flex flex-col gap-4">
                 {notIncluded.map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <span className="text-white/30 mt-0.5 flex-shrink-0 text-sm">—</span>
+                    <span className="text-white/55 mt-0.5 flex-shrink-0 text-sm">—</span>
                     <div>
-                      <p className="text-white/70 text-sm font-medium">{item.item}</p>
-                      <p className="text-white/40 text-xs mt-0.5 leading-snug">{item.note}</p>
+                      <p className="text-white/90 text-sm font-medium">{item.item}</p>
+                      <p className="text-white/65 text-xs mt-0.5 leading-snug">{item.note}</p>
                     </div>
                   </div>
                 ))}
@@ -430,7 +430,7 @@ export default function LegendsLoungePage() {
             <div className="flex justify-center mt-5">
               <div className="gold-rule" />
             </div>
-            <p className="text-ink/40 text-sm mt-4">
+            <p className="text-ink/65 text-sm mt-4">
               Times are indicative based on a standard afternoon kick-off and vary per match.
               Full confirmed schedules are seen on each individual booking page.
             </p>
@@ -474,7 +474,7 @@ export default function LegendsLoungePage() {
                 Legends Lounge<br /><span className="text-gold">Signature</span>
               </h2>
               <div className="gold-rule mt-5 mb-8" />
-              <p className="text-white/60 text-base leading-relaxed mb-8">
+              <p className="text-white/85 text-base leading-relaxed mb-8">
                 Everything in the standard Legends Lounge, plus a luxury hotel stay,
                 a player meet &amp; greet, and exclusive gifts. Available at the
                 Radisson Red Hotel (inside Twickenham Stadium) or The Lensbury Resort.
@@ -491,7 +491,7 @@ export default function LegendsLoungePage() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="text-gold mt-0.5 flex-shrink-0">✓</span>
-                    <span className="text-white/70 text-sm">{item}</span>
+                    <span className="text-white/90 text-sm">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -517,10 +517,10 @@ export default function LegendsLoungePage() {
                         {/* Sold-out rows recede so the available dates carry the eye */}
                         <div className={item.soldOut ? 'opacity-45' : ''}>
                           <p className="text-white font-semibold text-sm">{item.match}</p>
-                          <p className="text-white/40 text-xs mt-0.5">{item.date} · {item.hotel}</p>
+                          <p className="text-white/65 text-xs mt-0.5">{item.date} · {item.hotel}</p>
                         </div>
                         {item.soldOut ? (
-                          <span className="flex-shrink-0 text-white/35 text-[0.65rem] font-semibold tracking-[0.15em] uppercase border border-white/15 px-2.5 py-1">
+                          <span className="flex-shrink-0 text-white/60 text-[0.65rem] font-semibold tracking-[0.15em] uppercase border border-white/15 px-2.5 py-1">
                             Sold out
                           </span>
                         ) : (
@@ -530,10 +530,10 @@ export default function LegendsLoungePage() {
                     </div>
                   ))}
                 </div>
-                <p className="text-white/25 text-xs mt-6 leading-relaxed border-t border-white/10 pt-4">
+                <p className="text-white/50 text-xs mt-6 leading-relaxed border-t border-white/10 pt-4">
                   Room availability is indicative and confirmed on enquiry.
                 </p>
-                <p className="text-white/25 text-xs mt-3 leading-relaxed">
+                <p className="text-white/50 text-xs mt-3 leading-relaxed">
                   Six Nations 2027 packages also available — England vs France (14 Feb),
                   England vs Italy (20 Feb), England vs Scotland (13 Mar). Enquire for details.
                 </p>
@@ -547,8 +547,8 @@ export default function LegendsLoungePage() {
       <section className="py-16 bg-parchment border-t border-ink/8">
         <div className="max-w-5xl mx-auto px-6 lg:px-10 text-center">
           <ScrollReveal>
-            <p className="text-ink/40 text-xs tracking-[0.3em] uppercase font-semibold mb-4">Giving Back</p>
-            <p className="text-ink/65 text-sm leading-relaxed max-w-xl mx-auto mb-6">
+            <p className="text-ink/65 text-xs tracking-[0.3em] uppercase font-semibold mb-4">Giving Back</p>
+            <p className="text-ink/80 text-sm leading-relaxed max-w-xl mx-auto mb-6">
               All profits from the Legends Lounge are donated to our charity partners.
               <strong className="text-ink"> LooseHeadz</strong> works to destigmatise mental health in rugby,
               and <strong className="text-ink">Wooden Spoon</strong> funds life-changing projects for disabled and disadvantaged children.
@@ -598,7 +598,7 @@ export default function LegendsLoungePage() {
                   </>
                 ),
               },
-              { q: 'How many people can attend?', a: 'The Legends Lounge is capped at 300 guests per match to keep the atmosphere right. Once a date is sold out, it\'s gone — we don\'t oversell.' },
+              { q: 'How many people can attend?', a: 'The Legends Lounge is capped at 450 guests per match to keep the atmosphere right. Once a date is sold out, it\'s gone — we don\'t oversell.' },
             ].map((faq, i) => (
               <ScrollReveal key={i} delay={0.04 * i}>
                 {/* Native details/summary: accessible, keyboard-operable, no JS */}
@@ -612,7 +612,7 @@ export default function LegendsLoungePage() {
                       <span className="absolute inset-y-0 left-1/2 w-px bg-gold -translate-x-1/2 transition-transform duration-300 group-open:rotate-90 group-open:opacity-0" />
                     </span>
                   </summary>
-                  <p className="text-white/50 text-sm leading-relaxed pb-6 pr-10 max-w-3xl">
+                  <p className="text-white/75 text-sm leading-relaxed pb-6 pr-10 max-w-3xl">
                     {faq.a}
                   </p>
                 </details>
@@ -626,14 +626,14 @@ export default function LegendsLoungePage() {
       <section className="py-20 bg-ink">
         <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
           <ScrollReveal>
-            <p className="section-label mb-4">300 places per matchday</p>
+            <p className="section-label mb-4">450 places per matchday</p>
             <h2 className="text-4xl font-bold text-white leading-tight mb-4">
               Ready to Book Your Place?
             </h2>
             <div className="flex justify-center mb-6">
               <div className="gold-rule" />
             </div>
-            <p className="text-white/50 text-sm mb-8 max-w-md mx-auto leading-relaxed">
+            <p className="text-white/75 text-sm mb-8 max-w-md mx-auto leading-relaxed">
               Book online in a couple of minutes and your confirmation and entry passes
               arrive straight away.
             </p>

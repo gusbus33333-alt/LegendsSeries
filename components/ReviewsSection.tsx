@@ -52,7 +52,7 @@ export default async function ReviewsSection() {
               href="https://www.google.com/search?hl=en-GB&gl=uk&q=Legends+Series+Ltd,+Legends+House,+St+Albans+AL3+4PJ&ludocid=4154009846573570384&lsig=AB86z5UQjfRAcadwaEo0LEP_bPjg#lrd=0x48763f822d2ccebb:0x39a601f2527e1950,1"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-ink/50 text-xs tracking-[0.15em] hover:text-gold transition-colors flex items-center gap-1.5"
+              className="text-ink/72 text-xs tracking-[0.15em] hover:text-gold transition-colors flex items-center gap-1.5"
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
@@ -81,7 +81,7 @@ export default async function ReviewsSection() {
             href="https://www.google.com/search?hl=en-GB&gl=uk&q=Legends+Series+Ltd,+Legends+House,+St+Albans+AL3+4PJ&ludocid=4154009846573570384&lsig=AB86z5UQjfRAcadwaEo0LEP_bPjg#lrd=0x48763f822d2ccebb:0x39a601f2527e1950,1"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-ink/50 text-sm hover:text-gold transition-colors"
+            className="inline-flex items-center gap-2 text-ink/72 text-sm hover:text-gold transition-colors"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>

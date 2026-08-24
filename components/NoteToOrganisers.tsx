@@ -22,7 +22,7 @@ export default function NoteToOrganisers({ value, onChange, id = 'note' }: NoteT
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="text-white/30 hover:text-white/50 text-[0.65rem] tracking-[0.1em] uppercase transition-colors text-left"
+        className="text-white/80 hover:text-gold text-[0.75rem] tracking-[0.1em] uppercase transition-colors text-left"
       >
         Note to organisers / special requests?
       </button>
@@ -40,10 +40,10 @@ export default function NoteToOrganisers({ value, onChange, id = 'note' }: NoteT
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Rugby club affiliation, dietary requirements, accessibility needs or any other requests."
-        className="bg-white/5 border border-white/15 text-white text-xs px-3 py-2.5 placeholder:text-white/20 focus:border-gold focus:outline-none transition-colors resize-none"
+        className="bg-white/5 border border-white/15 text-white text-xs px-3 py-2.5 placeholder:text-white/45 focus:border-gold focus:outline-none transition-colors resize-none"
       />
       <div className="flex justify-end">
-        <span className="text-white/20 text-[0.55rem]">{value.length}/500</span>
+        <span className="text-white/45 text-[0.55rem]">{value.length}/500</span>
       </div>
     </div>
   )

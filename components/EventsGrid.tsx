@@ -16,7 +16,7 @@ export default function EventsGrid({ events }: { events: Event[] }) {
       <div className="flex flex-wrap items-center justify-end gap-4 mb-12">
         {/* VAT toggle */}
         <div className="flex items-center gap-3">
-          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${!includeVat ? 'text-ink' : 'text-ink/40'}`}>
+          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${!includeVat ? 'text-ink' : 'text-ink/65'}`}>
             Ex VAT
           </span>
           <button
@@ -30,7 +30,7 @@ export default function EventsGrid({ events }: { events: Event[] }) {
               style={{ transform: includeVat ? 'translateX(24px)' : 'translateX(0)' }}
             />
           </button>
-          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${includeVat ? 'text-ink' : 'text-ink/40'}`}>
+          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${includeVat ? 'text-ink' : 'text-ink/65'}`}>
             Inc VAT
           </span>
         </div>

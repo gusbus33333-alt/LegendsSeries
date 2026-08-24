@@ -15,7 +15,7 @@ export default function BookingPolicyPage() {
             Booking Policy
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/40 text-sm mt-4">Last updated: 26 July 2026</p>
+          <p className="text-white/65 text-sm mt-4">Last updated: 26 July 2026</p>
         </div>
       </section>
 

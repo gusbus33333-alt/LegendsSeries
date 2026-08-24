@@ -35,7 +35,7 @@ export default function BookPage() {
             Book Your Place
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/50 text-base mt-6 max-w-xl leading-relaxed">
+          <p className="text-white/75 text-base mt-6 max-w-xl leading-relaxed">
             Six dates. Six chances to experience the Legends Lounge at the home of English rugby.
             Choose your match below and reserve your place.
           </p>
@@ -49,7 +49,7 @@ export default function BookPage() {
             ].map((f) => (
               <div key={f.text} className="flex items-center gap-2">
                 <span className="text-gold text-lg font-bold">{f.icon}</span>
-                <span className="text-white/55 text-sm">{f.text}</span>
+                <span className="text-white/80 text-sm">{f.text}</span>
               </div>
             ))}
           </div>
@@ -65,7 +65,7 @@ export default function BookPage() {
             <p className="section-label mb-2">November 2026</p>
             <h2 className="text-3xl font-bold text-ink">Nations Championship</h2>
             <div className="gold-rule mt-4" />
-            <p className="text-ink/50 text-sm mt-4 max-w-lg">
+            <p className="text-ink/72 text-sm mt-4 max-w-lg">
               Three England home games at Twickenham. £250 per person inc. VAT. Choose your match.
             </p>
           </ScrollReveal>
@@ -89,7 +89,7 @@ export default function BookPage() {
               Nations Cup Finals — Double Headers
             </h2>
             <div className="gold-rule mt-4" />
-            <p className="text-white/40 text-sm mt-4 max-w-lg">
+            <p className="text-white/65 text-sm mt-4 max-w-lg">
               Three days of back-to-back finals at Twickenham. Two matches per day — full day
               hospitality from 09:30. £300 per person inc. VAT.
             </p>
@@ -119,11 +119,11 @@ export default function BookPage() {
                   <p className="text-white font-bold text-xl lg:text-2xl tracking-tight">
                     Follow Your Team
                   </p>
-                  <p className="text-white/55 text-sm mt-2 leading-relaxed max-w-xl">
+                  <p className="text-white/80 text-sm mt-2 leading-relaxed max-w-xl">
                     As you aren&apos;t sure which day your team will play currently, pick this package
                     and select your team to visit on the day they play.
                   </p>
-                  <p className="text-white/35 text-xs mt-2 leading-relaxed max-w-xl">
+                  <p className="text-white/60 text-xs mt-2 leading-relaxed max-w-xl">
                     It takes the guessing out of where they finish — you don&apos;t need to know their
                     final position in advance. Pick your team now and we&apos;ll confirm your day as
                     soon as the fixtures are set.
@@ -132,7 +132,7 @@ export default function BookPage() {
                 <div className="flex items-center gap-3">
                   <div className="text-right">
                     <p className="text-gold font-bold text-xl">£250+ (£300 inc VAT)</p>
-                    <p className="text-white/25 text-[0.6rem]">£250 ex VAT per person</p>
+                    <p className="text-white/50 text-[0.6rem]">£250 ex VAT per person</p>
                   </div>
                   <span className="text-gold text-2xl group-hover:translate-x-1 transition-transform">→</span>
                 </div>
@@ -172,7 +172,7 @@ export default function BookPage() {
               </div>
             ))}
           </div>
-          <p className="text-center text-ink/30 text-xs mt-6">
+          <p className="text-center text-ink/58 text-xs mt-6">
             Match tickets are not included. Obtain through your own sources or enjoy the whole day in the marquee.
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function BookPage() {
       <section className="py-16 bg-ink">
         <div className="max-w-2xl mx-auto px-6 text-center">
           <ScrollReveal>
-            <p className="text-white/40 text-sm mb-4">
+            <p className="text-white/65 text-sm mb-4">
               Questions before you book? We&apos;re happy to help.
             </p>
             <Link href="/contact" className="btn-outline-white">
@@ -216,18 +216,18 @@ function EventCard({ event }: { event: (typeof loungeEvents)[0] }) {
       </div>
       <div className="p-6 flex flex-col gap-4">
         <div>
-          <p className="text-white/40 text-xs tracking-[0.15em] uppercase mb-1">{event.date}</p>
+          <p className="text-white/65 text-xs tracking-[0.15em] uppercase mb-1">{event.date}</p>
           <h3 className="text-white font-bold text-lg leading-tight group-hover:text-gold transition-colors">
             {event.match}
           </h3>
-          <p className="text-white/30 text-xs mt-1">
+          <p className="text-white/55 text-xs mt-1">
             Marquee opens {event.openTime} · KO {event.ko}
           </p>
         </div>
         <div className="flex items-center justify-between pt-4 border-t border-white/10">
           <div>
             <p className="text-gold font-bold text-xl">{event.priceLabel}</p>
-            <p className="text-white/25 text-[0.6rem]">{event.priceExVat} per person</p>
+            <p className="text-white/50 text-[0.6rem]">{event.priceExVat} per person</p>
           </div>
           <span className="text-gold text-sm group-hover:translate-x-1 transition-transform">
             Book →
@@ -264,7 +264,7 @@ function FinalsCard({ event }: { event: (typeof loungeEvents)[0] }) {
       </div>
       <div className="p-6 flex flex-col gap-3">
         <div>
-          <p className="text-white/40 text-xs tracking-[0.15em] uppercase mb-1">{event.date}</p>
+          <p className="text-white/65 text-xs tracking-[0.15em] uppercase mb-1">{event.date}</p>
           <h3 className="text-white font-bold text-base leading-tight group-hover:text-gold transition-colors">
             {event.match}
           </h3>
@@ -274,7 +274,7 @@ function FinalsCard({ event }: { event: (typeof loungeEvents)[0] }) {
             {event.games.map((g) => (
               <li key={g} className="flex items-center gap-2">
                 <span className="w-1 h-1 rounded-full bg-gold flex-shrink-0" />
-                <span className="text-white/40 text-xs">{g}</span>
+                <span className="text-white/65 text-xs">{g}</span>
               </li>
             ))}
           </ul>
@@ -282,7 +282,7 @@ function FinalsCard({ event }: { event: (typeof loungeEvents)[0] }) {
         <div className="flex items-center justify-between pt-4 border-t border-white/10">
           <div>
             <p className="text-gold font-bold text-xl">{event.priceLabel}</p>
-            <p className="text-white/25 text-[0.6rem]">{event.priceExVat} per person</p>
+            <p className="text-white/50 text-[0.6rem]">{event.priceExVat} per person</p>
           </div>
           <span className="text-gold text-sm group-hover:translate-x-1 transition-transform">
             Book →

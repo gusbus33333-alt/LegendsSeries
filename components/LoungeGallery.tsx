@@ -65,7 +65,7 @@ export default function LoungeGallery() {
               <div className="gold-rule-lg" />
             </div>
             {/* Frames these as evidence of past events, not the fixtures on sale */}
-            <p className="text-white/40 text-sm mt-4">
+            <p className="text-white/65 text-sm mt-4">
               From our England v Ireland Lounge, March 2026
             </p>
           </div>
@@ -126,7 +126,7 @@ export default function LoungeGallery() {
         >
           {/* Close */}
           <button
-            className="absolute top-4 right-5 w-9 h-9 rounded-full border border-white/20 text-white/60 hover:border-gold hover:text-gold flex items-center justify-center text-lg transition-colors"
+            className="absolute top-4 right-5 w-9 h-9 rounded-full border border-white/20 text-white/85 hover:border-gold hover:text-gold flex items-center justify-center text-lg transition-colors"
             onClick={close}
             aria-label="Close"
           >
@@ -134,7 +134,7 @@ export default function LoungeGallery() {
           </button>
 
           {/* Counter */}
-          <p className="absolute top-5 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-[0.2em]">
+          <p className="absolute top-5 left-1/2 -translate-x-1/2 text-white/65 text-xs tracking-[0.2em]">
             {lightboxIndex + 1} / {photos.length}
           </p>
 
@@ -175,7 +175,7 @@ export default function LoungeGallery() {
           </div>
 
           {/* Caption */}
-          <p className="text-white/30 text-xs tracking-widest uppercase">
+          <p className="text-white/55 text-xs tracking-widest uppercase">
             England vs Ireland · Six Nations 2026 · Kim Watson Photography
           </p>
         </div>

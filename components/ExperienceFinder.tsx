@@ -84,7 +84,7 @@ function CustomSelect({
                 className={`w-full text-left px-4 py-3 text-sm transition-colors ${
                   opt.value === value
                     ? 'text-gold bg-white/5'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                    : 'text-white/90 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {opt.label}
@@ -151,7 +151,7 @@ export default function ExperienceFinder() {
               type="button"
               onClick={() => setGuests((g) => Math.max(1, g - 1))}
               disabled={guests <= 1}
-              className="w-9 h-full text-white/60 hover:text-gold transition-colors disabled:opacity-30 text-sm"
+              className="w-9 h-full text-white/85 hover:text-gold transition-colors disabled:opacity-30 text-sm"
             >
               −
             </button>
@@ -160,7 +160,7 @@ export default function ExperienceFinder() {
               type="button"
               onClick={() => setGuests((g) => Math.min(30, g + 1))}
               disabled={guests >= 30}
-              className="w-9 h-full text-white/60 hover:text-gold transition-colors disabled:opacity-30 text-sm"
+              className="w-9 h-full text-white/85 hover:text-gold transition-colors disabled:opacity-30 text-sm"
             >
               +
             </button>

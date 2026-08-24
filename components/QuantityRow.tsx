@@ -32,8 +32,8 @@ export default function QuantityRow({
   return (
     <div className="flex items-center justify-between gap-3">
       <div className="min-w-0">
-        <p className="text-white/40 text-[0.6rem] uppercase tracking-widest">{label}</p>
-        {hint && <p className="text-white/25 text-[0.55rem] mt-0.5 leading-snug">{hint}</p>}
+        <p className="text-white/85 text-[0.7rem] uppercase tracking-widest">{label}</p>
+        {hint && <p className="text-white/65 text-[0.65rem] mt-1 leading-snug">{hint}</p>}
       </div>
       <div className="flex items-center gap-2 flex-shrink-0">
         <button
@@ -41,7 +41,7 @@ export default function QuantityRow({
           onClick={() => step(-1)}
           disabled={value <= min}
           aria-label={`Decrease ${label}`}
-          className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/50"
+          className="w-7 h-7 border border-white/20 text-white/75 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/75"
         >
           −
         </button>
@@ -51,7 +51,7 @@ export default function QuantityRow({
           onClick={() => step(1)}
           disabled={value >= max}
           aria-label={`Increase ${label}`}
-          className="w-7 h-7 border border-white/20 text-white/50 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/50"
+          className="w-7 h-7 border border-white/20 text-white/75 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/75"
         >
           +
         </button>

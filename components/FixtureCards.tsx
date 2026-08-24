@@ -166,7 +166,7 @@ function FinalsMatchup({ games }: { games: GamePair[] }) {
             {i > 0 && (
               <div className="flex items-center gap-2 my-1">
                 <div className="flex-1 h-px bg-gradient-to-r from-transparent to-gold/20" />
-                <span className="text-[8px] font-bold tracking-[0.3em] uppercase text-white/20">then</span>
+                <span className="text-[8px] font-bold tracking-[0.3em] uppercase text-white/45">then</span>
                 <div className="flex-1 h-px bg-gradient-to-l from-transparent to-gold/20" />
               </div>
             )}
@@ -180,18 +180,18 @@ function FinalsMatchup({ games }: { games: GamePair[] }) {
                 </div>
               )}
               <FinalsBadge code={game.north} />
-              <span className="text-white/20 italic text-base font-normal leading-none">v</span>
+              <span className="text-white/45 italic text-base font-normal leading-none">v</span>
               <FinalsBadge code={game.south} />
             </div>
 
             {/* Matchup spelled out — understandable without clicking through */}
             <div className="text-center">
-              <p className="text-[9px] font-semibold tracking-[0.22em] uppercase text-white/30 mb-1.5">
+              <p className="text-[9px] font-semibold tracking-[0.22em] uppercase text-white/55 mb-1.5">
                 {isGrandFinal ? game.label : `Match ${i + 1}`}
               </p>
               <p className="text-white font-bold text-[15px] leading-tight tracking-[0.03em]">
                 {sideLabel(game.north)}
-                <span className="text-white/30 font-normal italic px-1.5">vs</span>
+                <span className="text-white/55 font-normal italic px-1.5">vs</span>
                 {sideLabel(game.south)}
               </p>
             </div>
@@ -233,20 +233,20 @@ export default function FixtureCards() {
             Six matchdays. One lounge.
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-5 mb-4" />
-          <p className="text-white/40 max-w-xl mx-auto text-sm leading-relaxed">
+          <p className="text-white/65 max-w-xl mx-auto text-sm leading-relaxed">
             Every England international and all three Nations Cup Finals double headers, hosted at the
             Legends Lounge moments from the stadium.
           </p>
-          <p className="text-white/55 text-sm mt-5">
+          <p className="text-white/80 text-sm mt-5">
             <span className="text-gold font-semibold">£198 – £300</span> per person, inc VAT
-            <span className="text-white/20 mx-3">|</span>
-            Capped at <span className="text-gold font-semibold">300</span> places per matchday
+            <span className="text-white/45 mx-3">|</span>
+            Capped at <span className="text-gold font-semibold">450</span> places per matchday
           </p>
         </div>
 
         {/* VAT toggle */}
         <div className="flex items-center justify-center gap-3 mb-8">
-          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${!includeVat ? 'text-white' : 'text-white/40'}`}>
+          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${!includeVat ? 'text-white' : 'text-white/65'}`}>
             Ex VAT
           </span>
           <button
@@ -260,7 +260,7 @@ export default function FixtureCards() {
               style={{ transform: includeVat ? 'translateX(24px)' : 'translateX(0)' }}
             />
           </button>
-          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${includeVat ? 'text-white' : 'text-white/40'}`}>
+          <span className={`text-xs tracking-[0.15em] uppercase font-semibold transition-colors ${includeVat ? 'text-white' : 'text-white/65'}`}>
             Inc VAT
           </span>
         </div>
@@ -274,7 +274,7 @@ export default function FixtureCards() {
               className={`px-5 py-2.5 rounded-full text-[11px] font-bold tracking-[0.18em] uppercase border transition-all duration-200 ${
                 filter === chip.value
                   ? 'bg-gold border-gold text-ink'
-                  : 'bg-transparent border-gold/28 text-white/50 hover:text-white hover:border-gold/60'
+                  : 'bg-transparent border-gold/28 text-white/75 hover:text-white hover:border-gold/60'
               }`}
             >
               {chip.label}
@@ -299,7 +299,7 @@ export default function FixtureCards() {
                 {fixture.cat === 'eng' ? (
                   <div className="flex items-center gap-4">
                     <TeamBadge icon={fixture.homeIcon} code={fixture.homeCode} />
-                    <span className="text-2xl italic font-normal text-white/25">v</span>
+                    <span className="text-2xl italic font-normal text-white/50">v</span>
                     <TeamBadge icon={fixture.awayIcon} code={fixture.awayCode} />
                   </div>
                 ) : (
@@ -314,11 +314,11 @@ export default function FixtureCards() {
                 </h3>
               )}
 
-              <p className="text-[12px] text-white/45 tracking-[0.04em] mt-2">
+              <p className="text-[12px] text-white/70 tracking-[0.04em] mt-2">
                 {fixture.date}
               </p>
 
-              <p className="text-[12px] text-white/35 leading-relaxed mt-3">
+              <p className="text-[12px] text-white/60 leading-relaxed mt-3">
                 {fixture.blurb}
               </p>
 
@@ -329,11 +329,11 @@ export default function FixtureCards() {
                     <span className="block text-[32px] font-bold text-gold leading-none">
                       {includeVat ? fixture.priceInc.replace(/ inc VAT.*/, '') : fixture.price}
                     </span>
-                    <span className="block text-[10px] tracking-[0.12em] text-white/40 mt-1.5">
+                    <span className="block text-[10px] tracking-[0.12em] text-white/65 mt-1.5">
                       per person &middot; {includeVat ? 'inc VAT' : 'ex VAT'}
                     </span>
                   </div>
-                  <span className="text-[10px] tracking-[0.1em] uppercase text-white/30 text-right leading-snug pb-1">
+                  <span className="text-[10px] tracking-[0.1em] uppercase text-white/55 text-right leading-snug pb-1">
                     {fixture.cat === 'finals' ? 'Two matches' : 'Full day'}
                   </span>
                 </div>
@@ -375,18 +375,18 @@ export default function FixtureCards() {
                   <p className="text-white font-bold text-xl lg:text-2xl tracking-tight">
                     Follow Your Team
                   </p>
-                  <p className="text-white/55 text-sm mt-2 leading-relaxed max-w-xl">
+                  <p className="text-white/80 text-sm mt-2 leading-relaxed max-w-xl">
                     As you aren&apos;t sure which day your team will play currently, pick this package
                     and select your team to visit on the day they play.
                   </p>
-                  <p className="text-white/35 text-xs mt-2 leading-relaxed max-w-xl">
+                  <p className="text-white/60 text-xs mt-2 leading-relaxed max-w-xl">
                     It takes the guessing out of where they finish — pick your team now and
                     we&apos;ll confirm your day as soon as the fixtures are set.
                   </p>
                 </div>
                 <div className="flex-shrink-0 flex items-center gap-2">
                   <span className="text-gold text-[22px] font-bold">{includeVat ? '£300' : '£250+'}</span>
-                  <span className="text-white/35 text-[10px] tracking-[0.12em]">{includeVat ? 'inc VAT' : 'ex VAT'}<br />per person</span>
+                  <span className="text-white/60 text-[10px] tracking-[0.12em]">{includeVat ? 'inc VAT' : 'ex VAT'}<br />per person</span>
                 </div>
                 <span className="text-gold text-2xl group-hover:translate-x-1 transition-transform">→</span>
               </div>

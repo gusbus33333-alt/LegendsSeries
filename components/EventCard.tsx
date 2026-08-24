@@ -57,29 +57,29 @@ export default function EventCard({ event, variant = 'default', includeVat = fal
               <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight">
                 {event.title}
               </h3>
-              <p className="text-white/50 text-sm mt-1.5">{event.dateRange}</p>
+              <p className="text-white/75 text-sm mt-1.5">{event.dateRange}</p>
             </div>
             <div className="text-right flex-shrink-0">
-              <p className="text-white/40 text-xs tracking-widest uppercase">From</p>
+              <p className="text-white/65 text-xs tracking-widest uppercase">From</p>
               <p className="text-gold font-bold text-2xl">{formatPrice(event.price, includeVat)}</p>
-              <p className="text-white/20 text-[0.55rem] tracking-wider mt-0.5">{includeVat ? 'inc VAT' : 'ex VAT'}</p>
+              <p className="text-white/45 text-[0.55rem] tracking-wider mt-0.5">{includeVat ? 'inc VAT' : 'ex VAT'}</p>
             </div>
           </div>
 
-          <p className="text-white/50 text-sm leading-relaxed mb-6 flex-1">
+          <p className="text-white/75 text-sm leading-relaxed mb-6 flex-1">
             {event.description.slice(0, 140)}...
           </p>
 
           {/* Legends attending */}
           <div className="flex items-center gap-2 mb-6">
-            <span className="text-white/30 text-xs tracking-widest uppercase">With</span>
+            <span className="text-white/55 text-xs tracking-widest uppercase">With</span>
             {event.legends.slice(0, 2).map((legend, i) => (
               <span key={i} className="text-gold text-xs font-semibold">
                 {legend}{i < Math.min(event.legends.length, 2) - 1 ? ',' : ''}
               </span>
             ))}
             {event.legends.length > 2 && (
-              <span className="text-white/30 text-xs">+{event.legends.length - 2} more</span>
+              <span className="text-white/55 text-xs">+{event.legends.length - 2} more</span>
             )}
           </div>
 
@@ -87,7 +87,7 @@ export default function EventCard({ event, variant = 'default', includeVat = fal
             <span className="btn-gold flex-1 text-center text-xs">
               Book Now
             </span>
-            <span className="text-white/30 text-xs tracking-widest uppercase hover:text-gold transition-colors">
+            <span className="text-white/55 text-xs tracking-widest uppercase hover:text-gold transition-colors">
               Learn more →
             </span>
           </div>
@@ -114,7 +114,7 @@ export default function EventCard({ event, variant = 'default', includeVat = fal
 
         {/* Category */}
         <div className="absolute top-3 left-3">
-          <span className="bg-ink/60 backdrop-blur-sm text-white/70 text-[0.55rem] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 border border-white/10">
+          <span className="bg-ink/60 backdrop-blur-sm text-white/90 text-[0.55rem] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 border border-white/10">
             {event.category.replace('-', ' ')}
           </span>
         </div>
@@ -124,15 +124,15 @@ export default function EventCard({ event, variant = 'default', includeVat = fal
       <div className="p-5 bg-ink">
         <p className="section-label text-[0.6rem] mb-1.5">{event.flag} {event.location}</p>
         <h3 className="text-white font-bold text-lg leading-tight mb-1">{event.title}</h3>
-        <p className="text-white/40 text-xs mb-4">{event.date}</p>
+        <p className="text-white/65 text-xs mb-4">{event.date}</p>
 
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-white/30 text-[0.6rem] tracking-widest uppercase">From</p>
+            <p className="text-white/55 text-[0.6rem] tracking-widest uppercase">From</p>
             <p className="text-gold font-bold text-lg">{formatPrice(event.price, includeVat)}</p>
-            <p className="text-white/20 text-[0.5rem] tracking-wider">{includeVat ? 'inc VAT' : 'ex VAT'}</p>
+            <p className="text-white/45 text-[0.5rem] tracking-wider">{includeVat ? 'inc VAT' : 'ex VAT'}</p>
           </div>
-          <span className="text-white/30 text-xs tracking-widest group-hover:text-gold transition-colors">
+          <span className="text-white/55 text-xs tracking-widest group-hover:text-gold transition-colors">
             View →
           </span>
         </div>

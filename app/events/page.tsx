@@ -72,7 +72,7 @@ export default async function EventsPage() {
             Upcoming Events
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/50 text-base mt-6 max-w-xl leading-relaxed">
+          <p className="text-white/75 text-base mt-6 max-w-xl leading-relaxed">
             From private jets and Cresta Runs to week-long odysseys alongside rugby&apos;s
             greatest legends — every Legends Series tour is extraordinary.
           </p>

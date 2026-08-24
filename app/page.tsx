@@ -62,7 +62,7 @@ export default function HomePage() {
                   <h3 className="text-white font-bold text-3xl lg:text-4xl leading-tight">
                     Legends Lounge
                   </h3>
-                  <p className="text-white/50 text-sm sm:text-base mt-5 leading-relaxed max-w-md">
+                  <p className="text-white/75 text-sm sm:text-base mt-5 leading-relaxed max-w-md">
                     All-inclusive matchday hospitality 20 metres from Twickenham — hog roast,
                     unlimited drinks, live music and genuine time with rugby legends. Six dates
                     across the Nations Championship 2026.
@@ -71,7 +71,7 @@ export default function HomePage() {
                     <Link href="/legends-lounge" className="btn-gold min-w-[200px]">
                       Explore the Lounge
                     </Link>
-                    <span className="text-white/30 text-xs tracking-widest uppercase">
+                    <span className="text-white/55 text-xs tracking-widest uppercase">
                       From £165+ pp
                     </span>
                   </div>
@@ -103,7 +103,7 @@ export default function HomePage() {
                   <h3 className="text-white font-bold text-3xl lg:text-4xl leading-tight">
                     Living with Legends
                   </h3>
-                  <p className="text-white/50 text-sm sm:text-base mt-5 leading-relaxed max-w-md">
+                  <p className="text-white/75 text-sm sm:text-base mt-5 leading-relaxed max-w-md">
                     Fully hosted trips to the world&apos;s greatest sporting events — alongside
                     professional legends for the entire journey. Golf, rugby, culture and adventure
                     in Cape Town, Dubai, St Moritz and beyond.
@@ -112,7 +112,7 @@ export default function HomePage() {
                     <Link href="/events" className="btn-gold min-w-[200px]">
                       View Trips
                     </Link>
-                    <span className="text-white/30 text-xs tracking-widest uppercase">
+                    <span className="text-white/55 text-xs tracking-widest uppercase">
                       From £2,200 pp
                     </span>
                   </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
             ].map((item, i) => (
               <div key={`${loop}-${i}`} className="flex items-center gap-3 flex-shrink-0">
                 <span className="text-gold font-bold text-xl tracking-tight">{item.value}</span>
-                <span className="text-white/40 text-[0.6rem] tracking-[0.2em] uppercase whitespace-nowrap">
+                <span className="text-white/65 text-[0.6rem] tracking-[0.2em] uppercase whitespace-nowrap">
                   {item.label}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-gold/30 ml-3" />
@@ -180,12 +180,12 @@ export default function HomePage() {
             <div className="flex justify-center mt-6 mb-8">
               <div className="gold-rule" />
             </div>
-            <p className="text-white/50 text-base leading-relaxed mb-5">
+            <p className="text-white/75 text-base leading-relaxed mb-5">
               Legends Series is a premium sports hospitality and travel company, bringing fans
               closer to the sporting icons they admire through exclusive matchday hospitality,
               luxury international tours and unforgettable events.
             </p>
-            <p className="text-white/50 text-base leading-relaxed mb-10">
+            <p className="text-white/75 text-base leading-relaxed mb-10">
               Founded by Chris Butterworth, and inspired by his pivotal role in delivering
               hospitality for the 2025 British &amp; Irish Legends Tour to Australia, every
               Legends Series experience is built around authentic connections, exceptional
@@ -220,7 +220,7 @@ export default function HomePage() {
             <div className="flex justify-center mb-8">
               <div className="gold-rule-lg" />
             </div>
-            <p className="text-white/50 text-base lg:text-lg max-w-xl mx-auto leading-relaxed mb-10">
+            <p className="text-white/75 text-base lg:text-lg max-w-xl mx-auto leading-relaxed mb-10">
               Explore our latest Legends Lounge hospitality events and unforgettable Legends
               Tours. Whether you&apos;re looking for an incredible matchday or the trip of a
               lifetime, your next experience starts here.

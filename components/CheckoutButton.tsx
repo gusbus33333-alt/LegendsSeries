@@ -125,7 +125,7 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
       />
 
       {/* Applies to both parking types, so stated once rather than in each hint */}
-      <p className="text-white/25 text-[0.55rem] leading-snug -mt-1">
+      <p className="text-white/65 text-[0.65rem] leading-snug">
         Must be removed by 9am the morning after the game.
       </p>
 
@@ -142,24 +142,24 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
       {/* Itemised once there is anything beyond plain adult tickets */}
       {(hasSaving || hasExtras) && (
         <div className="border border-gold/20 bg-gold/5 px-3 py-2.5 flex flex-col gap-1">
-          <div className="flex justify-between text-white/40 text-[0.6rem]">
+          <div className="flex justify-between text-white/65 text-[0.6rem]">
             <span>{guests} × Guest</span>
             <span>£{(price * guests).toFixed(2)}</span>
           </div>
           {under16 > 0 && (
-            <div className="flex justify-between text-white/40 text-[0.6rem]">
+            <div className="flex justify-between text-white/65 text-[0.6rem]">
               <span>{under16} × Under 16</span>
               <span>£{(fullChildPrice * under16).toFixed(2)}</span>
             </div>
           )}
           {carParking > 0 && (
-            <div className="flex justify-between text-white/40 text-[0.6rem]">
+            <div className="flex justify-between text-white/65 text-[0.6rem]">
               <span>{carParking} × Car parking</span>
               <span>£{(carParking * CAR_PARKING_PRICE).toFixed(2)}</span>
             </div>
           )}
           {busParking > 0 && (
-            <div className="flex justify-between text-white/40 text-[0.6rem]">
+            <div className="flex justify-between text-white/65 text-[0.6rem]">
               <span>{busParking} × Bus parking</span>
               <span>£{(busParking * BUS_PARKING_PRICE).toFixed(2)}</span>
             </div>
@@ -191,7 +191,7 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
           onChange={(e) => { setTermsAccepted(e.target.checked); setError('') }}
           className="mt-0.5 accent-[#b8953f] w-4 h-4 shrink-0"
         />
-        <span className="text-white/50 text-[0.65rem] leading-relaxed group-hover:text-white/70 transition-colors">
+        <span className="text-white/75 text-[0.65rem] leading-relaxed group-hover:text-white/90 transition-colors">
           I agree to the{' '}
           <a href="/terms" target="_blank" className="text-gold underline underline-offset-2">
             terms and conditions
@@ -207,7 +207,7 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
           onChange={(e) => setMarketingOptIn(e.target.checked)}
           className="mt-0.5 accent-[#b8953f] w-4 h-4 shrink-0"
         />
-        <span className="text-white/50 text-[0.65rem] leading-relaxed group-hover:text-white/70 transition-colors">
+        <span className="text-white/75 text-[0.65rem] leading-relaxed group-hover:text-white/90 transition-colors">
           I&apos;d like early access to future Legends Series events and exclusive offers
         </span>
       </label>
@@ -221,7 +221,7 @@ export default function CheckoutButton({ slug, price, className = '' }: Checkout
         {loading ? 'Redirecting to payment…' : 'Book Now — Secure Payment'}
       </button>
 
-      <p className="text-white/20 text-[0.55rem] text-center leading-relaxed">
+      <p className="text-white/45 text-[0.55rem] text-center leading-relaxed">
         You&apos;ll be redirected to Stripe for secure payment.
       </p>
 

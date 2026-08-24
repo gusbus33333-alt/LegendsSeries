@@ -11,7 +11,7 @@ function StarRating({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          className={`w-3.5 h-3.5 ${i < rating ? 'text-gold' : 'text-white/20'}`}
+          className={`w-3.5 h-3.5 ${i < rating ? 'text-gold' : 'text-white/45'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -43,7 +43,7 @@ export default function ReviewCard({ review, variant = 'default' }: ReviewCardPr
         <span className={`block font-serif text-4xl leading-none mb-3 ${isDark ? 'text-gold/30' : 'text-gold/40'}`}>
           &ldquo;
         </span>
-        <p className={`text-sm leading-relaxed ${isDark ? 'text-white/60' : 'text-ink/70'}`}>
+        <p className={`text-sm leading-relaxed ${isDark ? 'text-white/85' : 'text-ink/70'}`}>
           {review.quote}
         </p>
       </blockquote>
@@ -56,7 +56,7 @@ export default function ReviewCard({ review, variant = 'default' }: ReviewCardPr
             <p className={`font-semibold text-sm ${isDark ? 'text-white' : 'text-ink'}`}>
               {review.author}
             </p>
-            <p className={`text-xs mt-0.5 ${isDark ? 'text-white/40' : 'text-ink/40'}`}>
+            <p className={`text-xs mt-0.5 ${isDark ? 'text-white/65' : 'text-ink/65'}`}>
               {review.location}
             </p>
           </div>
@@ -64,7 +64,7 @@ export default function ReviewCard({ review, variant = 'default' }: ReviewCardPr
             <p className="text-gold text-[0.65rem] tracking-[0.15em] uppercase font-semibold">
               {review.event.split(',')[0]}
             </p>
-            <p className={`text-[0.65rem] mt-0.5 ${isDark ? 'text-white/30' : 'text-ink/30'}`}>
+            <p className={`text-[0.65rem] mt-0.5 ${isDark ? 'text-white/55' : 'text-ink/58'}`}>
               {review.date}
             </p>
           </div>

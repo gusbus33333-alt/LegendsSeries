@@ -26,7 +26,7 @@ export default function Error({
         </div>
         <h1 className="text-white font-bold text-3xl">Something went wrong</h1>
         <div className="w-12 h-px bg-gold" />
-        <p className="text-white/50 text-sm leading-relaxed">
+        <p className="text-white/75 text-sm leading-relaxed">
           We encountered an unexpected error. Please try again or return to the homepage.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 mt-2">

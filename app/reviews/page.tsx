@@ -31,7 +31,7 @@ export default function ReviewsPage() {
             Guest Reviews
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/50 text-base mt-5 max-w-lg leading-relaxed">
+          <p className="text-white/75 text-base mt-5 max-w-lg leading-relaxed">
             Real reviews from real guests, pulled directly from Google.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function ReviewsPage() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Ready to write your own story?
             </h2>
-            <p className="text-white/50 text-sm leading-relaxed mb-8 max-w-md mx-auto">
+            <p className="text-white/75 text-sm leading-relaxed mb-8 max-w-md mx-auto">
               Every one of these reviews started with someone clicking &apos;Book Now&apos;.
               Yours could be next.
             </p>

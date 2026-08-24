@@ -65,22 +65,45 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
 
     const supabase = createClient()
 
-    const { error } = await supabase.from('bookings').insert({
+    // `bookings` is the Stripe booking record and has an entirely different
+    // shape — writing enquiries there failed on every submission.
+    const { error } = await supabase.from('enquiries').insert({
       first_name: form.firstName,
       last_name: form.lastName,
       email: form.email,
       phone: form.phone || null,
+      enquiry_type: form.enquiryType,
       event_slug: form.eventSlug || null,
-      guests: parseInt(form.guests),
-      requirements: form.requirements || null,
-      total_price: totalPrice,
-      deposit_amount: depositAmount,
+      guests: form.enquiryType === 'booking' ? parseInt(form.guests) : null,
+      message: form.requirements || null,
     })
 
     if (error) {
       setErrorMsg(error.message)
       setStatus('error')
       return
+    }
+
+    // Notify the team. Deliberately after the save and non-blocking: the
+    // enquiry is already recorded, so a mail failure must not show as an error
+    // or make the customer submit twice.
+    try {
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          phone: form.phone || null,
+          enquiryType: form.enquiryType,
+          eventSlug: form.eventSlug || null,
+          guests: form.enquiryType === 'booking' ? parseInt(form.guests) : null,
+          message: form.requirements || null,
+        }),
+      })
+    } catch {
+      console.warn('Enquiry saved but notification failed')
     }
 
     setStatus('success')
@@ -95,12 +118,9 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
           </svg>
         </div>
         <h3 className="text-white font-bold text-2xl">Enquiry Received</h3>
-        <p className="text-white/50 text-sm max-w-xs leading-relaxed">
-          Thank you for your interest. A member of the Legends Series team will be in touch
-          within 24 hours to confirm your booking and process your deposit.
-        </p>
-        <p className="text-gold text-xs tracking-widest uppercase">
-          Check your email for confirmation
+        <p className="text-white/75 text-sm max-w-xs leading-relaxed">
+          Thank you for getting in touch. A member of the Legends Series team will get back
+          to you within 24 hours.
         </p>
       </div>
     )
@@ -111,24 +131,24 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
       {/* Name row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="firstName">
+          <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="firstName">
             First Name *
           </label>
           <input
             id="firstName" name="firstName" type="text" required
             value={form.firstName} onChange={handleChange}
-            className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
+            className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/55"
             placeholder="James"
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="lastName">
+          <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="lastName">
             Last Name *
           </label>
           <input
             id="lastName" name="lastName" type="text" required
             value={form.lastName} onChange={handleChange}
-            className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
+            className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/55"
             placeholder="Hartley"
           />
         </div>
@@ -136,33 +156,33 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
 
       {/* Email */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="email">
+        <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="email">
           Email Address *
         </label>
         <input
           id="email" name="email" type="email" required
           value={form.email} onChange={handleChange}
-          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
+          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/55"
           placeholder="james@example.com"
         />
       </div>
 
       {/* Phone */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="phone">
+        <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="phone">
           Phone Number
         </label>
         <input
           id="phone" name="phone" type="tel"
           value={form.phone} onChange={handleChange}
-          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/25"
+          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors placeholder:text-ink/55"
           placeholder="+44 7700 900000"
         />
       </div>
 
       {/* Enquiry type */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="enquiryType">
+        <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="enquiryType">
           What can we help with? *
         </label>
         <select
@@ -180,7 +200,7 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
       {form.enquiryType === 'booking' && (
         <>
           <div className="flex flex-col gap-1.5">
-            <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="eventSlug">
+            <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="eventSlug">
               Event of Interest
             </label>
             <select
@@ -198,7 +218,7 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="guests">
+            <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="guests">
               Number of Guests
             </label>
             <select
@@ -216,13 +236,13 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
 
       {/* Requirements */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-ink/50 text-xs tracking-[0.15em] uppercase" htmlFor="requirements">
+        <label className="text-ink/72 text-xs tracking-[0.15em] uppercase" htmlFor="requirements">
           Your Message
         </label>
         <textarea
           id="requirements" name="requirements" rows={4}
           value={form.requirements} onChange={handleChange}
-          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors resize-none placeholder:text-ink/25"
+          className="bg-transparent border border-ink/20 focus:border-gold px-4 py-3 text-ink text-sm outline-none transition-colors resize-none placeholder:text-ink/55"
           placeholder="Tell us what you're interested in, any questions, or how we can help…"
         />
       </div>
@@ -230,18 +250,18 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
       {/* Price summary */}
       {totalPrice !== null && selectedEvent && (
         <div className="bg-ink/5 border border-ink/10 p-5 flex flex-col gap-3">
-          <p className="text-ink/50 text-xs tracking-[0.15em] uppercase font-semibold">
+          <p className="text-ink/72 text-xs tracking-[0.15em] uppercase font-semibold">
             Price Summary
           </p>
           <div className="flex justify-between text-sm">
-            <span className="text-ink/60">{form.guests} × {selectedEvent.priceDisplay}</span>
+            <span className="text-ink/78">{form.guests} × {selectedEvent.priceDisplay}</span>
             <span className="text-ink font-semibold">£{totalPrice.toLocaleString()}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-ink/60">25% deposit due today</span>
+            <span className="text-ink/78">25% deposit due today</span>
             <span className="text-gold font-bold">£{depositAmount?.toLocaleString()}</span>
           </div>
-          <p className="text-ink/30 text-[0.65rem] leading-relaxed">
+          <p className="text-ink/58 text-[0.65rem] leading-relaxed">
             Balance of £{(totalPrice - (depositAmount ?? 0)).toLocaleString()} due 60 days before
             the event. Secure payment powered by Stripe.
           </p>
@@ -264,7 +284,7 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
         {status === 'submitting' ? 'Sending…' : 'Send Message →'}
       </button>
 
-      <p className="text-ink/30 text-[0.65rem] text-center">
+      <p className="text-ink/58 text-[0.65rem] text-center">
         🔒 Payments secured by Stripe. Your data is encrypted and never stored on our servers.
       </p>
     </form>

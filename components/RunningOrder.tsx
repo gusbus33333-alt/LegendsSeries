@@ -27,7 +27,7 @@ export default function RunningOrder({ items }: { items: TimelineItem[] }) {
         <div className="w-px bg-gold/30 flex-shrink-0" />
         <div className="flex-1">
           <p className="text-ink font-semibold text-sm mb-1">{item.label}</p>
-          <p className="text-ink/55 text-sm leading-relaxed">{item.description}</p>
+          <p className="text-ink/75 text-sm leading-relaxed">{item.description}</p>
         </div>
       </div>
     </ScrollReveal>

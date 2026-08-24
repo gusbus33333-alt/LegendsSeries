@@ -69,7 +69,7 @@ export default function LoungeGlobalSection() {
                 <h3 className="text-white font-bold text-3xl lg:text-4xl mt-3 leading-tight">
                   Legends Lounge
                 </h3>
-                <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-md">
+                <p className="text-white/75 text-sm mt-4 leading-relaxed max-w-md">
                   Premium all-inclusive hospitality just 20 metres from Twickenham Stadium.
                   No match ticket needed — hog roast, unlimited drinks, rugby legends and live music
                   from 12:30 until 19:30. From £165 per person.
@@ -82,14 +82,14 @@ export default function LoungeGlobalSection() {
                     <span className="flex-shrink-0 w-4 h-4 rounded-full border border-gold/60 flex items-center justify-center mt-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-gold" />
                     </span>
-                    <span className="text-white/60 text-sm leading-snug">{feature}</span>
+                    <span className="text-white/85 text-sm leading-snug">{feature}</span>
                   </li>
                 ))}
               </ul>
 
               <div className="relative z-10 mt-auto pt-4 border-t border-white/10 flex items-center justify-between">
                 <div>
-                  <p className="text-white/30 text-xs tracking-widest uppercase">Starting from</p>
+                  <p className="text-white/55 text-xs tracking-widest uppercase">Starting from</p>
                   <p className="text-gold font-bold text-2xl">£165 pp</p>
                 </div>
                 <Link
@@ -128,7 +128,7 @@ export default function LoungeGlobalSection() {
                 <h3 className="text-white font-bold text-3xl lg:text-4xl mt-3 leading-tight">
                   Living with Legends
                 </h3>
-                <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-md">
+                <p className="text-white/75 text-sm mt-4 leading-relaxed max-w-md">
                   Fully hosted trips to the world&apos;s greatest sporting events — alongside
                   professional legends for the entire trip. Rome, Hong Kong, South Africa, New York,
                   St Moritz and beyond. No detail left to chance.
@@ -141,14 +141,14 @@ export default function LoungeGlobalSection() {
                     <span className="flex-shrink-0 w-4 h-4 rounded-full border border-gold/60 flex items-center justify-center mt-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-gold" />
                     </span>
-                    <span className="text-white/60 text-sm leading-snug">{feature}</span>
+                    <span className="text-white/85 text-sm leading-snug">{feature}</span>
                   </li>
                 ))}
               </ul>
 
               <div className="relative z-10 mt-auto pt-4 border-t border-white/10 flex items-center justify-between">
                 <div>
-                  <p className="text-white/30 text-xs tracking-widest uppercase">Starting from</p>
+                  <p className="text-white/55 text-xs tracking-widest uppercase">Starting from</p>
                   <p className="text-gold font-bold text-2xl">£2,200 pp</p>
                 </div>
                 <Link

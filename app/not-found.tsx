@@ -14,7 +14,7 @@ export default function NotFound() {
         <p className="text-gold font-bold text-7xl">404</p>
         <div className="w-12 h-px bg-gold" />
         <h1 className="text-white font-bold text-2xl">Page Not Found</h1>
-        <p className="text-white/50 text-sm leading-relaxed">
+        <p className="text-white/75 text-sm leading-relaxed">
           This page has left the field. Head back to the home page to find what you&apos;re looking for.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 mt-2">

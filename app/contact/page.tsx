@@ -53,7 +53,7 @@ export default async function ContactPage() {
             Contact Us
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/50 text-base mt-5 max-w-lg leading-relaxed">
+          <p className="text-white/75 text-base mt-5 max-w-lg leading-relaxed">
             Drop us a message and our team will get back to you within 24 hours.
             You can also WhatsApp us directly.
           </p>
@@ -75,7 +75,7 @@ export default async function ContactPage() {
                       Talk to the<br />Legends Series Team
                     </h2>
                     <div className="gold-rule mt-5 mb-6" />
-                    <p className="text-ink/60 text-sm leading-relaxed">
+                    <p className="text-ink/78 text-sm leading-relaxed">
                       Whether you&apos;re ready to book, have a question, or want help
                       choosing the right event — our team is here. No chatbots. No phone
                       trees. Real people who love rugby.
@@ -103,14 +103,14 @@ export default async function ContactPage() {
                     <p className="text-gold text-xs tracking-[0.2em] uppercase font-semibold">
                       Our Promise
                     </p>
-                    <p className="text-ink/60 text-sm leading-relaxed">
+                    <p className="text-ink/78 text-sm leading-relaxed">
                       Every enquiry is answered within 24 hours. No hard sell.
                       No pressure. If the event isn&apos;t right for you, we&apos;ll say so.
                     </p>
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <p className="text-ink/40 text-sm leading-relaxed">
+                    <p className="text-ink/65 text-sm leading-relaxed">
                       Sponsorship &amp; partnership enquiries welcome —{' '}
                       <a
                         href="mailto:finance@legends-series.com"
@@ -129,7 +129,7 @@ export default async function ContactPage() {
               <ScrollReveal direction="right" delay={0.1}>
                 <div className="bg-white border border-ink/8 p-8 lg:p-10">
                   <h3 className="text-ink font-bold text-xl mb-1">Send Us a Message</h3>
-                  <p className="text-ink/40 text-xs tracking-wide mb-8">
+                  <p className="text-ink/65 text-xs tracking-wide mb-8">
                     Tell us what you&apos;re interested in and we&apos;ll get back to you within 24 hours.
                   </p>
                   <BookingForm eventOptions={eventOptions} />
@@ -155,7 +155,7 @@ export default async function ContactPage() {
               <ScrollReveal key={i} delay={0.1 * i}>
                 <div className="flex flex-col gap-3">
                   <h3 className="text-gold text-sm font-semibold">{faq.q}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed">{faq.a}</p>
+                  <p className="text-white/75 text-sm leading-relaxed">{faq.a}</p>
                 </div>
               </ScrollReveal>
             ))}

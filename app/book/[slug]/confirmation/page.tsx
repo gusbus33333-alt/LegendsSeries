@@ -45,7 +45,7 @@ export default async function ConfirmationPage({ params, searchParams }: PagePro
           <div>
             <h1 className="text-4xl font-bold text-white mb-3">Booking Confirmed</h1>
             <div className="w-12 h-px bg-gold mx-auto mb-6" />
-            <p className="text-white/50 text-base leading-relaxed">
+            <p className="text-white/75 text-base leading-relaxed">
               Thank you for booking the Legends Lounge for{' '}
               <strong className="text-white">{eventMatch}</strong>.
               {eventDate && <> We&apos;ll see you on <strong className="text-white">{eventDate}</strong>.</>}
@@ -58,29 +58,29 @@ export default async function ConfirmationPage({ params, searchParams }: PagePro
               Booking Summary
             </p>
             <div className="flex justify-between text-sm">
-              <span className="text-white/40">Event</span>
+              <span className="text-white/65">Event</span>
               <span className="text-white font-semibold">{eventMatch}</span>
             </div>
             {eventDate && (
               <div className="flex justify-between text-sm">
-                <span className="text-white/40">Date</span>
+                <span className="text-white/65">Date</span>
                 <span className="text-white">{eventDate}</span>
               </div>
             )}
             <div className="flex justify-between text-sm">
-              <span className="text-white/40">Guests</span>
+              <span className="text-white/65">Guests</span>
               <span className="text-white">{guests}</span>
             </div>
             {amountPaid && (
               <div className="flex justify-between text-sm border-t border-white/10 pt-3 mt-1">
-                <span className="text-white/40">Amount Paid</span>
+                <span className="text-white/65">Amount Paid</span>
                 <span className="text-gold font-bold">{amountPaid}</span>
               </div>
             )}
           </div>
 
           {customerEmail && (
-            <p className="text-white/40 text-sm">
+            <p className="text-white/65 text-sm">
               A confirmation has been sent to <strong className="text-white">{customerEmail}</strong>
             </p>
           )}

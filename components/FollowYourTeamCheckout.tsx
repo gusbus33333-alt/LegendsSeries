@@ -156,7 +156,7 @@ export default function FollowYourTeamCheckout() {
 
         {/* Name */}
         <span className={`text-xs font-bold tracking-[0.15em] uppercase transition-colors ${
-          isSelected ? 'text-ink' : 'text-ink/50 group-hover:text-ink/80'
+          isSelected ? 'text-ink' : 'text-ink/72 group-hover:text-ink/80'
         }`}>
           {team.code}
         </span>
@@ -173,7 +173,7 @@ export default function FollowYourTeamCheckout() {
         <div className="w-10 h-px bg-gold mb-8" />
 
         {/* Northern Hemisphere */}
-        <p className="text-ink/40 text-[0.6rem] tracking-[0.3em] uppercase font-semibold mb-4">
+        <p className="text-ink/65 text-[0.6rem] tracking-[0.3em] uppercase font-semibold mb-4">
           Northern Hemisphere
         </p>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-8">
@@ -183,7 +183,7 @@ export default function FollowYourTeamCheckout() {
         </div>
 
         {/* Southern Hemisphere */}
-        <p className="text-ink/40 text-[0.6rem] tracking-[0.3em] uppercase font-semibold mb-4">
+        <p className="text-ink/65 text-[0.6rem] tracking-[0.3em] uppercase font-semibold mb-4">
           Southern Hemisphere
         </p>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
@@ -207,14 +207,14 @@ export default function FollowYourTeamCheckout() {
               </div>
               <div>
                 <p className="text-ink font-semibold text-sm">{day.positions}</p>
-                <p className="text-ink/45 text-xs mt-0.5">
+                <p className="text-ink/70 text-xs mt-0.5">
                   Your team&apos;s finishing position determines which day they play
                 </p>
               </div>
             </div>
           ))}
         </div>
-        <p className="text-ink/40 text-xs leading-relaxed mt-4">
+        <p className="text-ink/65 text-xs leading-relaxed mt-4">
           Your team&apos;s final league position determines which day of the Finals Weekend they play.
           Whichever day that falls on, your Follow Your Team ticket gives you full access to the
           Legends Lounge for the entire day — hog roast, unlimited drinks, live music, rugby legends
@@ -247,7 +247,7 @@ export default function FollowYourTeamCheckout() {
                 />
               </div>
               <div>
-                <p className="text-white/40 text-[0.6rem] tracking-[0.2em] uppercase">Following</p>
+                <p className="text-white/65 text-[0.6rem] tracking-[0.2em] uppercase">Following</p>
                 <p className="text-white font-bold text-lg">{selectedTeam.name}</p>
                 <p className="text-xs mt-0.5" style={{ color: selectedTeam.color === '#1a1a1a' || selectedTeam.color === '#ffffff' ? '#b8953f' : selectedTeam.color }}>
                   Finals Weekend · 27–29 Nov 2026
@@ -287,7 +287,7 @@ export default function FollowYourTeamCheckout() {
               />
 
               {/* Applies to both parking types, so stated once rather than in each hint */}
-              <p className="text-white/25 text-[0.55rem] leading-snug -mt-1">
+              <p className="text-white/65 text-[0.65rem] leading-snug">
                 Must be removed by 9am the morning after the game.
               </p>
 
@@ -303,24 +303,24 @@ export default function FollowYourTeamCheckout() {
               {/* Itemised once there is anything beyond plain adult tickets */}
               {(hasSaving || hasExtras) && (
                 <div className="border border-gold/20 bg-gold/5 px-3 py-2.5 flex flex-col gap-1">
-                  <div className="flex justify-between text-white/40 text-[0.6rem]">
+                  <div className="flex justify-between text-white/65 text-[0.6rem]">
                     <span>{guests} × Guest</span>
                     <span>£{(followYourTeamPrice * guests).toFixed(2)}</span>
                   </div>
                   {under16 > 0 && (
-                    <div className="flex justify-between text-white/40 text-[0.6rem]">
+                    <div className="flex justify-between text-white/65 text-[0.6rem]">
                       <span>{under16} × Under 16</span>
                       <span>£{(fullChildPrice * under16).toFixed(2)}</span>
                     </div>
                   )}
                   {carParking > 0 && (
-                    <div className="flex justify-between text-white/40 text-[0.6rem]">
+                    <div className="flex justify-between text-white/65 text-[0.6rem]">
                       <span>{carParking} × Car parking</span>
                       <span>£{(carParking * CAR_PARKING_PRICE).toFixed(2)}</span>
                     </div>
                   )}
                   {busParking > 0 && (
-                    <div className="flex justify-between text-white/40 text-[0.6rem]">
+                    <div className="flex justify-between text-white/65 text-[0.6rem]">
                       <span>{busParking} × Bus parking</span>
                       <span>£{(busParking * BUS_PARKING_PRICE).toFixed(2)}</span>
                     </div>
@@ -338,7 +338,7 @@ export default function FollowYourTeamCheckout() {
 
               {/* Price */}
               <div className="flex justify-between items-baseline">
-                <span className="text-white/40 text-[0.6rem] uppercase tracking-widest">Total</span>
+                <span className="text-white/65 text-[0.6rem] uppercase tracking-widest">Total</span>
                 <span className="text-gold font-bold text-xl">
                   £{total.toFixed(2)}
                 </span>
@@ -369,7 +369,7 @@ export default function FollowYourTeamCheckout() {
                   onChange={(e) => { setTermsAccepted(e.target.checked); setError('') }}
                   className="mt-0.5 accent-[#b8953f] w-4 h-4 shrink-0"
                 />
-                <span className="text-white/50 text-[0.65rem] leading-relaxed group-hover:text-white/70 transition-colors">
+                <span className="text-white/75 text-[0.65rem] leading-relaxed group-hover:text-white/90 transition-colors">
                   I agree to the{' '}
                   <a href="/terms" target="_blank" className="text-gold underline underline-offset-2">
                     terms and conditions
@@ -385,7 +385,7 @@ export default function FollowYourTeamCheckout() {
                   onChange={(e) => setMarketingOptIn(e.target.checked)}
                   className="mt-0.5 accent-[#b8953f] w-4 h-4 shrink-0"
                 />
-                <span className="text-white/50 text-[0.65rem] leading-relaxed group-hover:text-white/70 transition-colors">
+                <span className="text-white/75 text-[0.65rem] leading-relaxed group-hover:text-white/90 transition-colors">
                   I&apos;d like early access to future Legends Series events and exclusive offers
                 </span>
               </label>
@@ -399,7 +399,7 @@ export default function FollowYourTeamCheckout() {
                 {loading ? 'Redirecting to payment...' : `Follow ${selectedTeam.name} — Book Now`}
               </button>
 
-              <p className="text-white/20 text-[0.55rem] text-center leading-relaxed">
+              <p className="text-white/45 text-[0.55rem] text-center leading-relaxed">
                 You&apos;ll be redirected to Stripe for secure payment.
               </p>
 
@@ -434,7 +434,7 @@ export default function FollowYourTeamCheckout() {
           </span>
 
           <span className="flex flex-col items-start leading-tight">
-            <span className="text-white/40 text-[0.5rem] tracking-[0.2em] uppercase">
+            <span className="text-white/65 text-[0.5rem] tracking-[0.2em] uppercase">
               Following {selectedTeam.name}
             </span>
             <span className="text-white text-[0.7rem] font-bold tracking-[0.1em] uppercase group-hover:text-gold transition-colors">
