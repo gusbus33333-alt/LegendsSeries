@@ -88,14 +88,14 @@ export default function PromoCode({ onApply, appliedCode, onRemove }: PromoCodeP
           value={code}
           onChange={(e) => { setCode(e.target.value.toUpperCase()); setError('') }}
           placeholder="Enter code"
-          className="flex-1 bg-white/5 border border-white/15 text-white text-xs px-3 py-2 placeholder:text-white/45 focus:border-gold focus:outline-none transition-colors tracking-wide uppercase"
+          className="flex-1 min-w-0 bg-white/5 border border-white/15 text-white text-xs px-3 py-2 placeholder:text-white/45 focus:border-gold focus:outline-none transition-colors tracking-wide uppercase"
           onKeyDown={(e) => { if (e.key === 'Enter') handleApply() }}
         />
         <button
           type="button"
           onClick={handleApply}
           disabled={!code.trim() || loading}
-          className="px-4 py-2 border border-gold/40 text-gold text-[0.6rem] tracking-widest uppercase hover:bg-gold hover:text-ink transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+          className="shrink-0 whitespace-nowrap px-4 py-2 border border-gold/40 text-gold text-[0.6rem] tracking-widest uppercase hover:bg-gold hover:text-ink transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
         >
           {loading ? '...' : 'Apply'}
         </button>

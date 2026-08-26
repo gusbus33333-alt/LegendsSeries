@@ -84,7 +84,7 @@ export default function HomePage() {
               <div className="relative group overflow-hidden border border-gold/20 hover:border-gold/60 transition-all duration-500 p-10 lg:p-14 flex flex-col h-full min-h-[420px]">
                 <div className="absolute inset-0 opacity-15 group-hover:opacity-20 transition-opacity duration-500">
                   <Image
-                    src="https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=60"
+                    src="/tours/cresta-run-st-moritz.jpg"
                     alt="Living with Legends"
                     fill
                     className="object-cover"

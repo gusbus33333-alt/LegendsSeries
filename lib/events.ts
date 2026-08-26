@@ -16,7 +16,7 @@ export const events: Event[] = [
     capacity: 300,
     spotsLeft: 47,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1400&q=80',
+    image: '/tours/nations-championship-2026-twickenham.jpg',
     category: 'rugby',
     description:
       'The jewel in the crown of the Legends Series calendar. Join us at the home of English rugby for an unmissable afternoon of world-class international rugby, gourmet dining, and unprecedented access to the legends who made the game what it is today.',
@@ -52,7 +52,7 @@ export const events: Event[] = [
     capacity: 50,
     spotsLeft: 12,
     featured: false,
-    image: 'https://images.unsplash.com/photo-1544568100-847a948585b9?w=900&q=80',
+    image: '/tours/sa-rugby-experience-cape-town.jpg',
     category: 'rugby',
     description:
       'A once-in-a-lifetime rugby safari: watch the Springboks in their spiritual home, dine at acclaimed Cape Winelands restaurants, and share a sundowner with living legends against the backdrop of Table Mountain.',
@@ -86,7 +86,7 @@ export const events: Event[] = [
     capacity: 20,
     spotsLeft: 4,
     featured: false,
-    image: 'https://images.unsplash.com/photo-1551524164-687a55dd1126?w=900&q=80',
+    image: '/tours/cresta-run-st-moritz.jpg',
     category: 'adventure',
     description:
       'The world\'s most exclusive toboggan run. Race down the legendary Cresta Run at 80mph alongside rugby\'s boldest characters, then unwind in the world\'s most glamorous alpine resort.',
@@ -120,7 +120,7 @@ export const events: Event[] = [
     capacity: 30,
     spotsLeft: 9,
     featured: false,
-    image: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=900&q=80',
+    image: '/tours/orient-express-rugby-journey.jpg',
     category: 'luxury-travel',
     description:
       'Europe\'s most romantic journey reimagined. Board the Venice Simplon-Orient-Express with rugby\'s greatest storytellers for a five-night odyssey across the continent.',
@@ -154,7 +154,7 @@ export const events: Event[] = [
     capacity: 24,
     spotsLeft: 6,
     featured: false,
-    image: 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=900&q=80',
+    image: '/tours/bethpage-black-golf.jpg',
     category: 'golf',
     description:
       'Play the beast. Bethpage Black — site of multiple US Opens and widely considered the hardest public course in America — awaits. Tee up alongside rugby legends who\'ve found a new obsession.',
@@ -188,7 +188,7 @@ export const events: Event[] = [
     capacity: 40,
     spotsLeft: 15,
     featured: false,
-    image: 'https://images.unsplash.com/photo-1592919505780-303950717480?w=900&q=80',
+    image: '/tours/golf-national-paris.jpg',
     category: 'golf',
     description:
       'Tee up on the Albatros course — home of the 2018 Ryder Cup — for a long weekend in Paris that combines elite golf with the finest French dining.',
@@ -222,7 +222,7 @@ export const events: Event[] = [
     capacity: 80,
     spotsLeft: 23,
     featured: false,
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&q=80',
+    image: '/tours/dubai-7s-hospitality.jpg',
     category: 'rugby',
     description:
       'Dubai\'s most spectacular social event of the year. Three days of world sevens rugby, legendary parties, and unrivalled sunshine at one of sport\'s most iconic festivals.',

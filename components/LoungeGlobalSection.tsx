@@ -108,7 +108,7 @@ export default function LoungeGlobalSection() {
               {/* Background image */}
               <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
                 <Image
-                  src="https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=60"
+                  src="/tours/cresta-run-st-moritz.jpg"
                   alt="Global Events"
                   fill
                   className="object-cover"

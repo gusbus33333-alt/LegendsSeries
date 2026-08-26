@@ -58,7 +58,7 @@ export default async function EventsPage() {
       <section className="relative pt-32 pb-20 bg-ink overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1551524164-687a55dd1126?w=1600&q=80"
+            src="/tours/cresta-run-st-moritz.jpg"
             alt="Legends Tours"
             fill
             className="object-cover opacity-20"
