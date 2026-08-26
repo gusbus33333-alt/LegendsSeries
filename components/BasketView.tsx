@@ -186,23 +186,28 @@ export default function BasketView() {
   }
 
   return (
-    <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
+    <>
+      {/* Adding a matchday is what this page is for, so it leads rather than
+          sitting under the list where a phone user has to scroll past every
+          fixture to find it. */}
+      <Link
+        href="/legends-lounge#fixtures"
+        className="mb-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-gold/50 text-gold hover:bg-gold hover:text-ink px-6 py-3.5 text-xs tracking-[0.2em] uppercase font-semibold transition-all duration-300"
+      >
+        <span aria-hidden>+</span> Add another matchday
+      </Link>
+
+      <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
       {/* Matchdays */}
       <div className="flex flex-col gap-4">
         {items.map((item) => (
           <BasketRow key={itemKey(item)} item={item} />
         ))}
-        <div className="flex justify-between items-center pt-1">
-          <Link
-            href="/legends-lounge#fixtures"
-            className="text-gold hover:text-white text-[0.75rem] uppercase tracking-[0.12em] transition-colors py-2 -my-2 pr-3"
-          >
-            ← Add another matchday
-          </Link>
+        <div className="flex justify-end pt-1">
           <button
             type="button"
             onClick={clear}
-            className="text-white/55 hover:text-red-400 text-[0.7rem] uppercase tracking-[0.1em] transition-colors py-2 -my-2 pl-3"
+            className="border border-white/15 text-white/70 hover:border-red-400/60 hover:text-red-400 px-5 py-3 text-[0.7rem] uppercase tracking-[0.12em] transition-colors"
           >
             Empty basket
           </button>
@@ -295,7 +300,8 @@ export default function BasketView() {
         </p>
 
         {error && <p className="text-red-400 text-xs text-center">{error}</p>}
+        </div>
       </div>
-    </div>
+    </>
   )
 }

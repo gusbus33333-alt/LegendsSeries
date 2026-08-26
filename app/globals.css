@@ -96,3 +96,22 @@
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
   }
 }
+
+@layer base {
+  /* iOS Safari zooms into any focused field whose text is smaller than 16px,
+     and it never zooms back out afterwards — the page just stays magnified.
+     Setting the floor here stops the zoom happening at all.
+
+     Deliberately not solved with `user-scalable=no` in the viewport meta:
+     that would stop the zoom too, but it also takes pinch-zoom away from
+     everyone, which people with poor eyesight rely on. */
+  @media (max-width: 767px) {
+    /* Each selector carries a :not() so it out-specifies Tailwind's text-xs
+       and friends. Without it the class wins and the field still zooms. */
+    input:not([type='checkbox']):not([type='radio']),
+    textarea:not([hidden]),
+    select:not([hidden]) {
+      font-size: 16px;
+    }
+  }
+}
