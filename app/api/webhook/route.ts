@@ -59,6 +59,9 @@ export async function POST(req: NextRequest) {
   // existed — and any order whose items failed to save — fall back to the
   // original single-event metadata, so nothing in flight is stranded.
   let items: FulfilmentItem[] = []
+  // Every line in the order, including any already fulfilled — needed to split
+  // the order-level discount correctly even on a retry.
+  let allItems: FulfilmentItem[] = []
 
   if (orderId && supabase) {
     // Stripe retries webhooks; fulfilling twice would send duplicate tickets.
@@ -91,6 +94,17 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ received: true })
       }
 
+      const toItem = (row: typeof orderItems[number]): FulfilmentItem => ({
+        id: row.id,
+        slug: row.event_slug,
+        adults: row.adults,
+        under16: row.under_16,
+        carParking: row.car_parking,
+        busParking: row.bus_parking,
+        signatureRooms: row.signature_rooms ?? 0,
+        teamName: row.team_name ?? undefined,
+      })
+      allItems = orderItems.map(toItem)
       items = outstanding.map((row) => ({
         id: row.id,
         slug: row.event_slug,
@@ -124,6 +138,7 @@ export async function POST(req: NextRequest) {
         teamName: session.metadata?.team_name || undefined,
       },
     ]
+    allItems = items
   }
 
   // ── Order-level payment details ─────────────────────────────────────────────
@@ -154,7 +169,51 @@ export async function POST(req: NextRequest) {
   const customerNote = session.metadata?.customer_note || undefined
   const marketingOptIn = session.metadata?.marketing_opt_in === 'yes'
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://legends-series.com'
-  const isBasket = items.length > 1
+  const isBasket = allItems.length > 1
+
+  // ── Split the discount across the matchdays ─────────────────────────────────
+  // Stripe discounts the order as a whole. Without apportioning it, a basket's
+  // confirmation email showed the list price rather than what was paid, and
+  // every booking row recorded the entire order discount — so two matchdays
+  // looked like they had each received the full amount off.
+  const grossPence = (item: FulfilmentItem): number => {
+    const ev =
+      item.slug === 'follow-your-team'
+        ? buildFollowYourTeamEvent(item.teamName || 'Your Team')
+        : getEventBySlug(item.slug)
+    if (!ev) return 0
+    return Math.round(
+      (ev.price * item.adults +
+        under16Price(ev.price) * item.under16 +
+        item.carParking * CAR_PARKING_PRICE +
+        item.busParking * BUS_PARKING_PRICE +
+        item.signatureRooms * SIGNATURE_ROOM_PRICE) *
+        100
+    )
+  }
+
+  const discountPence = session.total_details?.amount_discount ?? 0
+  const keyOf = (item: FulfilmentItem, index: number) => String(item.id ?? `fallback-${index}`)
+
+  const grossByKey = new Map<string, number>()
+  allItems.forEach((item, i) => grossByKey.set(keyOf(item, i), grossPence(item)))
+  const grossTotal = Array.from(grossByKey.values()).reduce((a, b) => a + b, 0)
+
+  // Proportional to each matchday's value, with the last line absorbing the
+  // rounding remainder so the shares add up to the discount exactly.
+  const discountByKey = new Map<string, number>()
+  const keys = Array.from(grossByKey.keys())
+  let allocated = 0
+  keys.forEach((key, i) => {
+    const share =
+      i === keys.length - 1
+        ? discountPence - allocated
+        : grossTotal > 0
+          ? Math.round((discountPence * (grossByKey.get(key) ?? 0)) / grossTotal)
+          : 0
+    allocated += share
+    discountByKey.set(key, share)
+  })
 
   // ── Fulfil each matchday ────────────────────────────────────────────────────
   // Deliberately one email per matchday rather than one combined email: each
@@ -164,7 +223,8 @@ export async function POST(req: NextRequest) {
   // (an event slug we no longer recognise) must not, or it would retry forever.
   let transientFailure = false
 
-  for (const item of items) {
+  for (let loopIndex = 0; loopIndex < items.length; loopIndex++) {
+    const item = items[loopIndex]
     try {
       const followTeam = item.slug === 'follow-your-team' ? item.teamName || 'Your Team' : undefined
       const event = followTeam ? buildFollowYourTeamEvent(followTeam) : getEventBySlug(item.slug)
@@ -197,18 +257,28 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // For a single-fixture order this is the whole session, exactly as
-      // before. For a basket, the session total covers every matchday, so the
-      // line is priced from the event instead.
+      // What was actually paid for this matchday: its own value less its share
+      // of any order-level discount. A single-fixture order takes the session
+      // total directly, which is Stripe's own authoritative figure.
+      const key = keyOf(item, loopIndex)
+      const itemDiscountPence = discountByKey.get(key) ?? 0
+      const itemPaidPence = Math.max(0, (grossByKey.get(key) ?? 0) - itemDiscountPence)
+
       const itemTotal = isBasket
-        ? `£${(
-            event.price * item.adults +
-            under16Price(event.price) * item.under16 +
-            item.carParking * CAR_PARKING_PRICE +
-            item.busParking * BUS_PARKING_PRICE +
-            item.signatureRooms * SIGNATURE_ROOM_PRICE
-          ).toFixed(2)}`
+        ? `£${(itemPaidPence / 100).toFixed(2)}`
         : orderTotal ?? event.priceLabel
+      const itemDiscount = isBasket
+        ? itemDiscountPence > 0
+          ? `£${(itemDiscountPence / 100).toFixed(2)}`
+          : null
+        : discount
+      // Prices are VAT-inclusive, so VAT is the gross sixth and net is the
+      // remainder — computed this way round so net + VAT always equals the
+      // amount charged, with no rounding penny adrift.
+      const vatBasePence = isBasket ? itemPaidPence : session.amount_total ?? itemPaidPence
+      const vatPence = Math.round(vatBasePence / 6)
+      const itemVat = `£${(vatPence / 100).toFixed(2)}`
+      const itemNet = `£${((vatBasePence - vatPence) / 100).toFixed(2)}`
 
       const guestBookingRefs: string[] = []
       const attachments: { filename: string; content: Buffer }[] = []
@@ -249,8 +319,8 @@ export async function POST(req: NextRequest) {
           guests,
           total_paid: itemTotal,
           promo_code: promoCode,
-          discount_amount: discount,
-          vat_amount: isBasket ? null : vatAmount,
+          discount_amount: itemDiscount,
+          vat_amount: itemVat,
           marketing_opt_in: marketingOptIn,
           customer_note: customerNote || null,
           adults: item.adults,
@@ -276,6 +346,10 @@ export async function POST(req: NextRequest) {
         carParking: item.carParking,
         busParking: item.busParking,
         signatureRooms: item.signatureRooms,
+        discountAmount: itemDiscount,
+        promoCode,
+        netAmount: itemNet,
+        vatAmount: itemVat,
       })
 
       if (resend) {

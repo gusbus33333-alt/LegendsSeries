@@ -40,6 +40,13 @@ interface BookingEmailData {
   busParking?: number
   /** Signature upgrade rooms, each covering two guests. */
   signatureRooms?: number
+  /** This matchday's share of any promotion, so the total is explicable. */
+  discountAmount?: string | null
+  promoCode?: string | null
+  /** VAT breakdown. Together with the VAT number in the footer, this makes the
+   *  confirmation usable as a VAT invoice by business customers. */
+  netAmount?: string | null
+  vatAmount?: string | null
 }
 
 const directions = {
@@ -85,7 +92,7 @@ function buildEventDetails(event: LoungeEvent, followTeam?: string): string {
     : `Kick-off is at ${event.ko}.`
 
   return `<p style="color:#cccccc;font-size:15px;line-height:1.6;margin:0 0 20px;">
-    The marquee opens at ${event.openTime} so come early and make the most of it. ${koText} The bar is open throughout the match and the moment the final whistle goes, it becomes all-inclusive again. Last orders are at ${event.lastOrders} and the marquee closes at ${event.doorsClose}.
+    The marquee opens at ${event.openTime} so come early and make the most of it. ${koText} Last orders are at ${event.lastOrders} and the marquee closes at ${event.doorsClose}.
   </p>`
 }
 
@@ -93,6 +100,7 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
   const {
     customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam, customerNote,
     adults, under16 = 0, carParking = 0, busParking = 0, signatureRooms = 0,
+    discountAmount = null, promoCode = null, netAmount = null, vatAmount = null,
   } = data
   const adultCount = adults ?? guests
   // A Follow Your Team booking has no fixed schedule yet, so there is no
@@ -253,8 +261,22 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                           Must be removed by 9am the morning after the game.
                         </td>
                       </tr>` : ''}
+                      ${discountAmount ? `
                       <tr>
-                        <td style="color:#999999;font-size:13px;padding:6px 0;">Total Paid</td>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Discount${promoCode ? ` (${escapeHtml(promoCode)})` : ''}</td>
+                        <td style="color:#b8953f;font-size:13px;padding:6px 0;text-align:right;">− ${discountAmount}</td>
+                      </tr>` : ''}
+                      ${netAmount && vatAmount ? `
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;border-top:1px solid #ffffff10;">Subtotal (ex VAT)</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;border-top:1px solid #ffffff10;">${netAmount}</td>
+                      </tr>
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">VAT @ 20%</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${vatAmount}</td>
+                      </tr>` : ''}
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Total Paid${netAmount ? ' (inc VAT)' : ''}</td>
                         <td style="color:#b8953f;font-size:13px;padding:6px 0;text-align:right;font-weight:bold;">${totalPaid}</td>
                       </tr>
                       <tr>
