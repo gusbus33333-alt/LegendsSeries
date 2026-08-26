@@ -14,16 +14,20 @@ export interface LoungeLegend {
   /** Short credentials, most impressive first. Keep to three at most. */
   honours: string[]
   isLion?: boolean
+  /** British & Irish Lions Test caps. A Lions Test is a full international in
+   *  its own right, separate from the player's national caps, so these are
+   *  counted on top rather than folded into `caps`. */
+  lionsCaps?: number
   /** Given large billing on the page. */
   featured?: boolean
 }
 
 export const loungeLegends: LoungeLegend[] = [
   // Featured order is a judgement call on name recognition, not caps.
-  { name: 'Jamie Roberts', country: 'Wales', caps: 94, honours: ['British & Irish Lion'], isLion: true, featured: true },
-  { name: 'Shane Byrne', country: 'Ireland', caps: 41, honours: ['British & Irish Lion'], isLion: true, featured: true },
-  { name: 'Manu Tuilagi', country: 'England', caps: 60, honours: ['British & Irish Lion', 'Rugby World Cup finalist'], isLion: true, featured: true },
-  { name: 'Mark “Ronnie” Regan MBE', country: 'England', caps: 46, honours: ['Rugby World Cup winner', 'British & Irish Lion'], isLion: true, featured: true },
+  { name: 'Jamie Roberts', country: 'Wales', caps: 94, honours: ['British & Irish Lion'], isLion: true, lionsCaps: 3, featured: true },
+  { name: 'Shane Byrne', country: 'Ireland', caps: 41, honours: ['British & Irish Lion'], isLion: true, lionsCaps: 4, featured: true },
+  { name: 'Manu Tuilagi', country: 'England', caps: 60, honours: ['British & Irish Lion', 'Rugby World Cup finalist'], isLion: true, lionsCaps: 1, featured: true },
+  { name: 'Mark “Ronnie” Regan MBE', country: 'England', caps: 46, honours: ['Rugby World Cup winner', 'British & Irish Lion'], isLion: true, lionsCaps: 1, featured: true },
 
   // The rest are listed alphabetically by surname — no implied ranking.
   { name: 'Delon Armitage', country: 'England', caps: 26, honours: ['3× European Champions Cup'] },
@@ -35,7 +39,7 @@ export const loungeLegends: LoungeLegend[] = [
   { name: 'Lee Dickson', country: 'England', caps: 18, honours: ['256 Northampton Saints appearances'] },
   { name: 'Alex Goode', country: 'England', caps: 21, honours: ['6× Premiership winner', '3× European Champions Cup'] },
   { name: 'Jamie Hagan', country: 'Ireland', caps: 1, honours: ['100 Béziers appearances'] },
-  { name: 'Rob Henderson', country: 'Ireland', caps: 29, honours: ['British & Irish Lion'], isLion: true },
+  { name: 'Rob Henderson', country: 'Ireland', caps: 29, honours: ['British & Irish Lion'], isLion: true, lionsCaps: 3 },
   { name: 'Dan Leavy', country: 'Ireland', caps: 11, honours: ['Grand Slam winner', 'Champions Cup winner'] },
   { name: 'Leon Lloyd', country: 'England', caps: 5, honours: ['2× Heineken Cup winner', 'Leicester Tigers'] },
   { name: 'Tom May', country: 'England', caps: 2, honours: ['Newcastle Falcons legend', '267 appearances'] },
@@ -43,12 +47,19 @@ export const loungeLegends: LoungeLegend[] = [
   { name: 'Ollie Phillips', country: 'England Sevens', honours: ['World Rugby Sevens Player of the Year'] },
   { name: 'Devin Toner', country: 'Ireland', caps: 70, honours: ['4× European Champions Cup', '3× Six Nations winner'] },
   { name: 'Dan Tuohy', country: 'Ireland', caps: 11, honours: ['136 Ulster appearances'] },
-  { name: 'Ollie Smith', country: 'England', caps: 5, honours: ['British & Irish Lion'], isLion: true },
+  { name: 'Ollie Smith', country: 'England', caps: 5, honours: ['British & Irish Lion'], isLion: true, lionsCaps: 0 },
   { name: 'Matthew Tait', country: 'England', caps: 36, honours: ['Rugby World Cup runner-up 2007', 'Premiership winner with Leicester'] },
 ]
 
 export const totalLoungeLegends = loungeLegends.length
-export const totalInternationalCaps = loungeLegends.reduce((sum, l) => sum + (l.caps ?? 0), 0)
+/** National caps plus Lions Test caps, since both are full internationals. */
+export const totalInternationalCaps = loungeLegends.reduce(
+  (sum, l) => sum + (l.caps ?? 0) + (l.lionsCaps ?? 0),
+  0
+)
+
+/** Lions Test caps across the six Lions who have been in the marquee. */
+export const totalLionsCaps = loungeLegends.reduce((sum, l) => sum + (l.lionsCaps ?? 0), 0)
 export const totalLions = loungeLegends.filter((l) => l.isLion).length
 
 export const featuredLoungeLegends = loungeLegends.filter((l) => l.featured)
@@ -71,7 +82,15 @@ export const otherLoungeLegends = loungeLegends
 export function credentials(legend: LoungeLegend): string {
   const parts = [legend.country]
   if (legend.caps) parts.push(`${legend.caps} ${legend.caps === 1 ? 'cap' : 'caps'}`)
-  return parts.concat(legend.honours).join(' · ')
+
+  // Lions Tests are shown against the Lion honour so the headline total can be
+  // added up from the page — the 512 is national caps plus these twelve.
+  const honours = legend.honours.map((h) =>
+    h === 'British & Irish Lion' && legend.lionsCaps
+      ? `British & Irish Lion (${legend.lionsCaps} ${legend.lionsCaps === 1 ? 'Test' : 'Tests'})`
+      : h
+  )
+  return parts.concat(honours).join(' · ')
 }
 
 /** Bumped as further events are added, so the caption stays accurate. */
