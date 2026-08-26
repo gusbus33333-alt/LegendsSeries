@@ -5,6 +5,13 @@ import {
   under16Price,
 } from './lounge-events'
 
+/** A validated promotion code, held with the basket so it survives navigation. */
+export interface PromoDiscount {
+  code: string
+  percentOff: number | null
+  amountOff: number | null
+}
+
 /**
  * One matchday in the basket. Quantities live here rather than on the event so
  * the same fixture can be re-priced or removed without touching event data.

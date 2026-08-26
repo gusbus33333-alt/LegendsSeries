@@ -2,11 +2,9 @@
 
 import { useState } from 'react'
 
-export interface PromoDiscount {
-  code: string
-  percentOff: number | null
-  amountOff: number | null
-}
+// Defined with the cart, re-exported here so existing importers are unchanged.
+export type { PromoDiscount } from '@/lib/cart'
+import type { PromoDiscount } from '@/lib/cart'
 
 interface PromoCodeProps {
   onApply: (discount: PromoDiscount) => void

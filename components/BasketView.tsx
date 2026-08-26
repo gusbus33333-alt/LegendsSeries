@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useCart } from './CartProvider'
-import PromoCode, { type PromoDiscount } from './PromoCode'
+import PromoCode from './PromoCode'
 import NoteToOrganisers from './NoteToOrganisers'
 import QuantityRow from './QuantityRow'
 import SignatureUpgrade from './SignatureUpgrade'
@@ -104,8 +104,8 @@ function BasketRow({ item }: { item: CartItem }) {
 }
 
 export default function BasketView() {
-  const { items, hydrated, clear } = useCart()
-  const [discount, setDiscount] = useState<PromoDiscount | null>(null)
+  // The code lives on the cart so it survives going back for another matchday.
+  const { items, hydrated, clear, promo: discount, setPromo: setDiscount } = useCart()
   const [note, setNote] = useState('')
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)

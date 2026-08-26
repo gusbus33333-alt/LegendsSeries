@@ -44,6 +44,7 @@ export const loungeLegends: LoungeLegend[] = [
   { name: 'Devin Toner', country: 'Ireland', caps: 70, honours: ['4× European Champions Cup', '3× Six Nations winner'] },
   { name: 'Dan Tuohy', country: 'Ireland', caps: 11, honours: ['136 Ulster appearances'] },
   { name: 'Ollie Smith', country: 'England', caps: 5, honours: ['British & Irish Lion'], isLion: true },
+  { name: 'Matthew Tait', country: 'England', caps: 36, honours: ['Rugby World Cup runner-up 2007', 'Premiership winner with Leicester'] },
 ]
 
 export const totalLoungeLegends = loungeLegends.length

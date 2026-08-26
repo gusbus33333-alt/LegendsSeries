@@ -3,12 +3,17 @@
 import {
   createContext, useContext, useEffect, useState, useCallback, type ReactNode,
 } from 'react'
-import { type CartItem, itemKey } from '@/lib/cart'
+import { type CartItem, type PromoDiscount, itemKey } from '@/lib/cart'
 
 const STORAGE_KEY = 'legends-basket-v1'
+const PROMO_KEY = 'legends-basket-promo-v1'
 
 interface CartContextValue {
   items: CartItem[]
+  /** Held here rather than in the basket page: adding another matchday
+   *  unmounts that page, which used to discard an applied code. */
+  promo: PromoDiscount | null
+  setPromo: (promo: PromoDiscount | null) => void
   /** False until localStorage has been read, so nothing renders a wrong count. */
   hydrated: boolean
   addItem: (item: CartItem) => void
@@ -21,6 +26,7 @@ const CartContext = createContext<CartContextValue | null>(null)
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [promo, setPromoState] = useState<PromoDiscount | null>(null)
   const [hydrated, setHydrated] = useState(false)
 
   // Read on mount rather than in useState: the server render has no
@@ -31,6 +37,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (raw) {
         const parsed = JSON.parse(raw)
         if (Array.isArray(parsed)) setItems(parsed)
+      }
+      const rawPromo = localStorage.getItem(PROMO_KEY)
+      if (rawPromo) {
+        const parsed = JSON.parse(rawPromo)
+        if (parsed && typeof parsed.code === 'string') setPromoState(parsed)
       }
     } catch {
       // A corrupt basket shouldn't break the site — start empty.
@@ -46,6 +57,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
       // Private browsing can refuse writes; the basket still works in-session.
     }
   }, [items, hydrated])
+
+  const setPromo = useCallback((next: PromoDiscount | null) => {
+    setPromoState(next)
+    try {
+      if (next) localStorage.setItem(PROMO_KEY, JSON.stringify(next))
+      else localStorage.removeItem(PROMO_KEY)
+    } catch {
+      // Private browsing can refuse writes; the code still applies in-session.
+    }
+  }, [])
 
   const addItem = useCallback((item: CartItem) => {
     setItems((prev) => {
@@ -79,11 +100,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => prev.filter((i) => itemKey(i) !== key))
   }, [])
 
-  const clear = useCallback(() => setItems([]), [])
+  const clear = useCallback(() => {
+    setItems([])
+    setPromoState(null)
+    try {
+      localStorage.removeItem(PROMO_KEY)
+    } catch {
+      /* nothing to clean up if storage is unavailable */
+    }
+  }, [])
 
   return (
     <CartContext.Provider
-      value={{ items, hydrated, addItem, updateItem, removeItem, clear }}
+      value={{ items, promo, setPromo, hydrated, addItem, updateItem, removeItem, clear }}
     >
       {children}
     </CartContext.Provider>
