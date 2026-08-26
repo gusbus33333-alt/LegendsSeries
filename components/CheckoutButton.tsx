@@ -32,7 +32,7 @@ export default function CheckoutButton({
   slug, price, eventName, shortDate, signatureRooms = 0, signatureHotel, className = '',
 }: CheckoutButtonProps) {
   const router = useRouter()
-  const { addItem, promo: discount, setPromo: setDiscount } = useCart()
+  const { addItem, promo: discount, setPromo: setDiscount, note, setNote } = useCart()
   const searchParams = useSearchParams()
   const initialGuests = Math.min(30, Math.max(1, Number(searchParams.get('guests')) || 1))
   const [guests, setGuests] = useState(initialGuests)
@@ -69,8 +69,6 @@ export default function CheckoutButton({
   const [error, setError] = useState('')
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
-  // Stripe caps a metadata value at 500 characters.
-  const [note, setNote] = useState('')
 
   const discountedPrice = discount
     ? discount.percentOff

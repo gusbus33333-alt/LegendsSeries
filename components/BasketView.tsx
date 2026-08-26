@@ -105,8 +105,7 @@ function BasketRow({ item }: { item: CartItem }) {
 
 export default function BasketView() {
   // The code lives on the cart so it survives going back for another matchday.
-  const { items, hydrated, clear, promo: discount, setPromo: setDiscount } = useCart()
-  const [note, setNote] = useState('')
+  const { items, hydrated, clear, promo: discount, setPromo: setDiscount, note, setNote } = useCart()
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
   const [loading, setLoading] = useState(false)

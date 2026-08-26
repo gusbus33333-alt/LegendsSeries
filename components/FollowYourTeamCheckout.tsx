@@ -19,7 +19,7 @@ import {
 
 export default function FollowYourTeamCheckout() {
   const router = useRouter()
-  const { addItem, promo: discount, setPromo: setDiscount } = useCart()
+  const { addItem, promo: discount, setPromo: setDiscount, note, setNote } = useCart()
   const [selectedTeam, setSelectedTeam] = useState<FollowTeam | null>(null)
   const [guests, setGuests] = useState(1)
   const [under16, setUnder16] = useState(0)
@@ -27,8 +27,6 @@ export default function FollowYourTeamCheckout() {
   const [busParking, setBusParking] = useState(0)
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
-  // Stripe caps a metadata value at 500 characters.
-  const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const checkoutRef = useRef<HTMLDivElement>(null)

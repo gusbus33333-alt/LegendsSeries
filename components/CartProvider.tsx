@@ -7,6 +7,7 @@ import { type CartItem, type PromoDiscount, itemKey } from '@/lib/cart'
 
 const STORAGE_KEY = 'legends-basket-v1'
 const PROMO_KEY = 'legends-basket-promo-v1'
+const NOTE_KEY = 'legends-basket-note-v1'
 
 interface CartContextValue {
   items: CartItem[]
@@ -14,6 +15,10 @@ interface CartContextValue {
    *  unmounts that page, which used to discard an applied code. */
   promo: PromoDiscount | null
   setPromo: (promo: PromoDiscount | null) => void
+  /** Held here for the same reason as the code: it is written once and applies
+   *  to the whole order, so it must survive moving between pages. */
+  note: string
+  setNote: (note: string) => void
   /** False until localStorage has been read, so nothing renders a wrong count. */
   hydrated: boolean
   addItem: (item: CartItem) => void
@@ -27,6 +32,7 @@ const CartContext = createContext<CartContextValue | null>(null)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [promo, setPromoState] = useState<PromoDiscount | null>(null)
+  const [note, setNoteState] = useState('')
   const [hydrated, setHydrated] = useState(false)
 
   // Read on mount rather than in useState: the server render has no
@@ -43,6 +49,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const parsed = JSON.parse(rawPromo)
         if (parsed && typeof parsed.code === 'string') setPromoState(parsed)
       }
+      const rawNote = localStorage.getItem(NOTE_KEY)
+      if (typeof rawNote === 'string') setNoteState(rawNote)
     } catch {
       // A corrupt basket shouldn't break the site — start empty.
     }
@@ -65,6 +73,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
       else localStorage.removeItem(PROMO_KEY)
     } catch {
       // Private browsing can refuse writes; the code still applies in-session.
+    }
+  }, [])
+
+  const setNote = useCallback((next: string) => {
+    setNoteState(next)
+    try {
+      if (next) localStorage.setItem(NOTE_KEY, next)
+      else localStorage.removeItem(NOTE_KEY)
+    } catch {
+      // Private browsing can refuse writes; the note still applies in-session.
     }
   }, [])
 
@@ -103,8 +121,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const clear = useCallback(() => {
     setItems([])
     setPromoState(null)
+    setNoteState('')
     try {
       localStorage.removeItem(PROMO_KEY)
+      localStorage.removeItem(NOTE_KEY)
     } catch {
       /* nothing to clean up if storage is unavailable */
     }
@@ -112,7 +132,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, promo, setPromo, hydrated, addItem, updateItem, removeItem, clear }}
+      value={{ items, promo, setPromo, note, setNote, hydrated, addItem, updateItem, removeItem, clear }}
     >
       {children}
     </CartContext.Provider>

@@ -15,7 +15,9 @@ interface NoteToOrganisersProps {
  * Capped at 500 characters because that is Stripe's metadata value limit.
  */
 export default function NoteToOrganisers({ value, onChange, id = 'note' }: NoteToOrganisersProps) {
-  const [open, setOpen] = useState(false)
+  // Opens straight away when a note already exists, otherwise a note written
+  // on a matchday page looks lost when the customer reaches the basket.
+  const [open, setOpen] = useState(value.length > 0)
 
   if (!open) {
     return (
