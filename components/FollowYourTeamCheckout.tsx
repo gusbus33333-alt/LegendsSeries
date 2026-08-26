@@ -7,7 +7,7 @@ import { useCart } from './CartProvider'
 import Image from 'next/image'
 import { teams, followYourTeamPrice, finalsMatchdays, type FollowTeam } from '@/lib/follow-your-team'
 import NoteToOrganisers from './NoteToOrganisers'
-import PromoCode, { type PromoDiscount } from './PromoCode'
+import PromoCode from './PromoCode'
 import QuantityRow from './QuantityRow'
 import {
   CAR_PARKING_PRICE,
@@ -19,7 +19,7 @@ import {
 
 export default function FollowYourTeamCheckout() {
   const router = useRouter()
-  const { addItem } = useCart()
+  const { addItem, promo: discount, setPromo: setDiscount } = useCart()
   const [selectedTeam, setSelectedTeam] = useState<FollowTeam | null>(null)
   const [guests, setGuests] = useState(1)
   const [under16, setUnder16] = useState(0)
@@ -27,7 +27,6 @@ export default function FollowYourTeamCheckout() {
   const [busParking, setBusParking] = useState(0)
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
-  const [discount, setDiscount] = useState<PromoDiscount | null>(null)
   // Stripe caps a metadata value at 500 characters.
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)

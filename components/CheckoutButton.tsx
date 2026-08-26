@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCart } from './CartProvider'
-import PromoCode, { type PromoDiscount } from './PromoCode'
+import PromoCode from './PromoCode'
 import NoteToOrganisers from './NoteToOrganisers'
 import QuantityRow from './QuantityRow'
 import SignatureUpgrade from './SignatureUpgrade'
@@ -32,7 +32,7 @@ export default function CheckoutButton({
   slug, price, eventName, shortDate, signatureRooms = 0, signatureHotel, className = '',
 }: CheckoutButtonProps) {
   const router = useRouter()
-  const { addItem } = useCart()
+  const { addItem, promo: discount, setPromo: setDiscount } = useCart()
   const searchParams = useSearchParams()
   const initialGuests = Math.min(30, Math.max(1, Number(searchParams.get('guests')) || 1))
   const [guests, setGuests] = useState(initialGuests)
@@ -67,7 +67,6 @@ export default function CheckoutButton({
   }, [slug])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [discount, setDiscount] = useState<PromoDiscount | null>(null)
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [marketingOptIn, setMarketingOptIn] = useState(false)
   // Stripe caps a metadata value at 500 characters.
