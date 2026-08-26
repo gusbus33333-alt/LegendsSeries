@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useRouter } from 'next/navigation'
+import { useCart } from './CartProvider'
 import Image from 'next/image'
 import { teams, followYourTeamPrice, finalsMatchdays, type FollowTeam } from '@/lib/follow-your-team'
 import NoteToOrganisers from './NoteToOrganisers'
@@ -16,6 +18,8 @@ import {
 } from '@/lib/lounge-events'
 
 export default function FollowYourTeamCheckout() {
+  const router = useRouter()
+  const { addItem } = useCart()
   const [selectedTeam, setSelectedTeam] = useState<FollowTeam | null>(null)
   const [guests, setGuests] = useState(1)
   const [under16, setUnder16] = useState(0)
@@ -75,6 +79,25 @@ export default function FollowYourTeamCheckout() {
 
   const northTeams = teams.filter((t) => t.hemisphere === 'north')
   const southTeams = teams.filter((t) => t.hemisphere === 'south')
+
+  const handleAddToBasket = () => {
+    if (!selectedTeam) return
+    addItem({
+      slug: 'follow-your-team',
+      eventName: `Follow Your Team — ${selectedTeam.name}`,
+      shortDate: '27–29 Nov 2026',
+      unitPrice: followYourTeamPrice,
+      adults: guests,
+      under16,
+      carParking,
+      busParking,
+      // No confirmed hotel night until the matchday is known.
+      signatureRooms: 0,
+      teamId: selectedTeam.id,
+      teamName: selectedTeam.name,
+    })
+    router.push('/basket')
+  }
 
   const handleCheckout = async () => {
     if (!selectedTeam) {
@@ -398,6 +421,18 @@ export default function FollowYourTeamCheckout() {
               >
                 {loading ? 'Redirecting to payment...' : `Follow ${selectedTeam.name} — Book Now`}
               </button>
+
+              <button
+                onClick={handleAddToBasket}
+                disabled={loading}
+                className="w-full text-center py-3.5 border border-gold/45 text-gold hover:bg-gold hover:text-ink text-xs tracking-[0.2em] uppercase font-semibold transition-all duration-300 disabled:opacity-60"
+              >
+                Add to basket
+              </button>
+
+              <p className="text-white/65 text-[0.65rem] text-center leading-relaxed">
+                Booking more than one matchday? Add them to your basket and pay once.
+              </p>
 
               <p className="text-white/45 text-[0.55rem] text-center leading-relaxed">
                 You&apos;ll be redirected to Stripe for secure payment.

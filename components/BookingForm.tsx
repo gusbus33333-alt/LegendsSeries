@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
-import { createClient } from '@/lib/supabase/client'
 
 interface FormState {
   firstName: string
@@ -63,32 +62,8 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
     setStatus('submitting')
     setErrorMsg('')
 
-    const supabase = createClient()
-
-    // `bookings` is the Stripe booking record and has an entirely different
-    // shape — writing enquiries there failed on every submission.
-    const { error } = await supabase.from('enquiries').insert({
-      first_name: form.firstName,
-      last_name: form.lastName,
-      email: form.email,
-      phone: form.phone || null,
-      enquiry_type: form.enquiryType,
-      event_slug: form.eventSlug || null,
-      guests: form.enquiryType === 'booking' ? parseInt(form.guests) : null,
-      message: form.requirements || null,
-    })
-
-    if (error) {
-      setErrorMsg(error.message)
-      setStatus('error')
-      return
-    }
-
-    // Notify the team. Deliberately after the save and non-blocking: the
-    // enquiry is already recorded, so a mail failure must not show as an error
-    // or make the customer submit twice.
     try {
-      await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -102,8 +77,17 @@ export default function BookingForm({ defaultEvent, eventOptions }: BookingFormP
           message: form.requirements || null,
         }),
       })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        setErrorMsg(data?.error || 'Something went wrong. Please try again.')
+        setStatus('error')
+        return
+      }
     } catch {
-      console.warn('Enquiry saved but notification failed')
+      setErrorMsg('Something went wrong. Please try again.')
+      setStatus('error')
+      return
     }
 
     setStatus('success')

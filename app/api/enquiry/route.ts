@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { resend } from '@/lib/email'
+import { getAdminClient } from '@/lib/supabase/admin'
 
 const TEAM_INBOX = 'info@legends-series.com'
 
@@ -35,9 +36,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
+    // Saved here rather than from the browser: it kept the whole Supabase
+    // client in the contact page's JS bundle for the sake of one insert.
+    const supabase = getAdminClient()
+    if (supabase) {
+      const { error } = await supabase.from('enquiries').insert({
+        first_name: firstName,
+        last_name: lastName ?? null,
+        email,
+        phone: phone || null,
+        enquiry_type: enquiryType || 'general',
+        event_slug: eventSlug || null,
+        guests: guests ?? null,
+        message: message || null,
+      })
+      if (error) {
+        console.error('Could not save enquiry:', error)
+        return NextResponse.json({ error: 'Could not save your enquiry' }, { status: 500 })
+      }
+    } else {
+      console.error('Supabase not configured — enquiry not saved')
+      return NextResponse.json({ error: 'Could not save your enquiry' }, { status: 500 })
+    }
+
     if (!resend) {
       console.warn('Resend not configured — enquiry saved but no notification sent')
-      return NextResponse.json({ sent: false })
+      return NextResponse.json({ saved: true, sent: false })
     }
 
     const name = `${firstName} ${lastName ?? ''}`.trim()
@@ -79,9 +103,11 @@ export async function POST(req: NextRequest) {
 </html>`,
     })
 
-    return NextResponse.json({ sent: true })
+    return NextResponse.json({ saved: true, sent: true })
   } catch (err) {
-    console.error('Failed to send enquiry notification:', err)
-    return NextResponse.json({ error: 'Failed to notify' }, { status: 500 })
+    // The row is already written if we got this far, so report success and
+    // let the team notice the missing notification in the logs.
+    console.error('Enquiry saved but notification failed:', err)
+    return NextResponse.json({ saved: true, sent: false })
   }
 }

@@ -2,15 +2,14 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { loungeEvents } from '@/lib/lounge-events'
 
-const loungeEvents = [
-  { label: 'England vs Australia — Sun 8 Nov', slug: 'england-vs-australia-nov-8' },
-  { label: 'England vs Japan — Sat 14 Nov', slug: 'england-vs-japan-nov-14' },
-  { label: 'England vs New Zealand — Sat 21 Nov', slug: 'england-vs-new-zealand-nov-21' },
-  { label: 'Nations Cup Finals — Fri 27 Nov', slug: 'nations-finals-nov-27' },
-  { label: 'Nations Cup Finals — Sat 28 Nov', slug: 'nations-finals-nov-28' },
-  { label: 'Nations Cup Finals — Sun 29 Nov', slug: 'nations-finals-nov-29' },
-]
+// Derived from the fixture data rather than restated, so a new matchday shows
+// up here the moment it is added — this list used to be a hand-kept copy.
+const loungeOptions = loungeEvents.map((event) => ({
+  label: `${event.isFinals ? event.competition : event.match} — ${event.shortDate}`,
+  slug: event.slug,
+}))
 
 const toursEvents = [
   { label: 'SA Rugby Experience — Cape Town', slug: 'sa-rugby-experience-cape-town' },
@@ -104,7 +103,7 @@ export default function ExperienceFinder() {
   const [guests, setGuests] = useState(2)
 
   const events = type === 'lounge'
-    ? loungeEvents.map((e) => ({ label: e.label, value: e.slug }))
+    ? loungeOptions.map((e) => ({ label: e.label, value: e.slug }))
     : type === 'tours'
     ? toursEvents.map((e) => ({ label: e.label, value: e.slug }))
     : []

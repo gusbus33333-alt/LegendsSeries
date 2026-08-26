@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import BasketLink from './BasketLink'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
@@ -75,7 +76,8 @@ export default function Nav() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+            <BasketLink />
             <Link
               href="/book"
               className="px-6 py-2.5 border border-gold text-gold hover:bg-gold hover:text-ink text-xs tracking-[0.2em] uppercase font-semibold transition-all duration-300"
@@ -141,12 +143,16 @@ export default function Nav() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/book"
-            className="mt-5 py-3.5 border border-gold text-gold text-center text-xs tracking-[0.25em] uppercase font-semibold hover:bg-gold hover:text-ink transition-all duration-300"
-          >
-            Book Now
-          </Link>
+          <div className="mt-5 flex flex-col gap-3">
+            <BasketLink onNavigate={() => setIsOpen(false)} />
+            <Link
+              href="/book"
+              onClick={() => setIsOpen(false)}
+              className="py-3.5 border border-gold text-gold text-center text-xs tracking-[0.25em] uppercase font-semibold hover:bg-gold hover:text-ink transition-all duration-300"
+            >
+              Book Now
+            </Link>
+          </div>
         </nav>
       </div>
     </header>

@@ -15,7 +15,7 @@ export default function TermsPage() {
             Terms &amp; Conditions
           </h1>
           <div className="gold-rule mt-6" />
-          <p className="text-white/65 text-sm mt-4">Last updated: 26 July 2026</p>
+          <p className="text-white/65 text-sm mt-4">Last updated: 25 August 2026</p>
         </div>
       </section>
 
@@ -31,7 +31,7 @@ export default function TermsPage() {
           <p>
             Legends Series (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is a trading name of
             Legends Series Ltd, registered in England and Wales. Our contact details are set out in
-            Section 16 below.
+            Section 17 below.
           </p>
 
           <h2>2. Our Services</h2>
@@ -150,7 +150,51 @@ export default function TermsPage() {
             on the number of days between your cancellation request and the new event date.
           </p>
 
-          <h2>5. Event Conduct</h2>
+          <h2>5. Parking</h2>
+          <p>
+            Parking is available on site for cars and buses at Allianz Twickenham Stadium, subject
+            to availability and to the following conditions.
+          </p>
+          <h3>5.1 Parking must accompany a Legends Lounge booking</h3>
+          <p>
+            Parking is sold only as an addition to Legends Lounge tickets for the same matchday. It
+            cannot be purchased on its own, and any parking booked without accompanying event
+            tickets will be cancelled and refunded.
+          </p>
+          <h3>5.2 What counts as a car and what counts as a bus</h3>
+          <p>
+            For parking purposes, a <strong>car</strong> is any vehicle with up to and including
+            seven seats. Any vehicle with more than seven seats is treated as a{' '}
+            <strong>bus or coach</strong> and must be booked as bus parking. If a vehicle arrives
+            that has been booked under the wrong category, we reserve the right to charge the
+            difference or to refuse entry.
+          </p>
+          <h3>5.3 Road closures</h3>
+          <p>
+            All roads surrounding the stadium close two hours before kick off and for two hours
+            after the final whistle. Please plan your arrival and departure accordingly. We cannot
+            grant access to or exit from the site during these closures.
+          </p>
+          <h3>5.4 Vehicles must be removed by 9am the following morning</h3>
+          <p>
+            All vehicles must be removed from the site by 9am on the morning after the event. This
+            allows you to leave your vehicle overnight and travel home safely, but the site must be
+            clear the next morning.
+          </p>
+          <p>
+            Any vehicle remaining on site after 9am may be clamped or removed. A release fee of
+            £200 applies to any vehicle that is clamped, payable before the vehicle is released.
+            Where a vehicle is removed, any recovery and storage costs charged by the operator are
+            payable by the vehicle owner.
+          </p>
+          <h3>5.5 Vehicles are left at your own risk</h3>
+          <p>
+            Vehicles and their contents are left entirely at the owner&apos;s risk. We do not accept
+            liability for loss of or damage to any vehicle or its contents while on site, except
+            where such loss or damage is caused by our negligence.
+          </p>
+
+          <h2>6. Event Conduct</h2>
           <ul>
             <li>We reserve the right to refuse entry or remove any guest whose behaviour is disruptive, threatening, or excessively intoxicated</li>
             <li>No refund will be given if you are refused entry or removed for breach of this section</li>
@@ -158,14 +202,14 @@ export default function TermsPage() {
             <li>Illegal substances are strictly prohibited. Any guest found in possession will be removed immediately and reported to the police</li>
           </ul>
 
-          <h2>6. Dietary Requirements and Allergies</h2>
+          <h2>7. Dietary Requirements and Allergies</h2>
           <p>
             You must inform us of any dietary requirements or allergies at the time of booking or no
             later than 7 days before the event. While we will make every reasonable effort to
             accommodate requests, we cannot guarantee a completely allergen-free environment.
           </p>
 
-          <h2>7. Legends and Special Guests</h2>
+          <h2>8. Legends and Special Guests</h2>
           <p>
             While we make every effort to ensure advertised legends and special guests attend our
             events, their attendance is subject to their personal and professional commitments. In
@@ -174,7 +218,7 @@ export default function TermsPage() {
             entitle you to a refund unless the event is materially different from what was advertised.
           </p>
 
-          <h2>8. Photography and Media</h2>
+          <h2>9. Photography and Media</h2>
           <p>
             By attending our events, you consent to being photographed or filmed. These images and
             recordings may be used by Legends Series for marketing, social media, and promotional
@@ -182,7 +226,7 @@ export default function TermsPage() {
             arrival.
           </p>
 
-          <h2>9. Liability</h2>
+          <h2>10. Liability</h2>
           <h3>9.1 Our Liability</h3>
           <ul>
             <li>Nothing in these Terms limits or excludes our liability for death or personal injury caused by our negligence, fraud, or any other liability that cannot be excluded by law</li>
@@ -197,7 +241,7 @@ export default function TermsPage() {
             expenses arising from your behaviour or that of your guests.
           </p>
 
-          <h2>10. Force Majeure</h2>
+          <h2>11. Force Majeure</h2>
           <p>
             We are not liable for any failure to perform our obligations where such failure results
             from circumstances beyond our reasonable control, including but not limited to: acts of
@@ -209,41 +253,41 @@ export default function TermsPage() {
             any costs already incurred on your behalf that cannot be recovered.
           </p>
 
-          <h2>11. Age Restriction</h2>
+          <h2>12. Age Restriction</h2>
           <p>
             Our events are for guests aged 18 and over unless otherwise stated. We reserve the right
             to request proof of age and refuse entry to anyone under 18. Alcohol will not be served
             to anyone under 18.
           </p>
 
-          <h2>12. Intellectual Property</h2>
+          <h2>13. Intellectual Property</h2>
           <p>
             All content on this website — including text, images, logos, and design — is owned by or
             licensed to Legends Series and protected by copyright. You may not reproduce, distribute,
             or use any content without our prior written consent.
           </p>
 
-          <h2>13. Third-Party Links</h2>
+          <h2>14. Third-Party Links</h2>
           <p>
             Our website may contain links to third-party websites. We are not responsible for the
             content or practices of those sites and do not endorse them.
           </p>
 
-          <h2>14. Governing Law</h2>
+          <h2>15. Governing Law</h2>
           <p>
             These Terms are governed by and construed in accordance with the laws of England and
             Wales. Any disputes shall be subject to the exclusive jurisdiction of the courts of
             England and Wales.
           </p>
 
-          <h2>15. Changes to These Terms</h2>
+          <h2>16. Changes to These Terms</h2>
           <p>
             We may update these Terms from time to time. Changes will be posted on this page with
             an updated date. Any bookings made before a change will be governed by the Terms in
             force at the time of booking.
           </p>
 
-          <h2>16. Contact Us</h2>
+          <h2>17. Contact Us</h2>
           <p>For any questions about these Terms, contact us at:</p>
           <ul>
             <li>Email: <a href="mailto:info@legends-series.com">info@legends-series.com</a></li>

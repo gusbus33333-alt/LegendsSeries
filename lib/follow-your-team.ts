@@ -42,6 +42,9 @@ export function buildFollowYourTeamEvent(teamName: string): LoungeEvent {
     dayOfWeek: 'TBC',
     match: `Follow Your Team — ${teamName}`,
     competition: 'Nations Cup Finals',
+    venue: 'Twickenham',
+    // First day of the Finals weekend; the actual day is confirmed later.
+    isoDate: '2026-11-27',
     isFinals: false,
     ko: 'TBC',
     openTime: 'TBC',
@@ -54,6 +57,8 @@ export function buildFollowYourTeamEvent(teamName: string): LoungeEvent {
     heroPhoto: '/lounge-photos/LLL-262.jpg',
     cardPhoto: '/lounge-photos/LLL-284.jpg',
     blurb: `Full Legends Lounge hospitality on the day ${teamName} play during Finals Weekend.`,
+    // Never rendered in the fixtures grid — Follow Your Team has its own banner.
+    cardBlurb: `Full Legends Lounge hospitality on the day ${teamName} play during Finals Weekend.`,
   }
 }
 

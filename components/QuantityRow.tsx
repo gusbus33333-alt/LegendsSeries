@@ -41,7 +41,7 @@ export default function QuantityRow({
           onClick={() => step(-1)}
           disabled={value <= min}
           aria-label={`Decrease ${label}`}
-          className="w-7 h-7 border border-white/20 text-white/75 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/75"
+          className="w-10 h-10 sm:w-8 sm:h-8 border border-white/20 text-white/75 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/75"
         >
           −
         </button>
@@ -51,7 +51,7 @@ export default function QuantityRow({
           onClick={() => step(1)}
           disabled={value >= max}
           aria-label={`Increase ${label}`}
-          className="w-7 h-7 border border-white/20 text-white/75 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/75"
+          className="w-10 h-10 sm:w-8 sm:h-8 border border-white/20 text-white/75 hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center text-sm disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/20 disabled:hover:text-white/75"
         >
           +
         </button>

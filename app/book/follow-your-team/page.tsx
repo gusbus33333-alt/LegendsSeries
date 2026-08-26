@@ -7,7 +7,7 @@ import { included } from '@/lib/lounge-events'
 import { followYourTeamPriceLabel, followYourTeamPriceExVat } from '@/lib/follow-your-team'
 
 export const metadata: Metadata = {
-  title: 'Follow Your Team — Nations Cup Finals Weekend | Legends Series',
+  title: 'Follow Your Team — Nations Cup Finals Weekend',
   description:
     'Pick your team and follow them through the Nations Cup Finals Weekend at Twickenham. Full Legends Lounge hospitality on the day your team plays. Limited availability.',
 }

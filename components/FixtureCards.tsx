@@ -3,126 +3,31 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import {
+  loungeEvents,
+  cardTitle,
+  cardDateLine,
+  priceInc,
+  priceEx,
+  sideLabel,
+  type LoungeEvent,
+  type FinalsPair,
+} from '@/lib/lounge-events'
 
-type Filter = 'all' | 'eng' | 'finals'
+type Filter = 'all' | 'nations' | 'six' | 'finals'
 
-interface GamePair {
-  north: string   // e.g. 'N6'
-  south: string   // e.g. 'S6'
-  label?: string  // e.g. 'Grand Final'
+const NUMBER_WORDS = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven',
+  'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']
+
+/** Spelled out to match the brand voice, with a numeral fallback past twelve. */
+function countWord(n: number): string {
+  return NUMBER_WORDS[n] ?? String(n)
 }
 
-interface EnglandCard {
-  slug: string
-  competition: string
-  title: string
-  date: string
-  price: string
-  priceInc: string
-  homeIcon: string
-  homeCode: string
-  awayIcon: string
-  awayCode: string
-  blurb: string
-  cat: 'eng'
+/** Finals cards carry the double-header note; England cards don't. */
+function competitionLabel(event: LoungeEvent): string {
+  return event.isFinals ? `${event.competition} · Double Header` : event.competition
 }
-
-interface FinalsCard {
-  slug: string
-  competition: string
-  games: GamePair[]
-  date: string
-  price: string
-  priceInc: string
-  blurb: string
-  cat: 'finals'
-}
-
-type FixtureCard = EnglandCard | FinalsCard
-
-const fixtures: FixtureCard[] = [
-  {
-    slug: 'england-vs-australia-nov-8',
-    competition: 'Nations Championship',
-    title: 'England v Australia',
-    date: 'Sunday 8 November 2026 · Twickenham',
-    price: '£208.33+',
-    priceInc: '£250 inc VAT',
-    homeIcon: '/team-icons/eng.png',
-    homeCode: 'ENG',
-    awayIcon: '/team-icons/aus.png',
-    awayCode: 'AUS',
-    blurb: 'England host the Wallabies in the 2026 Nations Championship at Allianz Stadium — a rivalry steeped in history.',
-    cat: 'eng',
-  },
-  {
-    slug: 'england-vs-japan-nov-14',
-    competition: 'Nations Championship',
-    title: 'England v Japan',
-    date: 'Saturday 14 November 2026 · Twickenham',
-    price: '£165+',
-    priceInc: '£198 inc VAT',
-    homeIcon: '/team-icons/eng.png',
-    homeCode: 'ENG',
-    awayIcon: '/team-icons/jpn.png',
-    awayCode: 'JPN',
-    blurb: 'The Brave Blossoms bring their explosive attacking rugby to Allianz Stadium under the Saturday evening lights.',
-    cat: 'eng',
-  },
-  {
-    slug: 'england-vs-new-zealand-nov-21',
-    competition: 'Nations Championship',
-    title: 'England v New Zealand',
-    date: 'Saturday 21 November 2026 · Twickenham',
-    price: '£208.33+',
-    priceInc: '£250 inc VAT',
-    homeIcon: '/team-icons/eng.png',
-    homeCode: 'ENG',
-    awayIcon: '/team-icons/nzl.png',
-    awayCode: 'NZL',
-    blurb: 'England host the All Blacks in the 2026 Nations Championship at Allianz Stadium — the biggest fixture in world rugby.',
-    cat: 'eng',
-  },
-  {
-    slug: 'nations-finals-nov-27',
-    competition: 'Nations Cup Finals · Double Header',
-    games: [
-      { north: 'N6', south: 'S6' },
-      { north: 'N3', south: 'S3' },
-    ],
-    date: 'Friday 27 November 2026 · Twickenham',
-    price: '£250+',
-    priceInc: '£300 inc VAT',
-    blurb: 'The Nations Cup Finals begin with a Friday double header at Allianz Stadium — two knockout internationals, one epic day.',
-    cat: 'finals',
-  },
-  {
-    slug: 'nations-finals-nov-28',
-    competition: 'Nations Cup Finals · Double Header',
-    games: [
-      { north: 'N5', south: 'S5' },
-      { north: 'N2', south: 'S2' },
-    ],
-    date: 'Saturday 28 November 2026 · Twickenham',
-    price: '£250+',
-    priceInc: '£300 inc VAT',
-    blurb: 'Saturday finals at Allianz Stadium — the 5th-place final and the 2nd-place final, two titles decided in one day.',
-    cat: 'finals',
-  },
-  {
-    slug: 'nations-finals-nov-29',
-    competition: 'Nations Cup Finals · Double Header',
-    games: [
-      { north: 'N4', south: 'S4' },
-      { north: 'N1', south: 'S1', label: 'Grand Final' },
-    ],
-    date: 'Sunday 29 November 2026 · Twickenham',
-    price: '£250+',
-    priceInc: '£300 inc VAT',
-    blurb: 'Grand Final day — the first-ever Nations Cup champion is crowned at Allianz Stadium in the biggest game of the year.',
-    cat: 'finals',
-  },
-]
 
 // ── Team badge (England matches) ──────────────────────────────────────────────
 function TeamBadge({ icon, code }: { icon: string; code: string }) {
@@ -131,17 +36,6 @@ function TeamBadge({ icon, code }: { icon: string; code: string }) {
       <Image src={icon} alt={code} fill className="object-contain" sizes="90px" />
     </div>
   )
-}
-
-const ORDINALS: Record<string, string> = {
-  '1': '1st', '2': '2nd', '3': '3rd', '4': '4th', '5': '5th', '6': '6th',
-}
-
-/** 'N6' → 'NORTH 6TH'. Spells the badge codes out so the matchup is unambiguous. */
-function sideLabel(code: string): string {
-  const side = code.charAt(0).toUpperCase() === 'N' ? 'North' : 'South'
-  const position = code.slice(1)
-  return `${side} ${ORDINALS[position] ?? position}`.toUpperCase()
 }
 
 // ── Finals badge (image-based) ────────────────────────────────────────────────
@@ -155,7 +49,7 @@ function FinalsBadge({ code }: { code: string }) {
 }
 
 // ── Double-header matchup block ───────────────────────────────────────────────
-function FinalsMatchup({ games }: { games: GamePair[] }) {
+function FinalsMatchup({ games }: { games: FinalsPair[] }) {
   return (
     <div className="w-full flex flex-col gap-3">
       {games.map((game, i) => {
@@ -203,11 +97,6 @@ function FinalsMatchup({ games }: { games: GamePair[] }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-function vatPrice(exVat: string, includeVat: boolean): string {
-  const num = parseFloat(exVat.replace(/[^0-9.]/g, ''))
-  if (!includeVat || isNaN(num)) return exVat
-  return `£${Math.ceil(num * 1.2).toLocaleString('en-GB')}`
-}
 
 export default function FixtureCards() {
   const [filter, setFilter] = useState<Filter>('all')
@@ -216,12 +105,20 @@ export default function FixtureCards() {
   const [includeVat, setIncludeVat] = useState(true)
 
   const chips: { value: Filter; label: string }[] = [
-    { value: 'all', label: 'All fixtures' },
-    { value: 'eng', label: 'England internationals' },
+    { value: 'all', label: 'All' },
+    { value: 'nations', label: 'Nations Championship' },
     { value: 'finals', label: 'Finals weekend' },
+    { value: 'six', label: 'Six Nations' },
   ]
 
-  const visible = filter === 'all' ? fixtures : fixtures.filter((f) => f.cat === filter)
+  // Filtered by competition now that two championships share the grid.
+  const matchesFilter = (e: LoungeEvent): boolean => {
+    if (filter === 'finals') return e.isFinals
+    if (filter === 'six') return e.competition === 'Six Nations'
+    if (filter === 'nations') return e.competition === 'Nations Championship'
+    return true
+  }
+  const visible = loungeEvents.filter(matchesFilter)
 
   return (
     <section className="py-24 bg-[#0a0a0b]" id="fixtures">
@@ -230,12 +127,12 @@ export default function FixtureCards() {
         <div className="text-center mb-8">
           <p className="text-[11px] font-bold tracking-[0.5em] uppercase text-gold mb-4">The Fixtures</p>
           <h2 className="text-3xl lg:text-4xl font-bold uppercase tracking-[0.06em] text-white">
-            Six matchdays. One lounge.
+            {countWord(loungeEvents.length)} matchdays. One lounge.
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-5 mb-4" />
           <p className="text-white/65 max-w-xl mx-auto text-sm leading-relaxed">
-            Every England international and all three Nations Cup Finals double headers, hosted at the
-            Legends Lounge moments from the stadium.
+            Every England international, the 2027 Six Nations at Twickenham and all three Nations Cup
+            Finals double headers, hosted at the Legends Lounge moments from the stadium.
           </p>
           <p className="text-white/80 text-sm mt-5">
             <span className="text-gold font-semibold">£198 – £300</span> per person, inc VAT
@@ -291,35 +188,35 @@ export default function FixtureCards() {
             >
               {/* Competition label */}
               <p className="text-[10px] font-bold tracking-[0.34em] uppercase text-gold text-center mb-5">
-                {fixture.competition}
+                {competitionLabel(fixture)}
               </p>
 
               {/* Matchup visual — symmetry earns its place here */}
               <div className="flex items-center justify-center mb-6">
-                {fixture.cat === 'eng' ? (
-                  <div className="flex items-center gap-4">
-                    <TeamBadge icon={fixture.homeIcon} code={fixture.homeCode} />
-                    <span className="text-2xl italic font-normal text-white/50">v</span>
-                    <TeamBadge icon={fixture.awayIcon} code={fixture.awayCode} />
-                  </div>
+                {fixture.finalsPairs ? (
+                  <FinalsMatchup games={fixture.finalsPairs} />
                 ) : (
-                  <FinalsMatchup games={fixture.games} />
+                  <div className="flex items-center gap-4">
+                    <TeamBadge icon={`/team-icons/${fixture.homeCode}.png`} code={fixture.homeCode!} />
+                    <span className="text-2xl italic font-normal text-white/50">v</span>
+                    <TeamBadge icon={`/team-icons/${fixture.awayCode}.png`} code={fixture.awayCode!} />
+                  </div>
                 )}
               </div>
 
               {/* Everything below is read, compared and scanned — so it is left-aligned */}
-              {fixture.cat === 'eng' && (
+              {!fixture.finalsPairs && (
                 <h3 className="font-bold tracking-[0.03em] uppercase text-[19px] leading-tight text-white">
-                  {fixture.title}
+                  {cardTitle(fixture)}
                 </h3>
               )}
 
               <p className="text-[12px] text-white/70 tracking-[0.04em] mt-2">
-                {fixture.date}
+                {cardDateLine(fixture)}
               </p>
 
               <p className="text-[12px] text-white/60 leading-relaxed mt-3">
-                {fixture.blurb}
+                {fixture.cardBlurb}
               </p>
 
               {/* Price dominates; supporting detail recedes */}
@@ -327,14 +224,14 @@ export default function FixtureCards() {
                 <div className="flex items-end justify-between gap-3">
                   <div>
                     <span className="block text-[32px] font-bold text-gold leading-none">
-                      {includeVat ? fixture.priceInc.replace(/ inc VAT.*/, '') : fixture.price}
+                      {includeVat ? priceInc(fixture) : priceEx(fixture)}
                     </span>
                     <span className="block text-[10px] tracking-[0.12em] text-white/65 mt-1.5">
                       per person &middot; {includeVat ? 'inc VAT' : 'ex VAT'}
                     </span>
                   </div>
                   <span className="text-[10px] tracking-[0.1em] uppercase text-white/55 text-right leading-snug pb-1">
-                    {fixture.cat === 'finals' ? 'Two matches' : 'Full day'}
+                    {fixture.isFinals ? 'Two matches' : 'Full day'}
                   </span>
                 </div>
               </div>

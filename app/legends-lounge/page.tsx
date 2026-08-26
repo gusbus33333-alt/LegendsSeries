@@ -8,6 +8,8 @@ import BadgeStrip from '@/components/BadgeStrip'
 import GoogleReviews from '@/components/GoogleReviews'
 import RunningOrder from '@/components/RunningOrder'
 import { loungeEvents } from '@/lib/lounge-events'
+import SignatureAvailability from '@/components/SignatureAvailability'
+import { faqSchema } from '@/lib/structured-data'
 import LegendsStatBand from '@/components/LegendsStatBand'
 import { featuredLoungeLegends, otherLoungeLegends, credentials } from '@/lib/lounge-legends'
 
@@ -40,7 +42,7 @@ const includedSupporting = [
   { label: 'Hot Butcher\'s Pie', detail: 'Served post-match when the bar reopens' },
   { label: 'Live Music', detail: 'Band or DJ from first pint to last orders' },
   { label: 'Giant Screens', detail: 'Every international shown live' },
-  { label: 'Charity Donation', detail: 'All profits to LooseHeadz & Wooden Spoon' },
+  { label: 'Charity Donation', detail: 'A portion of profits to LooseHeadz & Wooden Spoon' },
 ]
 
 const notIncluded = [
@@ -88,9 +90,53 @@ const timeline = [
 ]
 
 
+// Split once here so the strip below reads as two championships rather than
+// one long run of dates.
+const championshipFixtures = loungeEvents.filter((e) => e.competition !== 'Six Nations')
+const sixNationsFixtures = loungeEvents.filter((e) => e.competition === 'Six Nations')
+
+// Hoisted out of the JSX so the FAQ schema is generated from exactly what the
+// page shows — one source, no chance of the markup drifting from the answers.
+const faqs: { q: string; a: React.ReactNode }[] = [
+              { q: 'Does the Legends Lounge include a match ticket?', a: 'No — the Legends Lounge is a hospitality-only experience. You\'ll need to obtain your own match ticket through official channels (RFU / Twickenham). Our marquee is open during the match and shows the game live on giant screens for those without a ticket.' },
+              { q: 'Can you source match tickets for me?', a: 'Unfortunately we are unable to source match tickets. We recommend purchasing directly through the RFU or Twickenham Stadium box office well in advance, as matches do sell out.' },
+              { q: 'What happens if I don\'t have a match ticket?', a: 'You\'re still welcome. The marquee stays open throughout the match with every game shown live on giant screens. Many of our guests choose to stay in the Lounge for the full day without attending the match itself.' },
+              { q: 'What\'s included in the price?', a: 'Unlimited drinks (beer, wine, prosecco, soft drinks and coffee), hog roast, hot butcher\'s pie post-match, live music and rugby legends throughout the day. Drinks during the match are £6 each. Merchandise and bottles of spirits are available to buy separately.' },
+              { q: 'Can I bring children?', a: 'Yes. Under 16s (15 and under) are half price and can be added when you book. The Lounge is a lively rugby crowd rather than a family venue, but children are welcome with an accompanying adult.' },
+              { q: 'Is there parking?', a: 'Car parking is £40 and coach parking is £150, both added at checkout. Roads around the stadium close roughly 2 hours before kick-off, so arrive early.' },
+              { q: 'Is there a dress code?', a: 'No formal dress code. Most guests wear rugby shirts, smart casual or club kit. Come as you would to the match — the marquee is heated but bring a coat for moving between the Lounge and the stadium.' },
+              { q: 'What happens if the match is postponed or moved?', a: 'If the fixture is rescheduled, your booking moves with it to the new date. If you can\'t make the new date, get in touch and we\'ll sort it out — full details are in our booking policy.' },
+              { q: 'Is the bar open all day?', a: 'The all-inclusive bar is open from arrival until kickoff. During the match, drinks are available at £6 each — whether you\'re watching in the stadium or on the big screens in the Lounge. All-inclusive service resumes at full time.' },
+              {
+                q: 'Which legends will be at my event?',
+                a: (
+                  <>
+                    We announce the legends for each event closer to the time. Follow us on social
+                    media or sign up to our mailing list to be the first to know. Check out the{' '}
+                    <Link href="/legends" className="text-gold underline underline-offset-2 hover:text-gold-dark transition-colors">
+                      Legends page
+                    </Link>{' '}
+                    to see which legends we are affiliated with.
+                  </>
+                ),
+              },
+              { q: 'How many people can attend?', a: 'The Legends Lounge is capped at 450 guests per match to keep the atmosphere right. Once a date is sold out, it\'s gone — we don\'t oversell.' },
+]
+
+/** Only the plain-text answers can be marked up; one answer is JSX. */
+const faqSchemaEntries = faqs
+  .filter((f): f is { q: string; a: string } => typeof f.a === 'string')
+  .map((f) => ({ q: f.q, a: f.a }))
+
 export default function LegendsLoungePage() {
   return (
     <>
+      {/* The questions people actually ask before booking, marked up so they
+          can surface directly in search results. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqSchemaEntries)) }}
+      />
       {/* ── Hero ──────────────────────────────────────────────────────────
           Centred by design: this is the brand statement. Its job is to answer
           what it is, where it is, and roughly what it costs, above the fold. */}
@@ -161,7 +207,7 @@ export default function LegendsLoungePage() {
             <div>
               {/* section-label's 0.35em tracking wraps this to 3 lines on a phone */}
               <p className="text-gold text-[0.65rem] sm:text-xs tracking-[0.15em] sm:tracking-[0.35em] uppercase font-semibold">
-                Nations Championship Fixtures
+                Fixtures &amp; Dates
               </p>
               {/* The most common pre-purchase question, answered next to the prices */}
               <p className="text-white/60 text-[0.65rem] tracking-[0.1em] uppercase mt-1.5">
@@ -176,24 +222,42 @@ export default function LegendsLoungePage() {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-white/10">
-            {loungeEvents.map((event) => (
-              <Link
-                key={event.slug}
-                href={`/book/${event.slug}`}
-                className="group bg-ink hover:bg-white/[0.04] px-4 py-4 transition-colors flex flex-col h-full"
-              >
-                <p className="text-gold text-[0.6rem] tracking-[0.18em] uppercase font-semibold">
-                  {event.shortDate}
+          {/* Grouped by championship, each with its own grid. Dividers are drawn
+              on the cells rather than as a gap over a lit container, so a row
+              that doesn't fill leaves nothing behind — the old version showed
+              grey blocks where the last row ran short. */}
+          {[
+            { heading: 'Nations Championship 2026', events: championshipFixtures },
+            { heading: 'Six Nations 2027', events: sixNationsFixtures },
+          ].map((group, i) => (
+            <div key={group.heading} className={i > 0 ? 'mt-8' : ''}>
+              <div className="flex items-center gap-3 mb-3">
+                <p className="text-white/80 text-[0.6rem] tracking-[0.22em] uppercase font-semibold whitespace-nowrap">
+                  {group.heading}
                 </p>
-                <p className="text-white group-hover:text-gold text-[13px] font-semibold leading-snug mt-1.5 transition-colors">
-                  {event.isFinals ? `Finals — ${event.dayOfWeek}` : event.match}
-                </p>
-                {/* mt-auto keeps prices on one baseline when a fixture name wraps */}
-                <p className="text-white/70 text-xs mt-auto pt-2">£{event.price}</p>
-              </Link>
-            ))}
-          </div>
+                <div className="flex-1 h-px bg-gradient-to-r from-gold/30 to-transparent" />
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 border-l border-t border-white/10">
+                {group.events.map((event) => (
+                  <Link
+                    key={event.slug}
+                    href={`/book/${event.slug}`}
+                    className="group bg-ink hover:bg-white/[0.04] border-r border-b border-white/10 px-4 py-4 transition-colors flex flex-col h-full"
+                  >
+                    <p className="text-gold text-[0.6rem] tracking-[0.18em] uppercase font-semibold">
+                      {event.shortDate}
+                    </p>
+                    <p className="text-white group-hover:text-gold text-[13px] font-semibold leading-snug mt-1.5 transition-colors">
+                      {event.isFinals ? `Finals — ${event.dayOfWeek}` : event.match}
+                    </p>
+                    {/* mt-auto keeps prices on one baseline when a fixture name wraps */}
+                    <p className="text-white/70 text-xs mt-auto pt-2">£{event.price}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -495,47 +559,38 @@ export default function LegendsLoungePage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="btn-gold">
-                Enquire About Signature
-              </Link>
+              {/* Not a button: the availability list alongside already links each
+                  date to its booking page, and #fixtures sits further up this
+                  same page — so a CTA here only scrolled people backwards. */}
+              <p className="border-l-2 border-gold pl-4 text-white/85 text-sm leading-relaxed">
+                Signature is added at checkout. Pick your matchday from the availability
+                list, then choose your rooms in the booking box — £600 per person, with
+                each room sleeping two.
+              </p>
             </ScrollReveal>
 
             <ScrollReveal direction="right" delay={0.1}>
               <div className="bg-white/5 border border-gold/30 p-8 lg:p-10">
                 <p className="text-gold text-xs tracking-[0.25em] uppercase font-semibold mb-6">Signature Availability</p>
-                <div className="flex flex-col gap-5">
-                  {[
-                    { match: 'England vs Australia', date: '8 Nov', hotel: 'Radisson Red, Twickenham', rooms: '7 rooms remaining' },
-                    { match: 'England vs Japan', date: '14 Nov', hotel: 'Radisson Red, Twickenham', soldOut: true },
-                    { match: 'England vs New Zealand', date: '21 Nov', hotel: 'Radisson Red, Twickenham', rooms: '8 rooms remaining' },
-                    { match: 'Nations Cup Finals Double Header', date: '27 Nov', hotel: 'The Lensbury Resort', soldOut: true },
-                    { match: 'Nations Cup Finals Double Header', date: '28 Nov', hotel: 'The Lensbury Resort', rooms: '12 rooms remaining' },
-                    { match: 'Nations Cup Finals Double Header', date: '29 Nov', hotel: 'The Lensbury Resort', rooms: '12 rooms remaining' },
-                  ].map((item, i) => (
-                    <div key={i} className="border-b border-white/10 pb-5 last:border-0 last:pb-0">
-                      <div className="flex items-start justify-between gap-3">
-                        {/* Sold-out rows recede so the available dates carry the eye */}
-                        <div className={item.soldOut ? 'opacity-45' : ''}>
-                          <p className="text-white font-semibold text-sm">{item.match}</p>
-                          <p className="text-white/65 text-xs mt-0.5">{item.date} · {item.hotel}</p>
-                        </div>
-                        {item.soldOut ? (
-                          <span className="flex-shrink-0 text-white/60 text-[0.65rem] font-semibold tracking-[0.15em] uppercase border border-white/15 px-2.5 py-1">
-                            Sold out
-                          </span>
-                        ) : (
-                          <span className="flex-shrink-0 text-gold text-xs font-semibold">{item.rooms}</span>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-white/50 text-xs mt-6 leading-relaxed border-t border-white/10 pt-4">
-                  Room availability is indicative and confirmed on enquiry.
+                <SignatureAvailability
+                  fixtures={loungeEvents.map((e) => ({
+                    slug: e.slug,
+                    match: e.match,
+                    shortDate: e.shortDate,
+                  }))}
+                />
+                <p className="text-white/60 text-xs mt-6 leading-relaxed border-t border-white/10 pt-4">
+                  Rooms are twin or double and are added to any matchday booking at
+                  £600 per person.
                 </p>
-                <p className="text-white/50 text-xs mt-3 leading-relaxed">
-                  Six Nations 2027 packages also available — England vs France (14 Feb),
-                  England vs Italy (20 Feb), England vs Scotland (13 Mar). Enquire for details.
+                <Link
+                  href="/contact"
+                  className="btn-gold w-full text-center mt-5 py-3.5 text-[0.7rem]"
+                >
+                  Enquire About Signature
+                </Link>
+                <p className="text-white/55 text-[0.65rem] text-center mt-3 leading-relaxed">
+                  Booking an odd number, a single room or a large group? Talk to us.
                 </p>
               </div>
             </ScrollReveal>
@@ -549,7 +604,7 @@ export default function LegendsLoungePage() {
           <ScrollReveal>
             <p className="text-ink/65 text-xs tracking-[0.3em] uppercase font-semibold mb-4">Giving Back</p>
             <p className="text-ink/80 text-sm leading-relaxed max-w-xl mx-auto mb-6">
-              All profits from the Legends Lounge are donated to our charity partners.
+              A portion of profits from the Legends Lounge is donated to our charity partners.
               <strong className="text-ink"> LooseHeadz</strong> works to destigmatise mental health in rugby,
               and <strong className="text-ink">Wooden Spoon</strong> funds life-changing projects for disabled and disadvantaged children.
               Your day out does good.
@@ -575,31 +630,7 @@ export default function LegendsLoungePage() {
           </ScrollReveal>
 
           <div className="flex flex-col">
-            {[
-              { q: 'Does the Legends Lounge include a match ticket?', a: 'No — the Legends Lounge is a hospitality-only experience. You\'ll need to obtain your own match ticket through official channels (RFU / Twickenham). Our marquee is open during the match and shows the game live on giant screens for those without a ticket.' },
-              { q: 'Can you source match tickets for me?', a: 'Unfortunately we are unable to source match tickets. We recommend purchasing directly through the RFU or Twickenham Stadium box office well in advance, as matches do sell out.' },
-              { q: 'What happens if I don\'t have a match ticket?', a: 'You\'re still welcome. The marquee stays open throughout the match with every game shown live on giant screens. Many of our guests choose to stay in the Lounge for the full day without attending the match itself.' },
-              { q: 'What\'s included in the price?', a: 'Unlimited drinks (beer, wine, prosecco, soft drinks and coffee), hog roast, hot butcher\'s pie post-match, live music and rugby legends throughout the day. Drinks during the match are £6 each. Merchandise and bottles of spirits are available to buy separately.' },
-              { q: 'Can I bring children?', a: 'Yes. Under 16s (15 and under) are half price and can be added when you book. The Lounge is a lively rugby crowd rather than a family venue, but children are welcome with an accompanying adult.' },
-              { q: 'Is there parking?', a: 'Car parking is £40 and coach parking is £150, both added at checkout. Roads around the stadium close roughly 2 hours before kick-off, so arrive early.' },
-              { q: 'Is there a dress code?', a: 'No formal dress code. Most guests wear rugby shirts, smart casual or club kit. Come as you would to the match — the marquee is heated but bring a coat for moving between the Lounge and the stadium.' },
-              { q: 'What happens if the match is postponed or moved?', a: 'If the fixture is rescheduled, your booking moves with it to the new date. If you can\'t make the new date, get in touch and we\'ll sort it out — full details are in our booking policy.' },
-              { q: 'Is the bar open all day?', a: 'The all-inclusive bar is open from arrival until kickoff. During the match, drinks are available at £6 each — whether you\'re watching in the stadium or on the big screens in the Lounge. All-inclusive service resumes at full time.' },
-              {
-                q: 'Which legends will be at my event?',
-                a: (
-                  <>
-                    We announce the legends for each event closer to the time. Follow us on social
-                    media or sign up to our mailing list to be the first to know. Check out the{' '}
-                    <Link href="/legends" className="text-gold underline underline-offset-2 hover:text-gold-dark transition-colors">
-                      Legends page
-                    </Link>{' '}
-                    to see which legends we are affiliated with.
-                  </>
-                ),
-              },
-              { q: 'How many people can attend?', a: 'The Legends Lounge is capped at 450 guests per match to keep the atmosphere right. Once a date is sold out, it\'s gone — we don\'t oversell.' },
-            ].map((faq, i) => (
+            {faqs.map((faq, i) => (
               <ScrollReveal key={i} delay={0.04 * i}>
                 {/* Native details/summary: accessible, keyboard-operable, no JS */}
                 <details className="group border-b border-white/10">

@@ -11,6 +11,7 @@ import {
 } from '@/lib/lounge-events'
 import ScrollReveal from '@/components/ScrollReveal'
 import CheckoutButton from '@/components/CheckoutButton'
+import { eventSchema, breadcrumbSchema } from '@/lib/structured-data'
 import MobileBookingBar from '@/components/MobileBookingBar'
 
 interface PageProps {
@@ -27,6 +28,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
   return {
     title: `Legends Lounge — ${event.match} | ${event.shortDate}`,
     description: `Reserve your place at the Legends Lounge for ${event.match} on ${event.date}. ${event.priceLabel} per person. Hospitality experience only — match ticket not included.`,
+    alternates: { canonical: `/book/${event.slug}` },
+    openGraph: {
+      title: `Legends Lounge — ${event.match}`,
+      description: `${event.date} at Twickenham. ${event.priceLabel} per person, hospitality only.`,
+      images: [event.heroPhoto],
+      type: 'website',
+    },
   }
 }
 
@@ -39,6 +47,23 @@ export default function BookEventPage({ params }: PageProps) {
 
   return (
     <>
+      {/* Event markup puts the date, venue and price into search results, and
+          is the clearest machine-readable statement of what is on sale. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema(event)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: 'Legends Lounge', path: '/legends-lounge' },
+              { name: event.match, path: `/book/${event.slug}` },
+            ])
+          ),
+        }}
+      />
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="relative min-h-[55vh] flex flex-col justify-end bg-ink overflow-hidden">
         <div className="absolute inset-0">
@@ -47,6 +72,8 @@ export default function BookEventPage({ params }: PageProps) {
             alt={`Legends Lounge — ${event.match}`}
             fill
             className="object-cover"
+            // Per-photo so faces survive the crop at every viewport width.
+            style={{ objectPosition: event.heroFocus ?? 'center' }}
             priority
             sizes="100vw"
           />
@@ -272,7 +299,12 @@ export default function BookEventPage({ params }: PageProps) {
 
                     {/* CTA */}
                     <div className="p-7 flex flex-col gap-3">
-                      <CheckoutButton slug={event.slug} price={event.price} />
+                      <CheckoutButton
+                        slug={event.slug}
+                        price={event.price}
+                        eventName={event.match}
+                        shortDate={event.shortDate}
+                      />
                       <Link
                         href="/contact"
                         className="text-center text-white/55 hover:text-gold text-xs tracking-[0.15em] uppercase transition-colors py-1"

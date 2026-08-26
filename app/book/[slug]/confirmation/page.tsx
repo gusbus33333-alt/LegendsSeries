@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { stripe } from '@/lib/stripe'
+import ClearBasket from '@/components/ClearBasket'
 
 export const metadata: Metadata = {
   title: 'Booking Confirmed',
@@ -33,6 +34,8 @@ export default async function ConfirmationPage({ params, searchParams }: PagePro
 
   return (
     <>
+      {/* A basket of one lands here too, so it still needs emptying. */}
+      <ClearBasket />
       <section className="min-h-screen flex items-center justify-center bg-ink px-6">
         <div className="max-w-lg w-full text-center flex flex-col items-center gap-8 py-20">
           {/* Tick */}

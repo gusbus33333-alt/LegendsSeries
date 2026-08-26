@@ -148,7 +148,7 @@ export async function generateTicketPNG(data: TicketData): Promise<Buffer> {
         { type: 'div', props: { style: { width: '520px', height: '1px', backgroundColor: '#b8953f33', marginTop: '16px' } } },
         // Venue
         { type: 'div', props: { style: { color: '#999999', fontSize: '11px', marginTop: '14px' }, children: 'Access Self Storage, 30 Rugby Road, Twickenham, TW1 1DG' } },
-        { type: 'div', props: { style: { color: '#999999', fontSize: '11px', marginTop: '4px' }, children: 'Opposite Gate F · What3Words: really.placed.likely' } },
+        { type: 'div', props: { style: { color: '#999999', fontSize: '11px', marginTop: '4px' }, children: 'Opposite Gates E & F · What3Words: really.placed.likely' } },
         // Footer
         { type: 'div', props: { style: { position: 'absolute', bottom: 0, left: 0, right: 0, height: '35px', backgroundColor: '#050505', display: 'flex', justifyContent: 'center', alignItems: 'center' }, children: [
           { type: 'div', props: { style: { color: '#666666', fontSize: '9px' }, children: '© 2026 Legends Series Ltd · Play & Party Alongside Your Heroes' } },

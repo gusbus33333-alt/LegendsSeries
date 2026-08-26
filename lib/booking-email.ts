@@ -38,15 +38,17 @@ interface BookingEmailData {
   under16?: number
   carParking?: number
   busParking?: number
+  /** Signature upgrade rooms, each covering two guests. */
+  signatureRooms?: number
 }
 
 const directions = {
   address: 'Access Self Storage, 30 Rugby Road, Twickenham, TW1 1DG',
   w3w: 'really.placed.likely',
-  landmark: 'Directly opposite Gate F of Twickenham Stadium, behind the blue vertical iron railings.',
-  byTrain: 'Twickenham station is a 10-minute walk. Trains run from London Waterloo every 15 minutes on matchday. If you arrive at the Twickenham Stadium statue, turn right onto Rugby Road. Continue a short distance and you will find us behind the blue railings, opposite Gate F.',
-  byCar: 'Please note that all surrounding roads close 2 hours before kick-off, so we recommend arriving early or planning your journey accordingly. Limited parking available nearby.',
-  onArrival: 'Look for the Legends Lounge marquee behind the blue vertical iron railings within the Access Self Storage facility, opposite Gate F. Show your QR code at the entrance.',
+  landmark: 'Directly opposite Gates E & F of Allianz Twickenham Stadium, behind the blue vertical iron railings.',
+  byTrain: 'Twickenham Station is a good 10-minute walk away. Trains run from London Waterloo every 15 minutes on match day. The easiest way to get to the Legends Lounge is to get off the train at Richmond and take the courtesy bus, which drops you directly opposite the Legends Lounge entrance, opposite Gates E & F of Allianz Twickenham Stadium.',
+  byCar: 'Please note that all surrounding roads close 2 hours before kick off and 2 hours after the final whistle. There is parking available for cars and buses on site, but your vehicle will need to be gone by 9am the next day.',
+  onArrival: 'Look for the Legends Lounge marquee behind the blue vertical iron railings within the Access Self Storage facility, opposite Gates E & F. Show your QR code at the entrance.',
 }
 
 function buildEventIntro(event: LoungeEvent, guests: number, followTeam?: string): string {
@@ -90,7 +92,7 @@ function buildEventDetails(event: LoungeEvent, followTeam?: string): string {
 export function buildConfirmationEmail(data: BookingEmailData): string {
   const {
     customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam, customerNote,
-    adults, under16 = 0, carParking = 0, busParking = 0,
+    adults, under16 = 0, carParking = 0, busParking = 0, signatureRooms = 0,
   } = data
   const adultCount = adults ?? guests
   // A Follow Your Team booking has no fixed schedule yet, so there is no
@@ -234,6 +236,16 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Bus parking</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${busParking} ${busParking === 1 ? 'space' : 'spaces'}</td>
+                      </tr>` : ''}
+                      ${signatureRooms > 0 ? `
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Signature upgrade</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${signatureRooms} ${signatureRooms === 1 ? 'room' : 'rooms'} &middot; ${signatureRooms * 2} guests</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="color:#b8953f;font-size:12px;padding:4px 0 6px;line-height:1.5;">
+                          Your hotel, private meet &amp; greet and gifts are included. We will be in touch with your room details.
+                        </td>
                       </tr>` : ''}
                       ${carParking > 0 || busParking > 0 ? `
                       <tr>
