@@ -47,6 +47,8 @@ interface BookingEmailData {
    *  confirmation usable as a VAT invoice by business customers. */
   netAmount?: string | null
   vatAmount?: string | null
+  /** Sequential VAT invoice number, e.g. LS-INV-00042. */
+  invoiceNumber?: string | null
 }
 
 const directions = {
@@ -101,6 +103,7 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
     customerName, event, guests, bookingRef, qrDataURL, totalPaid, followTeam, customerNote,
     adults, under16 = 0, carParking = 0, busParking = 0, signatureRooms = 0,
     discountAmount = null, promoCode = null, netAmount = null, vatAmount = null,
+    invoiceNumber = null,
   } = data
   const adultCount = adults ?? guests
   // A Follow Your Team booking has no fixed schedule yet, so there is no
@@ -279,6 +282,11 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Total Paid${netAmount ? ' (inc VAT)' : ''}</td>
                         <td style="color:#b8953f;font-size:13px;padding:6px 0;text-align:right;font-weight:bold;">${totalPaid}</td>
                       </tr>
+                      ${invoiceNumber ? `
+                      <tr>
+                        <td style="color:#999999;font-size:13px;padding:6px 0;">Invoice No.</td>
+                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${invoiceNumber}</td>
+                      </tr>` : ''}
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Booking Ref</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;font-weight:bold;">${bookingRef}</td>

@@ -306,29 +306,43 @@ export async function POST(req: NextRequest) {
         })
       }
 
+      // Allocated by a database trigger inside the insert's own transaction,
+      // so the numbering is sequential with no gaps. Read back for the invoice.
+      let invoiceNumber: string | null = null
+
       if (supabase) {
-        await supabase.from('bookings').insert({
-          booking_ref: guestBookingRefs[0],
-          guest_refs: guestBookingRefs,
-          order_id: orderId,
-          event_slug: item.slug,
-          event_name: event.match,
-          customer_name: customerName,
-          customer_email: customerEmail,
-          customer_phone: customerPhone,
-          guests,
-          total_paid: itemTotal,
-          promo_code: promoCode,
-          discount_amount: itemDiscount,
-          vat_amount: itemVat,
-          marketing_opt_in: marketingOptIn,
-          customer_note: customerNote || null,
-          adults: item.adults,
-          under_16: item.under16,
-          car_parking: item.carParking,
-          bus_parking: item.busParking,
-          signature_rooms: item.signatureRooms,
-        })
+        const { data: inserted, error: insertError } = await supabase
+          .from('bookings')
+          .insert({
+            booking_ref: guestBookingRefs[0],
+            guest_refs: guestBookingRefs,
+            order_id: orderId,
+            event_slug: item.slug,
+            event_name: event.match,
+            customer_name: customerName,
+            customer_email: customerEmail,
+            customer_phone: customerPhone,
+            guests,
+            total_paid: itemTotal,
+            promo_code: promoCode,
+            discount_amount: itemDiscount,
+            vat_amount: itemVat,
+            marketing_opt_in: marketingOptIn,
+            customer_note: customerNote || null,
+            adults: item.adults,
+            under_16: item.under16,
+            car_parking: item.carParking,
+            bus_parking: item.busParking,
+            signature_rooms: item.signatureRooms,
+          })
+          .select('invoice_number')
+          .single()
+
+        if (insertError) {
+          console.error('Could not save booking:', insertError)
+        } else {
+          invoiceNumber = inserted?.invoice_number ?? null
+        }
       }
 
       const html = buildConfirmationEmail({
@@ -350,6 +364,7 @@ export async function POST(req: NextRequest) {
         promoCode,
         netAmount: itemNet,
         vatAmount: itemVat,
+        invoiceNumber,
       })
 
       if (resend) {
