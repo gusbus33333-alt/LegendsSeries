@@ -49,6 +49,8 @@ interface BookingEmailData {
   vatAmount?: string | null
   /** Sequential VAT invoice number, e.g. LS-INV-00042. */
   invoiceNumber?: string | null
+  /** Date of supply. Defaults to the day the confirmation is sent. */
+  invoiceDate?: string | null
 }
 
 const directions = {
@@ -66,14 +68,14 @@ function buildEventIntro(event: LoungeEvent, guests: number, followTeam?: string
     : ''
 
   if (followTeam) {
-    return `Thank you for booking Follow Your Team${guestBit} — you're following <strong style="color:#ffffff;">${followTeam}</strong> through the Nations Cup Finals Weekend at Twickenham. Whichever day ${followTeam} play, you'll have full Legends Lounge hospitality: the best speakers, live music, a hog roast with all the trimmings, a hot butcher's pie after the game and unlimited drinks all day. Veggie options available for both pre and post-match.`
+    return `Thank you for booking Follow Your Team${guestBit} — you're following <strong style="color:#ffffff;">${followTeam}</strong> through the Nations Cup Finals Weekend at Twickenham. Whichever day ${followTeam} play, you'll have full Legends Lounge hospitality: the best speakers, live music, a hog roast with all the trimmings, a hot butcher's pie after the game and unlimited drinks all day. Vegetarian options are available both pre and post-match, and there are gluten-free options too.`
   }
 
   if (event.isFinals) {
-    return `Thank you for booking the Legends Lounge${guestBit} for the <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have an incredible day — the best speakers, fantastic entertainment, a hog roast with all the bits, a hot butcher's pie after the game and unlimited drinks all day. Veggie options available for both pre and post-match.`
+    return `Thank you for booking the Legends Lounge${guestBit} for the <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have an incredible day — the best speakers, fantastic entertainment, a hog roast with all the bits, a hot butcher's pie after the game and unlimited drinks all day. Vegetarian options are available both pre and post-match, and there are gluten-free options too.`
   }
 
-  return `Thank you for booking the Legends Lounge${guestBit} for <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have a cracking day — the best speakers, some fabulous entertainment (pre &amp; post-match), a hog roast with all the trimmings, a hot butcher's pie after the game and unlimited drinks for the full session. No probs, there are veggie options for both pre and post-match.`
+  return `Thank you for booking the Legends Lounge${guestBit} for <strong style="color:#ffffff;">${event.match}</strong> on ${event.date}. We are going to have a cracking day — the best speakers, some fabulous entertainment (pre &amp; post-match), a hog roast with all the trimmings, a hot butcher's pie after the game and unlimited drinks for the full session. No probs — there are vegetarian options both pre and post-match, and gluten-free options too.`
 }
 
 function buildEventDetails(event: LoungeEvent, followTeam?: string): string {
@@ -104,6 +106,9 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
     adults, under16 = 0, carParking = 0, busParking = 0, signatureRooms = 0,
     discountAmount = null, promoCode = null, netAmount = null, vatAmount = null,
     invoiceNumber = null,
+    invoiceDate = new Date().toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'long', year: 'numeric',
+    }),
   } = data
   const adultCount = adults ?? guests
   // A Follow Your Team booking has no fixed schedule yet, so there is no
@@ -196,7 +201,26 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;background-color:#141414;border:1px solid #b8953f33;">
                 <tr>
                   <td style="padding:20px 25px;">
-                    <p style="color:#b8953f;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 15px;">Booking Details</p>
+                    <p style="color:#b8953f;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 15px;font-weight:bold;">${invoiceNumber ? 'VAT Invoice' : 'Booking Details'}</p>
+                    ${invoiceNumber ? `
+                    <!-- Supplier and invoice identity. HMRC requires the name,
+                         VAT number, an invoice number and a date to be stated. -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
+                      <tr>
+                        <td style="vertical-align:top;">
+                          <p style="color:#ffffff;font-size:13px;margin:0 0 4px;font-weight:bold;">Legends Series Ltd</p>
+                          <p style="color:#cccccc;font-size:12px;margin:0 0 2px;">Company Number: 16641401</p>
+                          <p style="color:#cccccc;font-size:12px;margin:0;">VAT Number: 507 4963 74</p>
+                        </td>
+                        <td style="vertical-align:top;text-align:right;">
+                          <p style="color:#cccccc;font-size:12px;margin:0 0 2px;">Invoice No.</p>
+                          <p style="color:#ffffff;font-size:13px;margin:0 0 8px;font-weight:bold;">${invoiceNumber}</p>
+                          <p style="color:#cccccc;font-size:12px;margin:0 0 2px;">Invoice Date</p>
+                          <p style="color:#ffffff;font-size:13px;margin:0;">${invoiceDate}</p>
+                        </td>
+                      </tr>
+                    </table>
+                    <div style="border-top:1px solid #ffffff1a;margin-bottom:12px;"></div>` : ''}
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Event</td>
@@ -282,11 +306,6 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Total Paid${netAmount ? ' (inc VAT)' : ''}</td>
                         <td style="color:#b8953f;font-size:13px;padding:6px 0;text-align:right;font-weight:bold;">${totalPaid}</td>
                       </tr>
-                      ${invoiceNumber ? `
-                      <tr>
-                        <td style="color:#999999;font-size:13px;padding:6px 0;">Invoice No.</td>
-                        <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;">${invoiceNumber}</td>
-                      </tr>` : ''}
                       <tr>
                         <td style="color:#999999;font-size:13px;padding:6px 0;">Booking Ref</td>
                         <td style="color:#ffffff;font-size:13px;padding:6px 0;text-align:right;font-weight:bold;">${bookingRef}</td>
@@ -431,13 +450,13 @@ export function buildConfirmationEmail(data: BookingEmailData): string {
           <!-- Footer -->
           <tr>
             <td style="background-color:#050505;padding:25px 40px;text-align:center;">
-              <p style="color:#ffffff40;font-size:11px;margin:0 0 5px;">
+              <p style="color:#ffffff66;font-size:11px;margin:0 0 5px;">
                 &copy; 2026 Legends Series Ltd. All rights reserved.
               </p>
-              <p style="color:#ffffff30;font-size:10px;margin:0 0 5px;">
-                Company Number: 16641401 &nbsp;|&nbsp; VAT Number: 507 4963 74
+              <p style="color:#ffffff80;font-size:11px;margin:0 0 5px;">
+                Legends Series Ltd &nbsp;|&nbsp; Company Number: 16641401 &nbsp;|&nbsp; VAT Number: 507 4963 74
               </p>
-              <p style="color:#ffffff30;font-size:10px;margin:0;">
+              <p style="color:#ffffff66;font-size:10px;margin:0;">
                 Play &amp; Party Alongside Your Heroes
               </p>
             </td>
